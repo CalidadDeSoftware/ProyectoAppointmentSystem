@@ -39,14 +39,14 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
-        jMenuItem7 = new javax.swing.JMenuItem();
-        jMenuItem8 = new javax.swing.JMenuItem();
+        itemRegistrarEmpleado = new javax.swing.JMenuItem();
+        itemActualizarEmpleado = new javax.swing.JMenuItem();
+        itemBuscarEmpleado = new javax.swing.JMenuItem();
+        itemEliminarEmpleado = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
-        jMenuItem9 = new javax.swing.JMenuItem();
-        jMenuItem10 = new javax.swing.JMenuItem();
-        jMenu7 = new javax.swing.JMenu();
+        itemAgendarTurno = new javax.swing.JMenuItem();
+        itemReagendarTurno = new javax.swing.JMenuItem();
+        itemEliminarTurno = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem11 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
@@ -57,12 +57,15 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jMenuBar1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jMenuBar1.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
 
         jMenu1.setText("Paciente");
+        jMenu1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         jMenu6.setText("Historia Clínica");
+        jMenu6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
+        jMenuItem2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jMenuItem2.setText("Crear Historia Clínica");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -71,9 +74,11 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         });
         jMenu6.add(jMenuItem2);
 
+        jMenuItem3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jMenuItem3.setText("Consultar Historia Clínica");
         jMenu6.add(jMenuItem3);
 
+        jMenuItem4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jMenuItem4.setText("Actualizar Historia Clínica");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -84,57 +89,109 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
         jMenu1.add(jMenu6);
 
+        jMenuItem1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jMenuItem1.setText("Historial Médico");
         jMenu1.add(jMenuItem1);
 
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Empleado");
+        jMenu2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
-        jMenuItem5.setText("Registrar Empleado");
-        jMenu2.add(jMenuItem5);
+        itemRegistrarEmpleado.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        itemRegistrarEmpleado.setText("Registrar Empleado");
+        itemRegistrarEmpleado.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                itemRegistrarEmpleadoMouseClicked(evt);
+            }
+        });
+        itemRegistrarEmpleado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemRegistrarEmpleadoActionPerformed(evt);
+            }
+        });
+        jMenu2.add(itemRegistrarEmpleado);
 
-        jMenuItem6.setText("Actualizar Empleado");
-        jMenu2.add(jMenuItem6);
+        itemActualizarEmpleado.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        itemActualizarEmpleado.setText("Actualizar Empleado");
+        itemActualizarEmpleado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemActualizarEmpleadoActionPerformed(evt);
+            }
+        });
+        jMenu2.add(itemActualizarEmpleado);
 
-        jMenuItem7.setText("Buscar Empleado");
-        jMenu2.add(jMenuItem7);
+        itemBuscarEmpleado.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        itemBuscarEmpleado.setText("Buscar Empleado");
+        itemBuscarEmpleado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemBuscarEmpleadoActionPerformed(evt);
+            }
+        });
+        jMenu2.add(itemBuscarEmpleado);
 
-        jMenuItem8.setText("Eliminar Empleado");
-        jMenu2.add(jMenuItem8);
+        itemEliminarEmpleado.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        itemEliminarEmpleado.setText("Eliminar Empleado");
+        itemEliminarEmpleado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemEliminarEmpleadoActionPerformed(evt);
+            }
+        });
+        jMenu2.add(itemEliminarEmpleado);
 
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("Turno");
+        jMenu3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
-        jMenuItem9.setText("Agendar Turno");
-        jMenu3.add(jMenuItem9);
+        itemAgendarTurno.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        itemAgendarTurno.setText("Agendar Turno");
+        itemAgendarTurno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemAgendarTurnoActionPerformed(evt);
+            }
+        });
+        jMenu3.add(itemAgendarTurno);
 
-        jMenuItem10.setText("Reagendar Tunro");
-        jMenu3.add(jMenuItem10);
+        itemReagendarTurno.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        itemReagendarTurno.setText("Reagendar Tunro");
+        itemReagendarTurno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemReagendarTurnoActionPerformed(evt);
+            }
+        });
+        jMenu3.add(itemReagendarTurno);
 
-        jMenu7.setText("Eliminar Turno");
-        jMenu3.add(jMenu7);
+        itemEliminarTurno.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        itemEliminarTurno.setText("Eliminar Turno");
+        jMenu3.add(itemEliminarTurno);
 
         jMenuBar1.add(jMenu3);
 
         jMenu4.setText("Reporte");
+        jMenu4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
+        jMenuItem11.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jMenuItem11.setText("Generar Reporte");
         jMenu4.add(jMenuItem11);
 
         jMenuBar1.add(jMenu4);
 
         jMenu5.setText("Administración");
+        jMenu5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         jMenu11.setText("Administración de Usuarios");
+        jMenu11.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
+        jMenuItem12.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jMenuItem12.setText("Crear Usuario");
         jMenu11.add(jMenuItem12);
 
+        jMenuItem13.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jMenuItem13.setText("Modificar Usuario");
         jMenu11.add(jMenuItem13);
 
+        jMenuItem14.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jMenuItem14.setText("Eliminar Usuario");
         jMenu11.add(jMenuItem14);
 
@@ -152,7 +209,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 580, Short.MAX_VALUE)
+            .addGap(0, 579, Short.MAX_VALUE)
         );
 
         pack();
@@ -165,6 +222,40 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void itemRegistrarEmpleadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_itemRegistrarEmpleadoMouseClicked
+
+    }//GEN-LAST:event_itemRegistrarEmpleadoMouseClicked
+
+    private void itemRegistrarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemRegistrarEmpleadoActionPerformed
+        RegistrarEmpleado re = new RegistrarEmpleado();
+        re.setVisible(true);
+    }//GEN-LAST:event_itemRegistrarEmpleadoActionPerformed
+
+    private void itemActualizarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemActualizarEmpleadoActionPerformed
+        ActualizarEmpleado ae = new ActualizarEmpleado();
+        ae.setVisible(true);
+    }//GEN-LAST:event_itemActualizarEmpleadoActionPerformed
+
+    private void itemBuscarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemBuscarEmpleadoActionPerformed
+        BuscarEmpleado be = new BuscarEmpleado();
+        be.setVisible(true);
+    }//GEN-LAST:event_itemBuscarEmpleadoActionPerformed
+
+    private void itemEliminarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemEliminarEmpleadoActionPerformed
+        EliminarEmpleado ee = new EliminarEmpleado();
+        ee.setVisible(true);
+    }//GEN-LAST:event_itemEliminarEmpleadoActionPerformed
+
+    private void itemAgendarTurnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemAgendarTurnoActionPerformed
+        AgendarTurno at = new AgendarTurno();
+        at.setVisible(true);
+    }//GEN-LAST:event_itemAgendarTurnoActionPerformed
+
+    private void itemReagendarTurnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemReagendarTurnoActionPerformed
+       ReAgendarTurno rt = new ReAgendarTurno();
+       rt.setVisible(true);
+    }//GEN-LAST:event_itemReagendarTurnoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -203,6 +294,13 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem itemActualizarEmpleado;
+    private javax.swing.JMenuItem itemAgendarTurno;
+    private javax.swing.JMenuItem itemBuscarEmpleado;
+    private javax.swing.JMenuItem itemEliminarEmpleado;
+    private javax.swing.JMenuItem itemEliminarTurno;
+    private javax.swing.JMenuItem itemReagendarTurno;
+    private javax.swing.JMenuItem itemRegistrarEmpleado;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu11;
     private javax.swing.JMenu jMenu2;
@@ -210,10 +308,8 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
-    private javax.swing.JMenu jMenu7;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem13;
@@ -221,10 +317,5 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
-    private javax.swing.JMenuItem jMenuItem8;
-    private javax.swing.JMenuItem jMenuItem9;
     // End of variables declaration//GEN-END:variables
 }
