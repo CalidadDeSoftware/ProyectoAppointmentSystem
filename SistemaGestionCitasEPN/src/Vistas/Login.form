@@ -115,8 +115,8 @@
                   <EmptySpace pref="30" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="txtUsuario" max="32767" attributes="0"/>
-                      <Component id="txtContrasena" max="32767" attributes="0"/>
                       <Component id="jComboBoxRol" pref="199" max="32767" attributes="0"/>
+                      <Component id="txtContrasena" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
               </Group>
@@ -140,7 +140,7 @@
                       <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="txtContrasena" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="49" max="32767" attributes="0"/>
+                  <EmptySpace pref="52" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -166,8 +166,6 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtUsuarioActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtContrasena">
-        </Component>
         <Component class="javax.swing.JComboBox" name="jComboBoxRol">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
@@ -180,6 +178,8 @@
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
+        </Component>
+        <Component class="javax.swing.JPasswordField" name="txtContrasena">
         </Component>
       </SubComponents>
     </Container>
