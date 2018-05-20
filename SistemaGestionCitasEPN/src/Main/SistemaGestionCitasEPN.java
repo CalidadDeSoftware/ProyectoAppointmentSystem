@@ -5,6 +5,8 @@
  */
 package Main;
 
+import Vistas.Login;
+
 /**
  *
  * @author Daro
@@ -16,6 +18,7 @@ public class SistemaGestionCitasEPN {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        new Login().setVisible(true); 
     }
     
 }
