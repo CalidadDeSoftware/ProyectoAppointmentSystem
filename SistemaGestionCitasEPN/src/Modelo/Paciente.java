@@ -11,8 +11,13 @@ package Modelo;
  */
 public class Paciente {
     private String cedula;
-    private String nombres;
-    private String apellidos;
-    
-    
+    private String nombreP;
+    private String nombreS;
+    private String apellidoP;
+    private String apellidoS;
+    private String telefonoP;    
+    private String telefonoS;
+    private String email;
+    private String fechaNacimiento;
+    private String direccion;
 }
