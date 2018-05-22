@@ -50,9 +50,9 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jMenuItem11 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenu11 = new javax.swing.JMenu();
-        jMenuItem12 = new javax.swing.JMenuItem();
-        jMenuItem13 = new javax.swing.JMenuItem();
-        jMenuItem14 = new javax.swing.JMenuItem();
+        itemCrearUsuario = new javax.swing.JMenuItem();
+        itemModificarUsuario = new javax.swing.JMenuItem();
+        itemEliminarUsuario = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -187,17 +187,32 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jMenu11.setText("Administración de Usuarios");
         jMenu11.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
-        jMenuItem12.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jMenuItem12.setText("Crear Usuario");
-        jMenu11.add(jMenuItem12);
+        itemCrearUsuario.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        itemCrearUsuario.setText("Crear Usuario");
+        itemCrearUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemCrearUsuarioActionPerformed(evt);
+            }
+        });
+        jMenu11.add(itemCrearUsuario);
 
-        jMenuItem13.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jMenuItem13.setText("Modificar Usuario");
-        jMenu11.add(jMenuItem13);
+        itemModificarUsuario.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        itemModificarUsuario.setText("Modificar Usuario");
+        itemModificarUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemModificarUsuarioActionPerformed(evt);
+            }
+        });
+        jMenu11.add(itemModificarUsuario);
 
-        jMenuItem14.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jMenuItem14.setText("Eliminar Usuario");
-        jMenu11.add(jMenuItem14);
+        itemEliminarUsuario.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        itemEliminarUsuario.setText("Eliminar Usuario");
+        itemEliminarUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemEliminarUsuarioActionPerformed(evt);
+            }
+        });
+        jMenu11.add(itemEliminarUsuario);
 
         jMenu5.add(jMenu11);
 
@@ -274,6 +289,21 @@ public class PantallaPrincipal extends javax.swing.JFrame {
        rp.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
+    private void itemCrearUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemCrearUsuarioActionPerformed
+            CrearUsuario cu = new CrearUsuario();
+            cu.setVisible(true);
+    }//GEN-LAST:event_itemCrearUsuarioActionPerformed
+
+    private void itemModificarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemModificarUsuarioActionPerformed
+            ModificarUsuario mu = new ModificarUsuario();
+            mu.setVisible(true);
+    }//GEN-LAST:event_itemModificarUsuarioActionPerformed
+
+    private void itemEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemEliminarUsuarioActionPerformed
+            EliminarUsuario eu = new EliminarUsuario();
+            eu.setVisible(true);
+    }//GEN-LAST:event_itemEliminarUsuarioActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -314,8 +344,11 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem itemActualizarEmpleado;
     private javax.swing.JMenuItem itemAgendarTurno;
     private javax.swing.JMenuItem itemBuscarEmpleado;
+    private javax.swing.JMenuItem itemCrearUsuario;
     private javax.swing.JMenuItem itemEliminarEmpleado;
     private javax.swing.JMenuItem itemEliminarTurno;
+    private javax.swing.JMenuItem itemEliminarUsuario;
+    private javax.swing.JMenuItem itemModificarUsuario;
     private javax.swing.JMenuItem itemReagendarTurno;
     private javax.swing.JMenuItem itemRegistrarEmpleado;
     private javax.swing.JMenu jMenu1;
@@ -327,9 +360,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem11;
-    private javax.swing.JMenuItem jMenuItem12;
-    private javax.swing.JMenuItem jMenuItem13;
-    private javax.swing.JMenuItem jMenuItem14;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
