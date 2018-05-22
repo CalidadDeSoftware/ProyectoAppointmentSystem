@@ -33,10 +33,10 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
-        jMenuItem7 = new javax.swing.JMenuItem();
+        jMenuItemCreatePaciente = new javax.swing.JMenuItem();
+        jMenuIUpdatePaciente = new javax.swing.JMenuItem();
+        jMenuDeletePaciente = new javax.swing.JMenuItem();
+        jMenuItemSelectPaciente = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         itemRegistrarEmpleado = new javax.swing.JMenuItem();
         itemActualizarEmpleado = new javax.swing.JMenuItem();
@@ -61,41 +61,41 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jMenu1.setText("Paciente");
         jMenu1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
-        jMenuItem1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jMenuItem1.setText("Nuevo Paciente");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItemCreatePaciente.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jMenuItemCreatePaciente.setText("Nuevo Paciente");
+        jMenuItemCreatePaciente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                jMenuItemCreatePacienteActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        jMenu1.add(jMenuItemCreatePaciente);
 
-        jMenuItem5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jMenuItem5.setText("Modificar Paciente");
-        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+        jMenuIUpdatePaciente.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jMenuIUpdatePaciente.setText("Modificar Paciente");
+        jMenuIUpdatePaciente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem5ActionPerformed(evt);
+                jMenuIUpdatePacienteActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem5);
+        jMenu1.add(jMenuIUpdatePaciente);
 
-        jMenuItem6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jMenuItem6.setText("Eliminar Paciente");
-        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+        jMenuDeletePaciente.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jMenuDeletePaciente.setText("Eliminar Paciente");
+        jMenuDeletePaciente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem6ActionPerformed(evt);
+                jMenuDeletePacienteActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem6);
+        jMenu1.add(jMenuDeletePaciente);
 
-        jMenuItem7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jMenuItem7.setText("Consultar Paciente");
-        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItemSelectPaciente.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jMenuItemSelectPaciente.setText("Consultar Paciente");
+        jMenuItemSelectPaciente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem7ActionPerformed(evt);
+                jMenuItemSelectPacienteActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem7);
+        jMenu1.add(jMenuItemSelectPaciente);
 
         jMenuBar1.add(jMenu1);
 
@@ -268,26 +268,29 @@ public class PantallaPrincipal extends javax.swing.JFrame {
        rt.setVisible(true);
     }//GEN-LAST:event_itemReagendarTurnoActionPerformed
 
-    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+    private void jMenuDeletePacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuDeletePacienteActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem6ActionPerformed
-
-    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem5ActionPerformed
-
-    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
-        // TODO add your handling code here:
-        ReAgendarTurno rt = new ReAgendarTurno();
-        rt.setVisible(true);
-    }//GEN-LAST:event_jMenuItem7ActionPerformed
-
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        // TODO add your handling code here:
-        
-       registrarPacienteJFrame rp = new registrarPacienteJFrame();
+       registrarPacienteJFrame rp = new registrarPacienteJFrame("Eliminar");
        rp.setVisible(true);
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_jMenuDeletePacienteActionPerformed
+
+    private void jMenuIUpdatePacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuIUpdatePacienteActionPerformed
+        // TODO add your handling code here:
+       registrarPacienteJFrame rp = new registrarPacienteJFrame("Actualizar");
+       rp.setVisible(true);
+    }//GEN-LAST:event_jMenuIUpdatePacienteActionPerformed
+
+    private void jMenuItemSelectPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemSelectPacienteActionPerformed
+        // TODO add your handling code here:
+        pacientesListJFrame pl = new pacientesListJFrame();
+        pl.setVisible(true);
+    }//GEN-LAST:event_jMenuItemSelectPacienteActionPerformed
+
+    private void jMenuItemCreatePacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCreatePacienteActionPerformed
+        // TODO add your handling code here:        
+       registrarPacienteJFrame rp = new registrarPacienteJFrame("Ingresar");
+       rp.setVisible(true);
+    }//GEN-LAST:event_jMenuItemCreatePacienteActionPerformed
 
     private void itemCrearUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemCrearUsuarioActionPerformed
             CrearUsuario cu = new CrearUsuario();
@@ -358,10 +361,10 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuDeletePaciente;
+    private javax.swing.JMenuItem jMenuIUpdatePaciente;
     private javax.swing.JMenuItem jMenuItem11;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItemCreatePaciente;
+    private javax.swing.JMenuItem jMenuItemSelectPaciente;
     // End of variables declaration//GEN-END:variables
 }
