@@ -43,7 +43,7 @@ public class BuscarEmpleado extends javax.swing.JFrame {
         btnLimpiar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("Buscar Empleado");
 
@@ -214,32 +214,13 @@ public class BuscarEmpleado extends javax.swing.JFrame {
     private javax.swing.JButton btnBuscarEmpleado;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnLimpiar;
-    private javax.swing.JComboBox<String> jComboBoxEstadoCivilEmpleado;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField txtBuscarCedula;
-    private javax.swing.JTextField txtCedulaEmpleado;
-    private javax.swing.JTextField txtFechaNacimientoEmpleado;
-    private javax.swing.JTextField txtPrimerApellidoEmpleado;
-    private javax.swing.JTextField txtPrimerNombreEmpleado;
-    private javax.swing.JTextField txtSegundoApellidoEmpleado;
-    private javax.swing.JTextField txtSegundoNombreEmpleado;
     // End of variables declaration//GEN-END:variables
 }

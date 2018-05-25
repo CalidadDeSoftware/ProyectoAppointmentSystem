@@ -63,7 +63,7 @@ public class ActualizarEmpleado extends javax.swing.JFrame {
         btnActualizarEmpleado = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("Actualizar Empleado");
 

@@ -58,10 +58,11 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
 
+        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Paciente.png"))); // NOI18N
         jMenu1.setText("Paciente");
-        jMenu1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jMenu1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
 
-        jMenuItemCreatePaciente.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jMenuItemCreatePaciente.setFont(new java.awt.Font("Segoe UI", 0, 22)); // NOI18N
         jMenuItemCreatePaciente.setText("Nuevo Paciente");
         jMenuItemCreatePaciente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -70,7 +71,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItemCreatePaciente);
 
-        jMenuIUpdatePaciente.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jMenuIUpdatePaciente.setFont(new java.awt.Font("Segoe UI", 0, 22)); // NOI18N
         jMenuIUpdatePaciente.setText("Modificar Paciente");
         jMenuIUpdatePaciente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -79,7 +80,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuIUpdatePaciente);
 
-        jMenuDeletePaciente.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jMenuDeletePaciente.setFont(new java.awt.Font("Segoe UI", 0, 22)); // NOI18N
         jMenuDeletePaciente.setText("Eliminar Paciente");
         jMenuDeletePaciente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -88,7 +89,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuDeletePaciente);
 
-        jMenuItemSelectPaciente.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jMenuItemSelectPaciente.setFont(new java.awt.Font("Segoe UI", 0, 22)); // NOI18N
         jMenuItemSelectPaciente.setText("Consultar Paciente");
         jMenuItemSelectPaciente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -99,10 +100,11 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
+        jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/doctor.png"))); // NOI18N
         jMenu2.setText("Empleado");
-        jMenu2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jMenu2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
 
-        itemRegistrarEmpleado.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        itemRegistrarEmpleado.setFont(new java.awt.Font("Segoe UI", 0, 22)); // NOI18N
         itemRegistrarEmpleado.setText("Registrar Empleado");
         itemRegistrarEmpleado.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -116,7 +118,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         });
         jMenu2.add(itemRegistrarEmpleado);
 
-        itemActualizarEmpleado.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        itemActualizarEmpleado.setFont(new java.awt.Font("Segoe UI", 0, 22)); // NOI18N
         itemActualizarEmpleado.setText("Actualizar Empleado");
         itemActualizarEmpleado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -125,7 +127,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         });
         jMenu2.add(itemActualizarEmpleado);
 
-        itemBuscarEmpleado.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        itemBuscarEmpleado.setFont(new java.awt.Font("Segoe UI", 0, 22)); // NOI18N
         itemBuscarEmpleado.setText("Buscar Empleado");
         itemBuscarEmpleado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -134,7 +136,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         });
         jMenu2.add(itemBuscarEmpleado);
 
-        itemEliminarEmpleado.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        itemEliminarEmpleado.setFont(new java.awt.Font("Segoe UI", 0, 22)); // NOI18N
         itemEliminarEmpleado.setText("Eliminar Empleado");
         itemEliminarEmpleado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -145,10 +147,11 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
+        jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/turno.png"))); // NOI18N
         jMenu3.setText("Turno");
-        jMenu3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jMenu3.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
 
-        itemAgendarTurno.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        itemAgendarTurno.setFont(new java.awt.Font("Segoe UI", 0, 22)); // NOI18N
         itemAgendarTurno.setText("Agendar Turno");
         itemAgendarTurno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -157,7 +160,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         });
         jMenu3.add(itemAgendarTurno);
 
-        itemReagendarTurno.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        itemReagendarTurno.setFont(new java.awt.Font("Segoe UI", 0, 22)); // NOI18N
         itemReagendarTurno.setText("Reagendar Tunro");
         itemReagendarTurno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -166,28 +169,31 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         });
         jMenu3.add(itemReagendarTurno);
 
-        itemEliminarTurno.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        itemEliminarTurno.setFont(new java.awt.Font("Segoe UI", 0, 22)); // NOI18N
         itemEliminarTurno.setText("Eliminar Turno");
         jMenu3.add(itemEliminarTurno);
 
         jMenuBar1.add(jMenu3);
 
+        jMenu4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/reporte.png"))); // NOI18N
         jMenu4.setText("Reporte");
-        jMenu4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jMenu4.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
 
-        jMenuItem11.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jMenuItem11.setFont(new java.awt.Font("Segoe UI", 0, 22)); // NOI18N
         jMenuItem11.setText("Generar Reporte");
         jMenu4.add(jMenuItem11);
 
         jMenuBar1.add(jMenu4);
 
+        jMenu5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/admin.png"))); // NOI18N
         jMenu5.setText("Administración");
-        jMenu5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jMenu5.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
 
         jMenu11.setText("Administración de Usuarios");
-        jMenu11.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jMenu11.setFocusable(false);
+        jMenu11.setFont(new java.awt.Font("Segoe UI", 0, 22)); // NOI18N
 
-        itemCrearUsuario.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        itemCrearUsuario.setFont(new java.awt.Font("Segoe UI", 0, 22)); // NOI18N
         itemCrearUsuario.setText("Crear Usuario");
         itemCrearUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -196,7 +202,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         });
         jMenu11.add(itemCrearUsuario);
 
-        itemModificarUsuario.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        itemModificarUsuario.setFont(new java.awt.Font("Segoe UI", 0, 22)); // NOI18N
         itemModificarUsuario.setText("Modificar Usuario");
         itemModificarUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -205,7 +211,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         });
         jMenu11.add(itemModificarUsuario);
 
-        itemEliminarUsuario.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        itemEliminarUsuario.setFont(new java.awt.Font("Segoe UI", 0, 22)); // NOI18N
         itemEliminarUsuario.setText("Eliminar Usuario");
         itemEliminarUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -224,11 +230,11 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 830, Short.MAX_VALUE)
+            .addGap(0, 1034, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 579, Short.MAX_VALUE)
+            .addGap(0, 556, Short.MAX_VALUE)
         );
 
         pack();
