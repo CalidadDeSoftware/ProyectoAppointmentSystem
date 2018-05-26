@@ -37,23 +37,23 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
+        jMenuPaciente = new javax.swing.JMenu();
         jMenuItemCreatePaciente = new javax.swing.JMenuItem();
         jMenuIUpdatePaciente = new javax.swing.JMenuItem();
         jMenuDeletePaciente = new javax.swing.JMenuItem();
         jMenuItemSelectPaciente = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
+        jMenuEmpleado = new javax.swing.JMenu();
         itemRegistrarEmpleado = new javax.swing.JMenuItem();
         itemActualizarEmpleado = new javax.swing.JMenuItem();
         itemBuscarEmpleado = new javax.swing.JMenuItem();
         itemEliminarEmpleado = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
+        jMenuTurno = new javax.swing.JMenu();
         itemAgendarTurno = new javax.swing.JMenuItem();
         itemReagendarTurno = new javax.swing.JMenuItem();
         itemEliminarTurno = new javax.swing.JMenuItem();
-        jMenu4 = new javax.swing.JMenu();
+        jMenuReporte = new javax.swing.JMenu();
         jMenuItem11 = new javax.swing.JMenuItem();
-        jMenu5 = new javax.swing.JMenu();
+        jMenuAdministracion = new javax.swing.JMenu();
         jMenu11 = new javax.swing.JMenu();
         itemCrearUsuario = new javax.swing.JMenuItem();
         itemModificarUsuario = new javax.swing.JMenuItem();
@@ -75,9 +75,9 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
 
-        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Paciente.png"))); // NOI18N
-        jMenu1.setText("Paciente");
-        jMenu1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jMenuPaciente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Paciente.png"))); // NOI18N
+        jMenuPaciente.setText("Paciente");
+        jMenuPaciente.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
 
         jMenuItemCreatePaciente.setFont(new java.awt.Font("Segoe UI", 0, 22)); // NOI18N
         jMenuItemCreatePaciente.setText("Nuevo Paciente");
@@ -86,7 +86,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 jMenuItemCreatePacienteActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItemCreatePaciente);
+        jMenuPaciente.add(jMenuItemCreatePaciente);
 
         jMenuIUpdatePaciente.setFont(new java.awt.Font("Segoe UI", 0, 22)); // NOI18N
         jMenuIUpdatePaciente.setText("Modificar Paciente");
@@ -95,7 +95,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 jMenuIUpdatePacienteActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuIUpdatePaciente);
+        jMenuPaciente.add(jMenuIUpdatePaciente);
 
         jMenuDeletePaciente.setFont(new java.awt.Font("Segoe UI", 0, 22)); // NOI18N
         jMenuDeletePaciente.setText("Eliminar Paciente");
@@ -104,7 +104,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 jMenuDeletePacienteActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuDeletePaciente);
+        jMenuPaciente.add(jMenuDeletePaciente);
 
         jMenuItemSelectPaciente.setFont(new java.awt.Font("Segoe UI", 0, 22)); // NOI18N
         jMenuItemSelectPaciente.setText("Consultar Paciente");
@@ -113,15 +113,16 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 jMenuItemSelectPacienteActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItemSelectPaciente);
+        jMenuPaciente.add(jMenuItemSelectPaciente);
 
-        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(jMenuPaciente);
 
-        jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/doctor.png"))); // NOI18N
-        jMenu2.setText("Empleado");
-        jMenu2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jMenuEmpleado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/doctor.png"))); // NOI18N
+        jMenuEmpleado.setText("Empleado");
+        jMenuEmpleado.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
 
         itemRegistrarEmpleado.setFont(new java.awt.Font("Segoe UI", 0, 22)); // NOI18N
+        itemRegistrarEmpleado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/nuevoEmpleado.png"))); // NOI18N
         itemRegistrarEmpleado.setText("Registrar Empleado");
         itemRegistrarEmpleado.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -133,78 +134,84 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 itemRegistrarEmpleadoActionPerformed(evt);
             }
         });
-        jMenu2.add(itemRegistrarEmpleado);
+        jMenuEmpleado.add(itemRegistrarEmpleado);
 
         itemActualizarEmpleado.setFont(new java.awt.Font("Segoe UI", 0, 22)); // NOI18N
+        itemActualizarEmpleado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/actualizar.png"))); // NOI18N
         itemActualizarEmpleado.setText("Actualizar Empleado");
         itemActualizarEmpleado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemActualizarEmpleadoActionPerformed(evt);
             }
         });
-        jMenu2.add(itemActualizarEmpleado);
+        jMenuEmpleado.add(itemActualizarEmpleado);
 
         itemBuscarEmpleado.setFont(new java.awt.Font("Segoe UI", 0, 22)); // NOI18N
+        itemBuscarEmpleado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/buscarEmpleado.png"))); // NOI18N
         itemBuscarEmpleado.setText("Buscar Empleado");
         itemBuscarEmpleado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemBuscarEmpleadoActionPerformed(evt);
             }
         });
-        jMenu2.add(itemBuscarEmpleado);
+        jMenuEmpleado.add(itemBuscarEmpleado);
 
         itemEliminarEmpleado.setFont(new java.awt.Font("Segoe UI", 0, 22)); // NOI18N
+        itemEliminarEmpleado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/eliminarEmpleado.png"))); // NOI18N
         itemEliminarEmpleado.setText("Eliminar Empleado");
         itemEliminarEmpleado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemEliminarEmpleadoActionPerformed(evt);
             }
         });
-        jMenu2.add(itemEliminarEmpleado);
+        jMenuEmpleado.add(itemEliminarEmpleado);
 
-        jMenuBar1.add(jMenu2);
+        jMenuBar1.add(jMenuEmpleado);
 
-        jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/turno.png"))); // NOI18N
-        jMenu3.setText("Turno");
-        jMenu3.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jMenuTurno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/turno.png"))); // NOI18N
+        jMenuTurno.setText("Turno");
+        jMenuTurno.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
 
         itemAgendarTurno.setFont(new java.awt.Font("Segoe UI", 0, 22)); // NOI18N
+        itemAgendarTurno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/agendarTurno.png"))); // NOI18N
         itemAgendarTurno.setText("Agendar Turno");
         itemAgendarTurno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemAgendarTurnoActionPerformed(evt);
             }
         });
-        jMenu3.add(itemAgendarTurno);
+        jMenuTurno.add(itemAgendarTurno);
 
         itemReagendarTurno.setFont(new java.awt.Font("Segoe UI", 0, 22)); // NOI18N
+        itemReagendarTurno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/reagendarTurno.png"))); // NOI18N
         itemReagendarTurno.setText("Reagendar Tunro");
         itemReagendarTurno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemReagendarTurnoActionPerformed(evt);
             }
         });
-        jMenu3.add(itemReagendarTurno);
+        jMenuTurno.add(itemReagendarTurno);
 
         itemEliminarTurno.setFont(new java.awt.Font("Segoe UI", 0, 22)); // NOI18N
+        itemEliminarTurno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/EliminarTurno.png"))); // NOI18N
         itemEliminarTurno.setText("Eliminar Turno");
-        jMenu3.add(itemEliminarTurno);
+        jMenuTurno.add(itemEliminarTurno);
 
-        jMenuBar1.add(jMenu3);
+        jMenuBar1.add(jMenuTurno);
 
-        jMenu4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/reporte.png"))); // NOI18N
-        jMenu4.setText("Reporte");
-        jMenu4.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jMenuReporte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/reporte.png"))); // NOI18N
+        jMenuReporte.setText("Reporte");
+        jMenuReporte.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
 
         jMenuItem11.setFont(new java.awt.Font("Segoe UI", 0, 22)); // NOI18N
         jMenuItem11.setText("Generar Reporte");
-        jMenu4.add(jMenuItem11);
+        jMenuReporte.add(jMenuItem11);
 
-        jMenuBar1.add(jMenu4);
+        jMenuBar1.add(jMenuReporte);
 
-        jMenu5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/admin.png"))); // NOI18N
-        jMenu5.setText("Administración");
-        jMenu5.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jMenuAdministracion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/admin.png"))); // NOI18N
+        jMenuAdministracion.setText("Administración");
+        jMenuAdministracion.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
 
         jMenu11.setText("Administración de Usuarios");
         jMenu11.setFocusable(false);
@@ -237,9 +244,9 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         });
         jMenu11.add(itemEliminarUsuario);
 
-        jMenu5.add(jMenu11);
+        jMenuAdministracion.add(jMenu11);
 
-        jMenuBar1.add(jMenu5);
+        jMenuBar1.add(jMenuAdministracion);
 
         setJMenuBar(jMenuBar1);
 
@@ -374,17 +381,17 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem itemRegistrarEmpleado;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu11;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenu jMenuAdministracion;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuDeletePaciente;
+    private javax.swing.JMenu jMenuEmpleado;
     private javax.swing.JMenuItem jMenuIUpdatePaciente;
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItemCreatePaciente;
     private javax.swing.JMenuItem jMenuItemSelectPaciente;
+    private javax.swing.JMenu jMenuPaciente;
+    private javax.swing.JMenu jMenuReporte;
+    private javax.swing.JMenu jMenuTurno;
     // End of variables declaration//GEN-END:variables
 }
