@@ -5,7 +5,11 @@
  */
 package Vistas;
 
+import Controlador.Usuarios;
 import java.awt.Color;
+import java.awt.event.KeyEvent;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 
 /**
@@ -13,10 +17,12 @@ import java.awt.Color;
  * @author Daro
  */
 public class Login extends javax.swing.JFrame {
-
+    
     /**
      * Creates new form Login
      */
+    String usuario1 = "dennis", contraseña1 = "dennis";
+    
     public Login() {
         initComponents();
         setLocationRelativeTo(null);// centrado
@@ -85,6 +91,11 @@ public class Login extends javax.swing.JFrame {
 
         txtContrasena.setFont(new java.awt.Font("Tahoma", 0, 17)); // NOI18N
         txtContrasena.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        txtContrasena.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtContrasenaKeyPressed(evt);
+            }
+        });
 
         txtUsuario.setFont(new java.awt.Font("Tahoma", 0, 17)); // NOI18N
         txtUsuario.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -193,11 +204,31 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuarioActionPerformed
-        // TODO add your handling code here:
+
+        
+        if(this.txtUsuario.getText().isEmpty() || this.txtContrasena.getPassword().length == 0){
+        
+            JOptionPane.showMessageDialog(this, "Deber ingresar Usuario y Contraseña");
+            return;
+        }
+      
+        
     }//GEN-LAST:event_txtUsuarioActionPerformed
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
         // TODO add your handling code here:
+       // int var = evt.getKeyCode();
+       
+       //if(var == KeyEvent.VK_ENTER){
+       String usuario = txtUsuario.getText();
+       String contraseña = txtContrasena.getText();
+       
+           Usuarios u = new Usuarios();
+           u.MD5(contraseña);
+           
+           JOptionPane.showMessageDialog(null,"Usuario = "+usuario+" Contraseña = "+u.MD5(contraseña));
+             //  }
+        
         new PantallaPrincipal().setVisible(true);
         this.dispose();
  
@@ -209,6 +240,11 @@ public class Login extends javax.swing.JFrame {
         dispose();
         
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void txtContrasenaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtContrasenaKeyPressed
+        // TODO add your handling code here:
+      
+    }//GEN-LAST:event_txtContrasenaKeyPressed
 
     /**
      * @param args the command line arguments
