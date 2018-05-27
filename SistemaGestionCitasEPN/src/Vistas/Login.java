@@ -5,7 +5,7 @@
  */
 package Vistas;
 
-import Controlador.Usuarios;
+import Modelo.Usuario;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
@@ -216,23 +216,11 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_txtUsuarioActionPerformed
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
-        // TODO add your handling code here:
-       // int var = evt.getKeyCode();
-       
-       //if(var == KeyEvent.VK_ENTER){
-       String usuario = txtUsuario.getText();
-       String contraseña = txtContrasena.getText();
-       
-           Usuarios u = new Usuarios();
-           u.MD5(contraseña);
-           
-           JOptionPane.showMessageDialog(null,"Usuario = "+usuario+" Contraseña = "+u.MD5(contraseña));
-             //  }
-        
+        // TODO add your handling code here: 
         new PantallaPrincipal().setVisible(true);
         this.dispose();
  
-        
+       
         
     }//GEN-LAST:event_btnIngresarActionPerformed
 
