@@ -34,7 +34,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuPaciente = new javax.swing.JMenu();
@@ -61,14 +60,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jButton1.setText("Probar Conexion");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, -1, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/backgroundPrincipal.jpg"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1920, -1));
@@ -326,12 +317,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             eu.setVisible(true);
     }//GEN-LAST:event_itemEliminarUsuarioActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-               //probar conexion 
-        Conexion con = new Conexion();
-        con.Conectar();
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -379,7 +364,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem itemModificarUsuario;
     private javax.swing.JMenuItem itemReagendarTurno;
     private javax.swing.JMenuItem itemRegistrarEmpleado;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu11;
     private javax.swing.JMenu jMenuAdministracion;

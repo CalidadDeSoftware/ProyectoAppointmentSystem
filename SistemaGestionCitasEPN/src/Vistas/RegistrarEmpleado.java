@@ -4,6 +4,13 @@
  * and open the template in the editor.
  */
 package Vistas;
+import Modelo.Empleado;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import Controlador.Conexion;
 
 /**
  *
@@ -20,6 +27,77 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
         setResizable(false); // impide maximizar
         setTitle("Registrar Empleado");
     }
+    
+    //// IMPLEMENTACION DE METODOS PARA MANEJAR EL FORMULARO ////
+    Empleado nuevoEmpleado = new Empleado();
+    Conexion miConexion = new Conexion();
+            
+    public void guardarDatosEmpleado(){
+        
+        nuevoEmpleado.setCedulaEmpleado(txtCedulaEmpleado.getText());
+        nuevoEmpleado.setPrimerNombreEmpleado(txtPrimerNombreEmpleado.getText());
+        nuevoEmpleado.setSegundoNombreEmpleado(txtSegundoNombreEmpleado.getText());
+        nuevoEmpleado.setPrimerApellidoEmpleado(txtPrimerApellidoEmpleado.getText());
+        nuevoEmpleado.setSegundoApellidoEmpleado(txtSegundoApellidoEmpleado.getText());
+        nuevoEmpleado.setFechaNacimientoEmpleado(txtFechaNacimientoEmpleado.getText());
+        nuevoEmpleado.setCorreoElectronicoEmpleado(txtEmailEmpleado.getText());
+        nuevoEmpleado.setDepartamentoEmpleado(jComboBoxDepartamentoEmpleado.getSelectedItem().toString());
+        nuevoEmpleado.setEspecialidadEmpleado(jComboBoxEspecialidadEmpleado.getSelectedItem().toString());
+        
+        
+        if(String.valueOf(nuevoEmpleado.getCedulaEmpleado()).compareTo("")==0 || 
+           String.valueOf(nuevoEmpleado.getPrimerNombreEmpleado()).compareTo("")==0 ||
+           String.valueOf(nuevoEmpleado.getSegundoNombreEmpleado()).compareTo("")==0 ||
+           String.valueOf(nuevoEmpleado.getPrimerApellidoEmpleado()).compareTo("")==0 ||
+           String.valueOf(nuevoEmpleado.getSegundoApellidoEmpleado()).compareTo("")==0 ||
+           String.valueOf(nuevoEmpleado.getFechaNacimientoEmpleado()).compareTo("")==0 ||
+           String.valueOf(nuevoEmpleado.getCorreoElectronicoEmpleado()).compareTo("")==0 ||
+           String.valueOf(nuevoEmpleado.getDepartamentoEmpleado()).compareTo("")==0 ||
+           String.valueOf(nuevoEmpleado.getEspecialidadEmpleado()).compareTo("")==0 ){
+            JOptionPane.showMessageDialog(null, "Error - Uno o mas campos vacios");
+        }else{
+             String sql="INSERT INTO EMPLEADO (CEDULA,PRIMERNOMBRE,SEGUNDONOMBRE,PRIMERAPELLIDO,SEGUNDOAPELLIDO,FECHANACIMIENTO,EMAIL,DEPARTAMENTO,ESPECIALIDAD)VALUES(?,?,?,?,?,?,?,?,?)";
+               try {
+            PreparedStatement pst = miConexion.Conectar().prepareStatement(sql);
+            pst.setString(1,nuevoEmpleado.getCedulaEmpleado());
+            pst.setString(2,nuevoEmpleado.getPrimerNombreEmpleado());
+            pst.setString(3,nuevoEmpleado.getSegundoNombreEmpleado());
+            pst.setString(4,nuevoEmpleado.getPrimerApellidoEmpleado());
+            pst.setString(5,nuevoEmpleado.getSegundoApellidoEmpleado());
+            pst.setString(6,nuevoEmpleado.getFechaNacimientoEmpleado());
+            pst.setString(7,nuevoEmpleado.getCorreoElectronicoEmpleado());
+            pst.setString(8,nuevoEmpleado.getDepartamentoEmpleado());
+            pst.setString(9,nuevoEmpleado.getEspecialidadEmpleado());
+            int n= pst.executeUpdate();
+            if(n>0){
+                JOptionPane.showMessageDialog(null, "Datos Registrados Exitosamente");
+                limpiarCampos();
+            }else{
+                JOptionPane.showMessageDialog(null, "Error Datos No Registrados");
+            }
+               }catch (SQLException ex) {
+            Logger.getLogger(RegistrarEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+               }
+        }
+    }
+    
+    public void limpiarCampos(){
+        txtCedulaEmpleado.setText("");
+        txtPrimerNombreEmpleado.setText("");
+        txtSegundoNombreEmpleado.setText("");
+        txtPrimerApellidoEmpleado.setText("");
+        txtSegundoApellidoEmpleado.setText("");
+        txtFechaNacimientoEmpleado.setText("");
+        txtEmailEmpleado.setText("");
+    }
+    
+    
+    
+    
+    
+    
+    
+    /////////////////////////////////////////////////////////////
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -41,21 +119,18 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
         txtCedulaEmpleado = new javax.swing.JTextField();
         txtPrimerNombreEmpleado = new javax.swing.JTextField();
         txtPrimerApellidoEmpleado = new javax.swing.JTextField();
-        jComboBoxEstadoCivilEmpleado = new javax.swing.JComboBox<>();
         txtFechaNacimientoEmpleado = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         txtSegundoNombreEmpleado = new javax.swing.JTextField();
         txtSegundoApellidoEmpleado = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        txtEmailEmpleado = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jComboBoxDepartamentoEmpleado = new javax.swing.JComboBox<>();
         jLabel11 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
+        jComboBoxEspecialidadEmpleado = new javax.swing.JComboBox<>();
+        btnGuardaEmpleado = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -70,25 +145,37 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Número de Cédula:");
 
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Primer Nombre:");
 
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setText("Primer Apellido:");
 
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel5.setText("Fecha Nacimiento:");
 
-        jLabel6.setText("Estado Civil:");
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel6.setText("Correo Electrónico:");
 
-        jComboBoxEstadoCivilEmpleado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Soltero", "Casado ", "Divorciado ", "Union Libre", "Viudo" }));
+        txtCedulaEmpleado.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
+        txtPrimerNombreEmpleado.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        txtPrimerApellidoEmpleado.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        txtFechaNacimientoEmpleado.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel7.setText("Segundo Nombre:");
 
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel8.setText("Segundo Apellido:");
 
-        jLabel9.setText("Sexo:");
+        txtSegundoNombreEmpleado.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
-        jRadioButton1.setText("Masculino");
+        txtSegundoApellidoEmpleado.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
-        jRadioButton2.setText("Femenino");
+        txtEmailEmpleado.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -100,32 +187,23 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(jLabel3)
                     .addComponent(jLabel4)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel6))
+                    .addComponent(jLabel5))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtPrimerNombreEmpleado)
+                    .addComponent(txtPrimerNombreEmpleado, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
                     .addComponent(txtPrimerApellidoEmpleado)
-                    .addComponent(jComboBoxEstadoCivilEmpleado, 0, 182, Short.MAX_VALUE)
                     .addComponent(txtFechaNacimientoEmpleado)
                     .addComponent(txtCedulaEmpleado))
                 .addGap(50, 50, 50)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel7))
+                .addGap(22, 22, 22)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtSegundoNombreEmpleado))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel9))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jRadioButton1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jRadioButton2))
-                            .addComponent(txtSegundoApellidoEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(txtSegundoNombreEmpleado)
+                    .addComponent(txtSegundoApellidoEmpleado)
+                    .addComponent(txtEmailEmpleado, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -151,51 +229,50 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(txtFechaNacimientoEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jComboBoxEstadoCivilEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(55, Short.MAX_VALUE))
+                    .addComponent(txtEmailEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Información Laboral"));
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Información Laboral", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
 
+        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel10.setText("Departamento:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxDepartamentoEmpleado.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jComboBoxDepartamentoEmpleado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "UNIDAD DE BIENESTAR ESTUDIANTIL Y SOCIAL" }));
 
+        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel11.setText("Especialidad:");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxEspecialidadEmpleado.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jComboBoxEspecialidadEmpleado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "TRABAJO SOCIAL ", "MEDICINA GENERAL", "GINECOLOGÍA", "ODONTOLOGÍA", "PSICOLOGÍA", "ENFERMERÍA", "NUTRICIÓN", "SEGURO ESTUDIANTIL", " " }));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addGap(22, 22, 22)
                 .addComponent(jLabel10)
-                .addGap(40, 40, 40)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jComboBoxDepartamentoEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
                 .addComponent(jLabel11)
                 .addGap(27, 27, 27)
-                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29))
+                .addComponent(jComboBoxEspecialidadEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(32, 32, 32)
+                .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxDepartamentoEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(49, Short.MAX_VALUE))
+                    .addComponent(jComboBoxEspecialidadEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -212,15 +289,22 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(33, 33, 33)
+                .addGap(30, 30, 30)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
-        jButton1.setText("Guardar");
+        btnGuardaEmpleado.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnGuardaEmpleado.setText("Guardar");
+        btnGuardaEmpleado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardaEmpleadoActionPerformed(evt);
+            }
+        });
 
+        btnCancelar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -235,16 +319,16 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(43, 43, 43)
+                        .addGap(40, 40, 40)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(343, 343, 343)
-                        .addComponent(jButton1)
-                        .addGap(18, 18, 18)
+                        .addGap(296, 296, 296)
+                        .addComponent(btnGuardaEmpleado)
+                        .addGap(84, 84, 84)
                         .addComponent(btnCancelar)))
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -253,11 +337,11 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(27, 27, 27)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
+                .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(btnGuardaEmpleado)
                     .addComponent(btnCancelar))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         pack();
@@ -267,6 +351,10 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
         dispose();
         
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnGuardaEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardaEmpleadoActionPerformed
+        guardarDatosEmpleado();
+    }//GEN-LAST:event_btnGuardaEmpleadoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -305,10 +393,9 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBoxEstadoCivilEmpleado;
+    private javax.swing.JButton btnGuardaEmpleado;
+    private javax.swing.JComboBox<String> jComboBoxDepartamentoEmpleado;
+    private javax.swing.JComboBox<String> jComboBoxEspecialidadEmpleado;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -319,13 +406,11 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JTextField txtCedulaEmpleado;
+    public static javax.swing.JTextField txtCedulaEmpleado;
+    private javax.swing.JTextField txtEmailEmpleado;
     private javax.swing.JTextField txtFechaNacimientoEmpleado;
     private javax.swing.JTextField txtPrimerApellidoEmpleado;
     private javax.swing.JTextField txtPrimerNombreEmpleado;
