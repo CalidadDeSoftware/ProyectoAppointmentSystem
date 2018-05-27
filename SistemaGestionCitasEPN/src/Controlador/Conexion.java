@@ -21,7 +21,7 @@ public class Conexion {
             String connectionUrl = "jdbc:sqlserver://;database=GestionCitasEpn;integratedSecurity=true;";
             con = DriverManager.getConnection(connectionUrl);
             System.out.println("Conectado.");
-            JOptionPane.showMessageDialog(null, "Conectado");
+            //JOptionPane.showMessageDialog(null, "Conectado");
         }catch (SQLException ex){
             System.out.println("Error.");
         }

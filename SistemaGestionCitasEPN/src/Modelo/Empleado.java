@@ -25,8 +25,6 @@ public class Empleado {
     private String sql;
     
 
-    
-
     public String getCedulaEmpleado() {
         return cedulaEmpleado;
     }

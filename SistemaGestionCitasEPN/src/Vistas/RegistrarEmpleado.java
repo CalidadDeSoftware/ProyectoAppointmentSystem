@@ -76,6 +76,7 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Error Datos No Registrados");
             }
                }catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null, "Error Datos No Registrados");
             Logger.getLogger(RegistrarEmpleado.class.getName()).log(Level.SEVERE, null, ex);
                }
         }
