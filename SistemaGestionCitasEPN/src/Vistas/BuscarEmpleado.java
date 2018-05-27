@@ -86,6 +86,14 @@ public class BuscarEmpleado extends javax.swing.JFrame {
                
                 
             }
+            
+            if (!cedulaEmpleado.equals(datos[0])) {
+                
+                JOptionPane.showMessageDialog(null, "No se econtraron coincidencias con la búsqueda !!");
+                
+            }else{
+                
+                 
             jTableEmpleadoBuscar.setModel(miModeloTabla);
             txtBuscarCedulaEmpleado.setText("");
            
@@ -96,6 +104,9 @@ public class BuscarEmpleado extends javax.swing.JFrame {
             jTableEmpleadoBuscar.getColumnModel().getColumn(4).setPreferredWidth(15);
             jTableEmpleadoBuscar.getColumnModel().getColumn(5).setPreferredWidth(15);
             jTableEmpleadoBuscar.getColumnModel().getColumn(6).setPreferredWidth(15);
+            
+            }
+
          
         } catch (SQLException ex) {
             System.out.println("Error al insertar datos"); 
@@ -131,7 +142,7 @@ public class BuscarEmpleado extends javax.swing.JFrame {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Formulario Buscar Empleado ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Ingresa los datos para buscar", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Ingrese los datos para buscar", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel12.setText("Número de Cédula:");
@@ -195,9 +206,9 @@ public class BuscarEmpleado extends javax.swing.JFrame {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(26, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 777, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 791, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(

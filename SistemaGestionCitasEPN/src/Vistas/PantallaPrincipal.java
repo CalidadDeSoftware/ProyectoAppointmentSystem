@@ -58,7 +58,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         itemCrearUsuario = new javax.swing.JMenuItem();
         itemModificarUsuario = new javax.swing.JMenuItem();
         itemEliminarUsuario = new javax.swing.JMenuItem();
-        jMenu1 = new javax.swing.JMenu();
+        jMenuCerrarSesion = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -241,20 +241,20 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenuAdministracion);
 
-        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/cerrarSesion.png"))); // NOI18N
-        jMenu1.setText("Cerrar Sesión");
-        jMenu1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
+        jMenuCerrarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/cerrarSesion.png"))); // NOI18N
+        jMenuCerrarSesion.setText("Cerrar Sesión");
+        jMenuCerrarSesion.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jMenuCerrarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu1MouseClicked(evt);
+                jMenuCerrarSesionMouseClicked(evt);
             }
         });
-        jMenu1.addActionListener(new java.awt.event.ActionListener() {
+        jMenuCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenu1ActionPerformed(evt);
+                jMenuCerrarSesionActionPerformed(evt);
             }
         });
-        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(jMenuCerrarSesion);
 
         setJMenuBar(jMenuBar1);
 
@@ -334,18 +334,17 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             eu.setVisible(true);
     }//GEN-LAST:event_itemEliminarUsuarioActionPerformed
 
-    private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
-       
-   
-    }//GEN-LAST:event_jMenu1ActionPerformed
+    private void jMenuCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuCerrarSesionActionPerformed
 
-    private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
+    }//GEN-LAST:event_jMenuCerrarSesionActionPerformed
+
+    private void jMenuCerrarSesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuCerrarSesionMouseClicked
          if (JOptionPane.showConfirmDialog(null, "¿Esta seguro que desea cerrar su sesión?", "Confirmación",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
             Login login = new Login();
             login.setVisible(true);
             dispose();
         }
-    }//GEN-LAST:event_jMenu1MouseClicked
+    }//GEN-LAST:event_jMenuCerrarSesionMouseClicked
 
     /**
      * @param args the command line arguments
@@ -395,10 +394,10 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem itemReagendarTurno;
     private javax.swing.JMenuItem itemRegistrarEmpleado;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu11;
     private javax.swing.JMenu jMenuAdministracion;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenu jMenuCerrarSesion;
     private javax.swing.JMenuItem jMenuDeletePaciente;
     private javax.swing.JMenu jMenuEmpleado;
     private javax.swing.JMenuItem jMenuIUpdatePaciente;

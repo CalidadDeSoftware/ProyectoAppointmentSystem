@@ -72,7 +72,9 @@ public class ActualizarEmpleado extends javax.swing.JFrame {
         if(String.valueOf(cedulaEmpleado).compareTo("")==0){
             JOptionPane.showMessageDialog(null, "Ingrese parámetro de búsqueda");
         }else{
+            
             sql = "SELECT CEDULA,PRIMERNOMBRE,SEGUNDONOMBRE,PRIMERAPELLIDO,SEGUNDOAPELLIDO,FECHANACIMIENTO,EMAIL,DEPARTAMENTO,ESPECIALIDAD,EMPLEADOID FROM EMPLEADO WHERE CEDULA = '"+cedulaEmpleado+"'"; 
+
         }
         
         String datos [] = new String[10];
@@ -92,10 +94,16 @@ public class ActualizarEmpleado extends javax.swing.JFrame {
                 datos[9]=rs2.getString(10);
                 
                 miModeloTabla.addRow(datos);
-               
-               
-                
+
             }
+            
+            
+            if (!cedulaEmpleado.equals(datos[0])) {
+                
+                JOptionPane.showMessageDialog(null, "No se econtraron coincidencias con la búsqueda !!");
+                
+            }else{
+                
             jTableEmpleado.setModel(miModeloTabla);
             jComboBoxDepartamentoEmpleado.addItem(datos[7]);
             jComboBoxEspecialidadEmpleado.addItem(datos[8]);
@@ -109,6 +117,11 @@ public class ActualizarEmpleado extends javax.swing.JFrame {
             jTableEmpleado.getColumnModel().getColumn(4).setPreferredWidth(15);
             jTableEmpleado.getColumnModel().getColumn(5).setPreferredWidth(15);
             jTableEmpleado.getColumnModel().getColumn(6).setPreferredWidth(15);
+            
+            
+            }
+            
+            
          
         } catch (SQLException ex) {
             System.out.println("Error al insertar datos"); 
@@ -313,13 +326,13 @@ public class ActualizarEmpleado extends javax.swing.JFrame {
         jLabel10.setText("Departamento:");
 
         jComboBoxDepartamentoEmpleado.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jComboBoxDepartamentoEmpleado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "UNIDAD DE BIENESTAR ESTUDIANTIL Y SOCIAL" }));
+        jComboBoxDepartamentoEmpleado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- Seleccione una opción --", "UNIDAD DE BIENESTAR ESTUDIANTIL Y SOCIAL" }));
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel11.setText("Especialidad:");
 
         jComboBoxEspecialidadEmpleado.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jComboBoxEspecialidadEmpleado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "TRABAJO SOCIAL ", "MEDICINA GENERAL", "GINECOLOGÍA", "ODONTOLOGÍA", "PSICOLOGÍA", "ENFERMERÍA", "NUTRICIÓN", "SEGURO ESTUDIANTIL", " " }));
+        jComboBoxEspecialidadEmpleado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- Seleccione una opción --", "MEDICINA GENERAL", "GINECOLOGÍA", "ODONTOLOGÍA", "PSICOLOGÍA", "ENFERMERÍA", "NUTRICIÓN", "TRABAJO SOCIAL", " ", " " }));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -329,11 +342,11 @@ public class ActualizarEmpleado extends javax.swing.JFrame {
                 .addGap(22, 22, 22)
                 .addComponent(jLabel10)
                 .addGap(18, 18, 18)
-                .addComponent(jComboBoxDepartamentoEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jComboBoxDepartamentoEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel11)
-                .addGap(27, 27, 27)
-                .addComponent(jComboBoxEspecialidadEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jComboBoxEspecialidadEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31))
         );
         jPanel3Layout.setVerticalGroup(
@@ -496,13 +509,10 @@ public class ActualizarEmpleado extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(44, 44, 44)
-                        .addComponent(txtIdEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtIdEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)

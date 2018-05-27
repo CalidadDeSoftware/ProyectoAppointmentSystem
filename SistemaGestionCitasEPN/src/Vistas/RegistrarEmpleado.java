@@ -241,13 +241,13 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
         jLabel10.setText("Departamento:");
 
         jComboBoxDepartamentoEmpleado.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jComboBoxDepartamentoEmpleado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "UNIDAD DE BIENESTAR ESTUDIANTIL Y SOCIAL" }));
+        jComboBoxDepartamentoEmpleado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- Seleccione una opción --", "UNIDAD DE BIENESTAR ESTUDIANTIL Y SOCIAL" }));
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel11.setText("Especialidad:");
 
         jComboBoxEspecialidadEmpleado.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jComboBoxEspecialidadEmpleado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "TRABAJO SOCIAL ", "MEDICINA GENERAL", "GINECOLOGÍA", "ODONTOLOGÍA", "PSICOLOGÍA", "ENFERMERÍA", "NUTRICIÓN", "SEGURO ESTUDIANTIL", " " }));
+        jComboBoxEspecialidadEmpleado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- Seleccione una opción --", "MEDICINA GENERAL", "GINECOLOGÍA", "ODONTOLOGÍA", "PSICOLOGÍA", "ENFERMERÍA", "NUTRICIÓN", "TRABAJO SOCIAL" }));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -257,12 +257,12 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
                 .addGap(22, 22, 22)
                 .addComponent(jLabel10)
                 .addGap(18, 18, 18)
-                .addComponent(jComboBoxDepartamentoEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
+                .addComponent(jComboBoxDepartamentoEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
                 .addComponent(jLabel11)
-                .addGap(27, 27, 27)
-                .addComponent(jComboBoxEspecialidadEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31))
+                .addGap(18, 18, 18)
+                .addComponent(jComboBoxEspecialidadEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

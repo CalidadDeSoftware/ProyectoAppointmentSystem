@@ -90,7 +90,14 @@ public class EliminarEmpleado extends javax.swing.JFrame {
                
                 
             }
-            jTableEmpleado.setModel(miModeloTabla);
+            
+             if (!cedulaEmpleado.equals(datos[0])) {
+                
+                JOptionPane.showMessageDialog(null, "No se econtraron coincidencias con la búsqueda !!");
+                
+            }else{
+                 
+                 jTableEmpleado.setModel(miModeloTabla);
             txtBuscarCedulaEmplead.setText("");
             txtIdEmpleado.setText(datos[9]);
            
@@ -101,7 +108,11 @@ public class EliminarEmpleado extends javax.swing.JFrame {
             jTableEmpleado.getColumnModel().getColumn(4).setPreferredWidth(15);
             jTableEmpleado.getColumnModel().getColumn(5).setPreferredWidth(15);
             jTableEmpleado.getColumnModel().getColumn(6).setPreferredWidth(15);
-         
+
+             }
+            
+            
+            
         } catch (SQLException ex) {
             System.out.println("Error al insertar datos"); 
         }
