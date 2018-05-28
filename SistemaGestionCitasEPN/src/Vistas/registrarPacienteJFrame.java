@@ -26,6 +26,9 @@ public class registrarPacienteJFrame extends javax.swing.JFrame {
     
     public registrarPacienteJFrame(String opcion) {
         initComponents();
+        setDefaultCloseOperation(registrarPacienteJFrame.DISPOSE_ON_CLOSE);
+        setLocationRelativeTo(null);// centrado
+        setResizable(false); // impide maximizar
         btnAceptar.setText(opcion);
         switch(opcion){
             case "IngresarPaciente":

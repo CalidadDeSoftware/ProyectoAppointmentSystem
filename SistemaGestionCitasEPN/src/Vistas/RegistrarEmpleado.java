@@ -22,6 +22,7 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
      * Creates new form RegistrarEmpleado
      */
     public RegistrarEmpleado() {
+        
         initComponents();
         setLocationRelativeTo(null);// centrado
         setResizable(false); // impide maximizar
