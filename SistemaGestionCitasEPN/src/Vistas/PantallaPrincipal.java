@@ -315,7 +315,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
     private void jMenuItemCreatePacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCreatePacienteActionPerformed
         // TODO add your handling code here:        
-       registrarPacienteJFrame rp = new registrarPacienteJFrame("Ingresar");
+       registrarPacienteJFrame rp = new registrarPacienteJFrame("IngresarPaciente");
        rp.setVisible(true);
     }//GEN-LAST:event_jMenuItemCreatePacienteActionPerformed
 

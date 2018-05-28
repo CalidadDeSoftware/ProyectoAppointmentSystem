@@ -1,6 +1,14 @@
 
 package Vistas;
 
+import Controlador.Conexion;
+import Modelo.Paciente;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Usuario
@@ -12,11 +20,88 @@ public class registrarPacienteJFrame extends javax.swing.JFrame {
      */
     public registrarPacienteJFrame() {
         initComponents();
+        setLocationRelativeTo(null);// centrado
+        setResizable(false); // impide maximizar
     }
     
     public registrarPacienteJFrame(String opcion) {
         initComponents();
-        jButton1.setText(opcion);
+        btnAceptar.setText(opcion);
+        switch(opcion){
+            case "IngresarPaciente":
+                setTitle("Registrar Paciente");
+                
+                
+                
+                break;
+            default:
+                break;
+        }
+    }
+    //// IMPLEMENTACION DE METODOS PARA MANEJAR EL FORMULARO ////
+    Paciente nuevoPaciente = new Paciente();
+    Conexion miConexion = new Conexion();
+    
+    public void guardarDatosEmpleado(){
+        
+        nuevoPaciente.setCedulaPaciente(txtCedulaPaciente.getText().toString().trim());
+        nuevoPaciente.setpNombrePaciente(txtPNombrePaciente.getText().toString().trim());
+        nuevoPaciente.setsNombrePaciente(txtSNombrePaciente.getText().toString().trim());
+        nuevoPaciente.setpApellidoPaciente(txtPApellidoPaciente.getText().toString().trim());
+        nuevoPaciente.setsApellidoPaciente(txtSApellidoPaciente.getText().toString().trim());
+        nuevoPaciente.setpTelefonoPaciente(txtPTelefonoPaciente.getText().toString().trim());
+        nuevoPaciente.setsTelefonoPaciente(txtSTelefonoPaciente.getText().toString().trim());
+        nuevoPaciente.setDireccionPaciente(txtDireccionPaciente.getText().toString().trim());
+        nuevoPaciente.setEmaiPaciente(txtEmailPaciente.getText().toString().trim());
+        
+        
+        if(String.valueOf(nuevoPaciente.getCedulaPaciente()).compareTo("")==0 || 
+           String.valueOf(nuevoPaciente.getpNombrePaciente()).compareTo("")==0 ||
+           String.valueOf(nuevoPaciente.getpApellidoPaciente()).compareTo("")==0 ||
+           String.valueOf(nuevoPaciente.getpTelefonoPaciente()).compareTo("")==0 ||
+           String.valueOf(nuevoPaciente.getDireccionPaciente()).compareTo("")==0 ||
+           String.valueOf(nuevoPaciente.getEmaiPaciente()).compareTo("")==0){
+           JOptionPane.showMessageDialog(null, "Error - Uno o mas campos vacios");
+        }
+        else
+        {
+            String sql="INSERT INTO PACIENTE (CEDULA,PRIMERNOMBRE,SEGUNDONOMBRE,PRIMERAPELLIDO,SEGUNDOAPELLIDO,PRIMERTELEFONO,SEGUNDOTELEFONO,FECHANACIMIENTO,EMAIL,DIRECCION)VALUES(?,?,?,?,?,?,?,?,?,?)";
+               try {
+            PreparedStatement pst = miConexion.Conectar().prepareStatement(sql);
+            pst.setString(1,nuevoPaciente.getCedulaPaciente());
+            pst.setString(2,nuevoPaciente.getpNombrePaciente());
+            pst.setString(3,nuevoPaciente.getsNombrePaciente());
+            pst.setString(4,nuevoPaciente.getpApellidoPaciente());
+            pst.setString(5,nuevoPaciente.getsApellidoPaciente());
+            pst.setString(6,nuevoPaciente.getpTelefonoPaciente());
+            pst.setString(7,nuevoPaciente.getsTelefonoPaciente());
+            pst.setString(8,nuevoPaciente.getFechaNacimientoPaciente());
+            pst.setString(9,nuevoPaciente.getEmaiPaciente());
+            pst.setString(10,nuevoPaciente.getDireccionPaciente());
+            int n= pst.executeUpdate();
+            if(n>0){
+                JOptionPane.showMessageDialog(null, "Datos Registrados Exitosamente");
+                limpiarCampos();
+            }else{
+                JOptionPane.showMessageDialog(null, "Error Datos No Registrados");
+            }
+               }catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null, "Error Datos No Registrados");
+            Logger.getLogger(RegistrarEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+               }
+        }
+    }
+    
+    public void limpiarCampos(){
+        txtCedulaPaciente.setText("");
+        txtPNombrePaciente.setText("");
+        txtSNombrePaciente.setText("");
+        txtPApellidoPaciente.setText("");
+        txtSApellidoPaciente.setText("");
+        txtPTelefonoPaciente.setText("");
+        txtSTelefonoPaciente.setText("");
+        txtDireccionPaciente.setText("");
+        txtEmailPaciente.setText("");
     }
 
     /**
@@ -28,32 +113,33 @@ public class registrarPacienteJFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnAceptar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtPNombrePaciente = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        txtPApellidoPaciente = new javax.swing.JTextField();
+        txtSNombrePaciente = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        txtSApellidoPaciente = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
+        txtSTelefonoPaciente = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jTextField7 = new javax.swing.JTextField();
+        txtEmailPaciente = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        jTextField8 = new javax.swing.JTextField();
+        txtDireccionPaciente = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        jTextField10 = new javax.swing.JTextField();
-        jTextField11 = new javax.swing.JTextField();
+        txtCedulaPaciente = new javax.swing.JTextField();
+        txtPTelefonoPaciente = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("Aceptar");
+        btnAceptar.setText("Aceptar");
 
-        jButton2.setText("Cancelar");
+        btnCancelar.setText("Cancelar");
 
         jLabel1.setText("Primer Nombre");
 
@@ -63,7 +149,7 @@ public class registrarPacienteJFrame extends javax.swing.JFrame {
 
         jLabel4.setText("Segundo Apellido");
 
-        jTextField4.setToolTipText("");
+        txtSApellidoPaciente.setToolTipText("");
 
         jLabel5.setText("Telefono 1");
 
@@ -75,6 +161,8 @@ public class registrarPacienteJFrame extends javax.swing.JFrame {
 
         jLabel9.setText("Cedula");
 
+        jLabel10.setText("Fecha Nacimiento");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -84,21 +172,19 @@ public class registrarPacienteJFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel9)
                             .addComponent(jLabel1)
                             .addComponent(jLabel2)
                             .addComponent(jLabel3)
                             .addComponent(jLabel4))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField10, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING)))
-                    .addComponent(jButton1))
+                            .addComponent(txtSApellidoPaciente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                            .addComponent(txtPApellidoPaciente, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtSNombrePaciente, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtCedulaPaciente, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtPNombrePaciente, javax.swing.GroupLayout.Alignment.LEADING)))
+                    .addComponent(btnAceptar))
                 .addGap(74, 74, 74)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -109,12 +195,12 @@ public class registrarPacienteJFrame extends javax.swing.JFrame {
                             .addComponent(jLabel8))
                         .addGap(29, 29, 29)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField7)
-                            .addComponent(jTextField8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jTextField6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                                .addComponent(jTextField11, javax.swing.GroupLayout.Alignment.LEADING))))
-                    .addComponent(jButton2))
+                            .addComponent(txtEmailPaciente)
+                            .addComponent(txtDireccionPaciente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtSTelefonoPaciente)
+                            .addComponent(txtPTelefonoPaciente)))
+                    .addComponent(btnCancelar)
+                    .addComponent(jLabel10))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -123,35 +209,36 @@ public class registrarPacienteJFrame extends javax.swing.JFrame {
                 .addGap(50, 50, 50)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCedulaPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
-                    .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtPTelefonoPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPNombrePaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtSTelefonoPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtSNombrePaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtEmailPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPApellidoPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDireccionPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtSApellidoPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(btnAceptar)
+                    .addComponent(btnCancelar))
                 .addGap(54, 54, 54))
         );
 
@@ -195,9 +282,10 @@ public class registrarPacienteJFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnAceptar;
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -206,14 +294,14 @@ public class registrarPacienteJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField11;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
+    private javax.swing.JTextField txtCedulaPaciente;
+    private javax.swing.JTextField txtDireccionPaciente;
+    private javax.swing.JTextField txtEmailPaciente;
+    private javax.swing.JTextField txtPApellidoPaciente;
+    private javax.swing.JTextField txtPNombrePaciente;
+    private javax.swing.JTextField txtPTelefonoPaciente;
+    private javax.swing.JTextField txtSApellidoPaciente;
+    private javax.swing.JTextField txtSNombrePaciente;
+    private javax.swing.JTextField txtSTelefonoPaciente;
     // End of variables declaration//GEN-END:variables
 }
