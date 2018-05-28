@@ -16,23 +16,24 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author Daro
+ * @author ToshibaSk
  */
-public class EliminarEmpleado extends javax.swing.JFrame {
+public class eliminarPacienteJFrame extends javax.swing.JFrame {
 
     /**
-     * Creates new form EliminarEmpleado
+     * Creates new form eliminarPacienteJFrame
      */
-    public EliminarEmpleado() {
+    public eliminarPacienteJFrame() {
         initComponents();
+        setDefaultCloseOperation(actualizarPacienteJFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);// centrado
         setResizable(false); // impide maximizar
-        setTitle("Eliminar Empleado");
+        setTitle("Eliminar Paciente");
         setModeloTabla();
-        txtIdEmpleado.setVisible(false);
+        txtIdPaciente.setVisible(false);
     }
     
-     Conexion miConexion = new Conexion();
+    Conexion miConexion = new Conexion();
     
     //**************** IMPLEMENTACION **********************//
     public void setModeloTabla(){
@@ -47,30 +48,31 @@ public class EliminarEmpleado extends javax.swing.JFrame {
         miModeloTabla.addColumn("EMAIL");
         miModeloTabla.addColumn("DIRECCION");
         miModeloTabla.addColumn("F.NACIMIENTO");
-        jTableEmpleado.setModel(miModeloTabla);;
+        jTablePaciente.setModel(miModeloTabla);
     }
     
-   public void buscarEmpleado(){
-        
+   public void buscarPaciente(){
         DefaultTableModel miModeloTabla = new DefaultTableModel();
         miModeloTabla.addColumn("CÉDULA");
         miModeloTabla.addColumn("P.NOMBRE");
         miModeloTabla.addColumn("S.NOMBRE");
         miModeloTabla.addColumn("P.APELLIDO");
         miModeloTabla.addColumn("S.APELLIDO");
-        miModeloTabla.addColumn("F.NACIMIENTO");
+        miModeloTabla.addColumn("P.TELEFONO");
+        miModeloTabla.addColumn("S.TELEFONO");
         miModeloTabla.addColumn("EMAIL");
+        miModeloTabla.addColumn("DIRECCION");
+        miModeloTabla.addColumn("F.NACIMIENTO");
         
-        String cedulaEmpleado;
+        String cedulaPaciente;
         String sql = null;
-        cedulaEmpleado = txtBuscarCedulaEmplead.getText();
+        cedulaPaciente = txtBuscarCedulaPaciente.getText();
         
-        if(String.valueOf(txtBuscarCedulaEmplead.getText()).compareTo("")==0){
+        if(String.valueOf(txtBuscarCedulaPaciente.getText()).compareTo("")==0){
             JOptionPane.showMessageDialog(null, "Ingrese parámetro de búsqueda");
         }else{
-            sql = "SELECT CEDULA,PRIMERNOMBRE,SEGUNDONOMBRE,PRIMERAPELLIDO,SEGUNDOAPELLIDO,FECHANACIMIENTO,EMAIL,DEPARTAMENTO,ESPECIALIDAD,EMPLEADOID FROM EMPLEADO WHERE CEDULA = '"+txtBuscarCedulaEmplead.getText()+"'"; 
+            sql = "SELECT CEDULA,PRIMERNOMBRE,SEGUNDONOMBRE,PRIMERAPELLIDO,SEGUNDOAPELLIDO,PRIMERTELEFONO,SEGUNDOTELEFONO,EMAIL,DIRECCION,FECHANACIMIENTO,PACIENTEID FROM PACIENTE WHERE CEDULA = '"+cedulaPaciente+"'"; 
         }
-        
         String datos [] = new String[10];
         try {
             Statement st= miConexion.Conectar().createStatement();
@@ -86,54 +88,51 @@ public class EliminarEmpleado extends javax.swing.JFrame {
                 datos[7]=rs2.getString(8);
                 datos[8]=rs2.getString(9);
                 datos[9]=rs2.getString(10);
-                
+                datos[10]=rs2.getString(11);
+                datos[11]=rs2.getString(12);//IP PACIENTE
                 miModeloTabla.addRow(datos);
-               
-               
-                
             }
-            
-             if (!cedulaEmpleado.equals(datos[0])) {
+             if (!cedulaPaciente.equals(datos[0])) {
                 
-                JOptionPane.showMessageDialog(null, "No se econtraron coincidencias con la búsqueda !!");
+                JOptionPane.showMessageDialog(null, "No se econtraron coincidencias con la Búsqueda");
                 
             }else{
-                 
-                 jTableEmpleado.setModel(miModeloTabla);
-            txtBuscarCedulaEmplead.setText("");
-            txtIdEmpleado.setText(datos[9]);
-           
-            jTableEmpleado.getColumnModel().getColumn(0).setPreferredWidth(15);
-            jTableEmpleado.getColumnModel().getColumn(1).setPreferredWidth(15);
-            jTableEmpleado.getColumnModel().getColumn(2).setPreferredWidth(15);
-            jTableEmpleado.getColumnModel().getColumn(3).setPreferredWidth(15);
-            jTableEmpleado.getColumnModel().getColumn(4).setPreferredWidth(15);
-            jTableEmpleado.getColumnModel().getColumn(5).setPreferredWidth(15);
-            jTableEmpleado.getColumnModel().getColumn(6).setPreferredWidth(15);
-
-             }
-            
-            
-            
+            jTablePaciente.setModel(miModeloTabla);
+            txtIdPaciente.setText(datos[11]);
+            txtBuscarCedulaPaciente.setText("");
+            jTablePaciente.getColumnModel().getColumn(0).setPreferredWidth(15);
+            jTablePaciente.getColumnModel().getColumn(1).setPreferredWidth(15);
+            jTablePaciente.getColumnModel().getColumn(2).setPreferredWidth(15);
+            jTablePaciente.getColumnModel().getColumn(3).setPreferredWidth(15);
+            jTablePaciente.getColumnModel().getColumn(4).setPreferredWidth(15);
+            jTablePaciente.getColumnModel().getColumn(5).setPreferredWidth(15);
+            jTablePaciente.getColumnModel().getColumn(6).setPreferredWidth(15);
+            jTablePaciente.getColumnModel().getColumn(7).setPreferredWidth(15);
+            jTablePaciente.getColumnModel().getColumn(8).setPreferredWidth(15);
+            jTablePaciente.getColumnModel().getColumn(9).setPreferredWidth(15);
+            jTablePaciente.getColumnModel().getColumn(10).setPreferredWidth(15);
+             }  
         } catch (SQLException ex) {
-            System.out.println("Error al insertar datos"); 
+            System.out.println("Error al insertar Datos"); 
         }
-
     }
    
    public void mostrarTabla(){
        DefaultTableModel miModeloTabla = new DefaultTableModel();
-        miModeloTabla.addColumn("CÉDULA");
-        miModeloTabla.addColumn("P.NOMBRE");
-        miModeloTabla.addColumn("S.NOMBRE");
-        miModeloTabla.addColumn("P.APELLIDO");
-        miModeloTabla.addColumn("S.APELLIDO");
-        miModeloTabla.addColumn("F.NACIMIENTO");
-        miModeloTabla.addColumn("EMAIL");
-        String sql = null;
+       miModeloTabla.addColumn("CÉDULA");
+       miModeloTabla.addColumn("P.NOMBRE");
+       miModeloTabla.addColumn("S.NOMBRE");
+       miModeloTabla.addColumn("P.APELLIDO");
+       miModeloTabla.addColumn("S.APELLIDO");
+       miModeloTabla.addColumn("P.TELEFONO");
+       miModeloTabla.addColumn("S.TELEFONO");
+       miModeloTabla.addColumn("EMAIL");
+       miModeloTabla.addColumn("DIRECCION");
+       miModeloTabla.addColumn("F.NACIMIENTO");;
+       String sql = null;
         
-        sql = "SELECT CEDULA,PRIMERNOMBRE,SEGUNDONOMBRE,PRIMERAPELLIDO,SEGUNDOAPELLIDO,FECHANACIMIENTO,EMAIL,DEPARTAMENTO,ESPECIALIDAD FROM EMPLEADO WHERE EMPLEADOID ='"+txtIdEmpleado.getText()+"'";
-        String datos [] = new String[10];
+        sql = "SELECT CEDULA,PRIMERNOMBRE,SEGUNDONOMBRE,PRIMERAPELLIDO,SEGUNDOAPELLIDO,PRIMERTELEFONO,SEGUNDOTELEFONO,EMAIL,DIRECCION,FECHANACIMIENTO,PACIENTEID FROM PACIENTE"; 
+        String datos [] = new String[12];
         try {
             Statement st= miConexion.Conectar().createStatement();
             ResultSet rs2=st.executeQuery(sql);
@@ -147,27 +146,29 @@ public class EliminarEmpleado extends javax.swing.JFrame {
                 datos[6]=rs2.getString(7);
                 datos[7]=rs2.getString(8);
                 datos[8]=rs2.getString(9);
-                
+                datos[9]=rs2.getString(10);
+                datos[10]=rs2.getString(11);
+                datos[11]=rs2.getString(12);//IP PACIENTE
                 miModeloTabla.addRow(datos);
-                
             }
-            jTableEmpleado.setModel(miModeloTabla);
-  
-            
-            jTableEmpleado.getColumnModel().getColumn(0).setPreferredWidth(15);
-            jTableEmpleado.getColumnModel().getColumn(1).setPreferredWidth(15);
-            jTableEmpleado.getColumnModel().getColumn(2).setPreferredWidth(15);
-            jTableEmpleado.getColumnModel().getColumn(3).setPreferredWidth(15);
-            jTableEmpleado.getColumnModel().getColumn(4).setPreferredWidth(15);
-            jTableEmpleado.getColumnModel().getColumn(5).setPreferredWidth(15);
-            jTableEmpleado.getColumnModel().getColumn(6).setPreferredWidth(15);
-
-         
+            jTablePaciente.setModel(miModeloTabla);
+            jTablePaciente.getColumnModel().getColumn(0).setPreferredWidth(15);
+            jTablePaciente.getColumnModel().getColumn(1).setPreferredWidth(15);
+            jTablePaciente.getColumnModel().getColumn(2).setPreferredWidth(15);
+            jTablePaciente.getColumnModel().getColumn(3).setPreferredWidth(15);
+            jTablePaciente.getColumnModel().getColumn(4).setPreferredWidth(15);
+            jTablePaciente.getColumnModel().getColumn(5).setPreferredWidth(15);
+            jTablePaciente.getColumnModel().getColumn(6).setPreferredWidth(15);
+            jTablePaciente.getColumnModel().getColumn(7).setPreferredWidth(15);
+            jTablePaciente.getColumnModel().getColumn(8).setPreferredWidth(15);
+            jTablePaciente.getColumnModel().getColumn(9).setPreferredWidth(15);
+            jTablePaciente.getColumnModel().getColumn(10).setPreferredWidth(15);
+            jTablePaciente.getColumnModel().getColumn(11).setPreferredWidth(15);     
         } catch (SQLException ex) {
             System.out.println("Error al mostrar datos"); 
         }
    }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -177,39 +178,37 @@ public class EliminarEmpleado extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
-        txtBuscarCedulaEmplead = new javax.swing.JTextField();
-        btnBuscarEmpleado1 = new javax.swing.JButton();
-        btnLimpiar1 = new javax.swing.JButton();
+        txtBuscarCedulaPaciente = new javax.swing.JTextField();
+        btnBuscarPaciente = new javax.swing.JButton();
+        btnLimpiarPaciente = new javax.swing.JButton();
         jPanel9 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTableEmpleado = new javax.swing.JTable();
-        txtIdEmpleado = new javax.swing.JTextField();
+        jTablePaciente = new javax.swing.JTable();
+        txtIdPaciente = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Eliminar Empleado");
-
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Formulario Elimina Empleado "));
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Formulario Elimina Paciente"));
+        jPanel4.setToolTipText("");
 
         jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Ingresa los datos para buscar", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel13.setText("Número de Cédula:");
 
-        txtBuscarCedulaEmplead.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtBuscarCedulaPaciente.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
-        btnBuscarEmpleado1.setText("Buscar");
-        btnBuscarEmpleado1.addActionListener(new java.awt.event.ActionListener() {
+        btnBuscarPaciente.setText("Buscar");
+        btnBuscarPaciente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarEmpleado1ActionPerformed(evt);
+                btnBuscarPacienteActionPerformed(evt);
             }
         });
 
-        btnLimpiar1.setText("Limpiar");
+        btnLimpiarPaciente.setText("Limpiar");
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -219,11 +218,11 @@ public class EliminarEmpleado extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel13)
                 .addGap(18, 18, 18)
-                .addComponent(txtBuscarCedulaEmplead, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtBuscarCedulaPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
-                .addComponent(btnBuscarEmpleado1)
+                .addComponent(btnBuscarPaciente)
                 .addGap(18, 18, 18)
-                .addComponent(btnLimpiar1)
+                .addComponent(btnLimpiarPaciente)
                 .addGap(26, 26, 26))
         );
         jPanel8Layout.setVerticalGroup(
@@ -232,15 +231,15 @@ public class EliminarEmpleado extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
-                    .addComponent(txtBuscarCedulaEmplead, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBuscarEmpleado1)
-                    .addComponent(btnLimpiar1))
+                    .addComponent(txtBuscarCedulaPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscarPaciente)
+                    .addComponent(btnLimpiarPaciente))
                 .addContainerGap(21, Short.MAX_VALUE))
         );
 
         jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Resultados de búsqueda", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
 
-        jTableEmpleado.setModel(new javax.swing.table.DefaultTableModel(
+        jTablePaciente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -248,12 +247,12 @@ public class EliminarEmpleado extends javax.swing.JFrame {
 
             }
         ));
-        jTableEmpleado.addMouseListener(new java.awt.event.MouseAdapter() {
+        jTablePaciente.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTableEmpleadoMouseClicked(evt);
+                jTablePacienteMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(jTableEmpleado);
+        jScrollPane1.setViewportView(jTablePaciente);
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
@@ -282,7 +281,7 @@ public class EliminarEmpleado extends javax.swing.JFrame {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(txtIdEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtIdPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(35, 35, 35))
         );
@@ -295,7 +294,7 @@ public class EliminarEmpleado extends javax.swing.JFrame {
                         .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(45, 45, 45)
-                        .addComponent(txtIdEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtIdPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(20, 20, 20)
                 .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -305,63 +304,63 @@ public class EliminarEmpleado extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(20, Short.MAX_VALUE))
+            .addGap(0, 916, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap()))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(73, 73, 73))
+            .addGap(0, 464, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(77, 77, 77)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(77, Short.MAX_VALUE)))
         );
+
+        jPanel4.getAccessibleContext().setAccessibleName("Formulario Elimina Paciente");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnBuscarEmpleado1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarEmpleado1ActionPerformed
-        buscarEmpleado();
-    }//GEN-LAST:event_btnBuscarEmpleado1ActionPerformed
+    private void btnBuscarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarPacienteActionPerformed
+        buscarPaciente();
+    }//GEN-LAST:event_btnBuscarPacienteActionPerformed
 
-    private void jTableEmpleadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableEmpleadoMouseClicked
+    private void jTablePacienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTablePacienteMouseClicked
         String idEmpleado,sql;
-        idEmpleado = txtIdEmpleado.getText();
-        
-        
+        idEmpleado = txtIdPaciente.getText();
+
         if (JOptionPane.showConfirmDialog(null, "Esta seguro de eliminar Empleado?", "WARNING",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-    // yes option
-    
-        sql="DELETE FROM EMPLEADO WHERE EMPLEADOID='"+txtIdEmpleado.getText()+"'";
-             try {
-            PreparedStatement pps = miConexion.Conectar().prepareStatement(sql);
-            int n= pps.executeUpdate();
-            if(n>0){
-                JOptionPane.showMessageDialog(null, "Datos Eliminados");
-                txtIdEmpleado.setText("");
-                txtBuscarCedulaEmplead.setText("");
-                mostrarTabla();
-            }else{
-                JOptionPane.showMessageDialog(null, "Error Datos No Eliminados");
+            // yes option
+
+            sql="DELETE FROM EMPLEADO WHERE EMPLEADOID='"+txtIdPaciente.getText()+"'";
+            try {
+                PreparedStatement pps = miConexion.Conectar().prepareStatement(sql);
+                int n= pps.executeUpdate();
+                if(n>0){
+                    JOptionPane.showMessageDialog(null, "Datos Eliminados");
+                    txtIdPaciente.setText("");
+                    txtBuscarCedulaPaciente.setText("");
+                    mostrarTabla();
+                }else{
+                    JOptionPane.showMessageDialog(null, "Error Datos No Eliminados");
+                }
+
+            } catch (SQLException | HeadlessException ex){
+                System.out.println(ex.getMessage());
             }
-                    
-        } catch (SQLException | HeadlessException ex){ 
-            System.out.println(ex.getMessage());
-        }
-             
+
         } else {
-            
+
             JOptionPane.showMessageDialog(null, "Operación Cancelada");
-    
+
         }
- 
-        
-    }//GEN-LAST:event_jTableEmpleadoMouseClicked
+
+    }//GEN-LAST:event_jTablePacienteMouseClicked
 
     /**
      * @param args the command line arguments
@@ -380,35 +379,34 @@ public class EliminarEmpleado extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(EliminarEmpleado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(eliminarPacienteJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(EliminarEmpleado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(eliminarPacienteJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(EliminarEmpleado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(eliminarPacienteJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(EliminarEmpleado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(eliminarPacienteJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new EliminarEmpleado().setVisible(true);
+                new eliminarPacienteJFrame().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBuscarEmpleado1;
-    private javax.swing.JButton btnLimpiar1;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton btnBuscarPaciente;
+    private javax.swing.JButton btnLimpiarPaciente;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTableEmpleado;
-    private javax.swing.JTextField txtBuscarCedulaEmplead;
-    private javax.swing.JTextField txtIdEmpleado;
+    private javax.swing.JTable jTablePaciente;
+    private javax.swing.JTextField txtBuscarCedulaPaciente;
+    private javax.swing.JTextField txtIdPaciente;
     // End of variables declaration//GEN-END:variables
 }

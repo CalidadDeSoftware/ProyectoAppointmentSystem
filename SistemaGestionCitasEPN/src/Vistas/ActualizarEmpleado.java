@@ -38,8 +38,7 @@ public class ActualizarEmpleado extends javax.swing.JFrame {
     }
     
     Conexion miConexion = new Conexion();
-    
-    
+   
     //**************** IMPLEMENTACION **********************//
     public void setModeloTabla(){
         DefaultTableModel miModeloTabla = new DefaultTableModel();
@@ -162,7 +161,6 @@ public class ActualizarEmpleado extends javax.swing.JFrame {
             jTableEmpleado.setModel(miModeloTabla);
             jComboBoxDepartamentoEmpleado.addItem(datos[7]);
             jComboBoxEspecialidadEmpleado.addItem(datos[8]);
-            
             jTableEmpleado.getColumnModel().getColumn(0).setPreferredWidth(15);
             jTableEmpleado.getColumnModel().getColumn(1).setPreferredWidth(15);
             jTableEmpleado.getColumnModel().getColumn(2).setPreferredWidth(15);
@@ -170,8 +168,6 @@ public class ActualizarEmpleado extends javax.swing.JFrame {
             jTableEmpleado.getColumnModel().getColumn(4).setPreferredWidth(15);
             jTableEmpleado.getColumnModel().getColumn(5).setPreferredWidth(15);
             jTableEmpleado.getColumnModel().getColumn(6).setPreferredWidth(15);
-
-         
         } catch (SQLException ex) {
             System.out.println("Error al mostrar datos"); 
         }
@@ -192,8 +188,15 @@ public class ActualizarEmpleado extends javax.swing.JFrame {
     
     public void actualizarDatosEmpleado(){
         String sql;
-        sql = "UPDATE EMPLEADO SET CEDULA='"+txtCedulaEmpleado.getText()+"',PRIMERNOMBRE='"+txtPrimerNombreEmpleado.getText()+"',SEGUNDONOMBRE='"+txtSegundoNombreEmpleado.getText()+"',PRIMERAPELLIDO='"+txtPrimerApellidoEmpleado.getText()+"',SEGUNDOAPELLIDO='"+txtSegundoApellidoEmpleado.getText()+ "',FECHANACIMIENTO='"+txtFechaNacimientoEmpleado.getText()+"',EMAIL='"+txtEmailEmpleado.getText()+"' WHERE EMPLEADOID ='"+txtIdEmpleado.getText()+"'";
-
+        sql = "UPDATE EMPLEADO SET CEDULA='"+txtCedulaEmpleado.getText()
+                +"',PRIMERNOMBRE='"+txtPrimerNombreEmpleado.getText()
+                +"',SEGUNDONOMBRE='"+txtSegundoNombreEmpleado.getText()
+                +"',PRIMERAPELLIDO='"+txtPrimerApellidoEmpleado.getText()
+                +"',SEGUNDOAPELLIDO='"+txtSegundoApellidoEmpleado.getText()
+                + "',FECHANACIMIENTO='"+txtFechaNacimientoEmpleado.getText()
+                +"',EMAIL='"+txtEmailEmpleado.getText()
+                +"' WHERE EMPLEADOID ='"
+                +txtIdEmpleado.getText()+"'";
         try {
             PreparedStatement pps = miConexion.Conectar().prepareStatement(sql);
             int n= pps.executeUpdate();
@@ -208,22 +211,7 @@ public class ActualizarEmpleado extends javax.swing.JFrame {
         } catch (SQLException | HeadlessException ex) {
             System.out.println("Error al actualizar datos");
         }
-    
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     // ********************************************************///
 

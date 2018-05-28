@@ -22,42 +22,25 @@ public class registrarPacienteJFrame extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);// centrado
         setResizable(false); // impide maximizar
+        setDefaultCloseOperation(registrarPacienteJFrame.DISPOSE_ON_CLOSE);
     }
     
-    public registrarPacienteJFrame(String opcion) {
-        initComponents();
-        setDefaultCloseOperation(registrarPacienteJFrame.DISPOSE_ON_CLOSE);
-        setLocationRelativeTo(null);// centrado
-        setResizable(false); // impide maximizar
-        btnAceptar.setText(opcion);
-        switch(opcion){
-            case "IngresarPaciente":
-                setTitle("Registrar Paciente");
-                
-                
-                
-                break;
-            default:
-                break;
-        }
-    }
     //// IMPLEMENTACION DE METODOS PARA MANEJAR EL FORMULARO ////
     Paciente nuevoPaciente = new Paciente();
     Conexion miConexion = new Conexion();
     
     public void guardarDatosEmpleado(){
         
-        nuevoPaciente.setCedulaPaciente(txtCedulaPaciente.getText().toString().trim());
-        nuevoPaciente.setpNombrePaciente(txtPNombrePaciente.getText().toString().trim());
-        nuevoPaciente.setsNombrePaciente(txtSNombrePaciente.getText().toString().trim());
-        nuevoPaciente.setpApellidoPaciente(txtPApellidoPaciente.getText().toString().trim());
-        nuevoPaciente.setsApellidoPaciente(txtSApellidoPaciente.getText().toString().trim());
-        nuevoPaciente.setpTelefonoPaciente(txtPTelefonoPaciente.getText().toString().trim());
-        nuevoPaciente.setsTelefonoPaciente(txtSTelefonoPaciente.getText().toString().trim());
-        nuevoPaciente.setDireccionPaciente(txtDireccionPaciente.getText().toString().trim());
-        nuevoPaciente.setEmaiPaciente(txtEmailPaciente.getText().toString().trim());
-        
-        
+        nuevoPaciente.setCedulaPaciente(txtCedulaPaciente.getText().trim());
+        nuevoPaciente.setpNombrePaciente(txtPNombrePaciente.getText().trim());
+        nuevoPaciente.setsNombrePaciente(txtSNombrePaciente.getText().trim());
+        nuevoPaciente.setpApellidoPaciente(txtPApellidoPaciente.getText().trim());
+        nuevoPaciente.setsApellidoPaciente(txtSApellidoPaciente.getText().trim());
+        nuevoPaciente.setpTelefonoPaciente(txtPTelefonoPaciente.getText().trim());
+        nuevoPaciente.setsTelefonoPaciente(txtSTelefonoPaciente.getText().trim());
+        nuevoPaciente.setDireccionPaciente(txtDireccionPaciente.getText().trim());
+        nuevoPaciente.setEmaiPaciente(txtEmailPaciente.getText().trim());
+           
         if(String.valueOf(nuevoPaciente.getCedulaPaciente()).compareTo("")==0 || 
            String.valueOf(nuevoPaciente.getpNombrePaciente()).compareTo("")==0 ||
            String.valueOf(nuevoPaciente.getpApellidoPaciente()).compareTo("")==0 ||
@@ -68,7 +51,7 @@ public class registrarPacienteJFrame extends javax.swing.JFrame {
         }
         else
         {
-            String sql="INSERT INTO PACIENTE (CEDULA,PRIMERNOMBRE,SEGUNDONOMBRE,PRIMERAPELLIDO,SEGUNDOAPELLIDO,PRIMERTELEFONO,SEGUNDOTELEFONO,FECHANACIMIENTO,EMAIL,DIRECCION)VALUES(?,?,?,?,?,?,?,?,?,?)";
+            String sql="INSERT INTO PACIENTE (CEDULA,PRIMERNOMBRE,SEGUNDONOMBRE,PRIMERAPELLIDO,SEGUNDOAPELLIDO,PRIMERTELEFONO,SEGUNDOTELEFONO,EMAIL,DIRECCION,FECHANACIMIENTO)VALUES(?,?,?,?,?,?,?,?,?,?)";
                try {
             PreparedStatement pst = miConexion.Conectar().prepareStatement(sql);
             pst.setString(1,nuevoPaciente.getCedulaPaciente());
@@ -78,9 +61,9 @@ public class registrarPacienteJFrame extends javax.swing.JFrame {
             pst.setString(5,nuevoPaciente.getsApellidoPaciente());
             pst.setString(6,nuevoPaciente.getpTelefonoPaciente());
             pst.setString(7,nuevoPaciente.getsTelefonoPaciente());
-            pst.setString(8,nuevoPaciente.getFechaNacimientoPaciente());
-            pst.setString(9,nuevoPaciente.getEmaiPaciente());
-            pst.setString(10,nuevoPaciente.getDireccionPaciente());
+            pst.setString(8,nuevoPaciente.getEmaiPaciente());
+            pst.setString(9,nuevoPaciente.getDireccionPaciente());
+            pst.setString(10,nuevoPaciente.getFechaNacimientoPaciente());
             int n= pst.executeUpdate();
             if(n>0){
                 JOptionPane.showMessageDialog(null, "Datos Registrados Exitosamente");

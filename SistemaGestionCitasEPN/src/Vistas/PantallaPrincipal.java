@@ -299,14 +299,14 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
     private void jMenuDeletePacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuDeletePacienteActionPerformed
         // TODO add your handling code here:
-       registrarPacienteJFrame rp = new registrarPacienteJFrame("Eliminar");
-       rp.setVisible(true);
+       eliminarPacienteJFrame ep = new eliminarPacienteJFrame();
+       ep.setVisible(true);
     }//GEN-LAST:event_jMenuDeletePacienteActionPerformed
 
     private void jMenuIUpdatePacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuIUpdatePacienteActionPerformed
         // TODO add your handling code here:
-       registrarPacienteJFrame rp = new registrarPacienteJFrame("Actualizar");
-       rp.setVisible(true);
+       actualizarPacienteJFrame ap = new actualizarPacienteJFrame();
+       ap.setVisible(true);
     }//GEN-LAST:event_jMenuIUpdatePacienteActionPerformed
 
     private void jMenuItemSelectPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemSelectPacienteActionPerformed
@@ -317,7 +317,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
     private void jMenuItemCreatePacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCreatePacienteActionPerformed
         // TODO add your handling code here:        
-       registrarPacienteJFrame rp = new registrarPacienteJFrame("IngresarPaciente");
+       registrarPacienteJFrame rp = new registrarPacienteJFrame();
        rp.setVisible(true);
     }//GEN-LAST:event_jMenuItemCreatePacienteActionPerformed
 
