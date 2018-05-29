@@ -50,8 +50,7 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
         nuevoEmpleado.setCorreoElectronicoEmpleado(txtEmailEmpleado.getText());
         nuevoEmpleado.setDepartamentoEmpleado(jComboBoxDepartamentoEmpleado.getSelectedItem().toString());
         nuevoEmpleado.setEspecialidadEmpleado(jComboBoxEspecialidadEmpleado.getSelectedItem().toString());
-        
-         
+
         
         if(String.valueOf(nuevoEmpleado.getCedulaEmpleado()).compareTo("")==0 || 
            String.valueOf(nuevoEmpleado.getPrimerNombreEmpleado()).compareTo("")==0 ||

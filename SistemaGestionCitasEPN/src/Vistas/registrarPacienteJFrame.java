@@ -3,8 +3,11 @@ package Vistas;
 
 import Controlador.Conexion;
 import Modelo.Paciente;
+import Modelo.ValidarCedula;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -23,11 +26,13 @@ public class registrarPacienteJFrame extends javax.swing.JFrame {
         setLocationRelativeTo(null);// centrado
         setResizable(false); // impide maximizar
         setDefaultCloseOperation(registrarPacienteJFrame.DISPOSE_ON_CLOSE);
+        txtRecuperarCedulaPaciente.setVisible(false);
     }
     
     //// IMPLEMENTACION DE METODOS PARA MANEJAR EL FORMULARO ////
     Paciente nuevoPaciente = new Paciente();
     Conexion miConexion = new Conexion();
+    ValidarCedula validarCedula = new ValidarCedula();
     
     public void guardarDatosPaciente(){
         
@@ -52,6 +57,24 @@ public class registrarPacienteJFrame extends javax.swing.JFrame {
         }
         else
         {
+            /*Validar Existencia de Cedula*/
+            String consultaCI = "SELECT CEDULA FROM PACIENTE WHERE CEDULA='"+txtRecuperarCedulaPaciente.getText()+"'";
+            String valorConsulaCI=null;
+            try {
+            Statement st= miConexion.Conectar().createStatement();
+            ResultSet rs2=st.executeQuery(consultaCI);
+            while(rs2.next()){
+                valorConsulaCI=rs2.getString(1);
+            }
+            txtRecuperarCedulaPaciente.setText(valorConsulaCI);
+            } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            }
+            if (txtRecuperarCedulaPaciente.getText().equals(txtCedulaPaciente.getText())) {
+                JOptionPane.showMessageDialog(null, "Cédula ya se encuentra Registrada");  
+            }else{
+                if (validarCedula.validadorDeCedula(txtCedulaPaciente.getText())== false) {
+                }else{
             String sql="INSERT INTO PACIENTE (CEDULA,PRIMERNOMBRE,SEGUNDONOMBRE,PRIMERAPELLIDO,SEGUNDOAPELLIDO,PRIMERTELEFONO,SEGUNDOTELEFONO,EMAIL,DIRECCION,FECHANACIMIENTO)VALUES(?,?,?,?,?,?,?,?,?,?)";
                try {
             PreparedStatement pst = miConexion.Conectar().prepareStatement(sql);
@@ -76,8 +99,11 @@ public class registrarPacienteJFrame extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Error Datos No Registrados");
             Logger.getLogger(registrarPacienteJFrame.class.getName()).log(Level.SEVERE, null, ex);
                }
+                }
+            }
         }
     }
+    
     
     public void limpiarCampos(){
         txtCedulaPaciente.setText("");
@@ -124,6 +150,7 @@ public class registrarPacienteJFrame extends javax.swing.JFrame {
         txtDireccionPaciente = new javax.swing.JTextField();
         txtPTelefonoPaciente = new javax.swing.JTextField();
         txtFechaNacimientoPaciente = new javax.swing.JTextField();
+        txtRecuperarCedulaPaciente = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -267,13 +294,19 @@ public class registrarPacienteJFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(txtRecuperarCedulaPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(54, 54, 54))
+                .addGap(23, 23, 23)
+                .addComponent(txtRecuperarCedulaPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -346,6 +379,7 @@ public class registrarPacienteJFrame extends javax.swing.JFrame {
     private javax.swing.JTextField txtPApellidoPaciente;
     private javax.swing.JTextField txtPNombrePaciente;
     private javax.swing.JTextField txtPTelefonoPaciente;
+    private javax.swing.JTextField txtRecuperarCedulaPaciente;
     private javax.swing.JTextField txtSApellidoPaciente;
     private javax.swing.JTextField txtSNombrePaciente;
     private javax.swing.JTextField txtSTelefonoPaciente;
