@@ -25,6 +25,9 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="22" style="0"/>
                 </Property>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/Img/nuevoP.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Registrar Paciente"/>
               </Properties>
               <Events>
@@ -35,6 +38,9 @@
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="22" style="0"/>
+                </Property>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/Img/actualizarPaciente.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Actualizar Paciente"/>
               </Properties>
@@ -47,6 +53,9 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="22" style="0"/>
                 </Property>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/Img/buscarPaciente.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Buscar Paciente"/>
               </Properties>
               <Events>
@@ -57,6 +66,9 @@
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="22" style="0"/>
+                </Property>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/Img/EliminarPaciente.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Eliminar Paciente"/>
               </Properties>

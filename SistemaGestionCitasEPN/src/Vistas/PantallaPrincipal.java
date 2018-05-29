@@ -75,6 +75,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jMenuPaciente.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
 
         jMenuItemCreatePaciente.setFont(new java.awt.Font("Segoe UI", 0, 22)); // NOI18N
+        jMenuItemCreatePaciente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/nuevoP.png"))); // NOI18N
         jMenuItemCreatePaciente.setText("Registrar Paciente");
         jMenuItemCreatePaciente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -84,6 +85,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jMenuPaciente.add(jMenuItemCreatePaciente);
 
         jMenuIUpdatePaciente.setFont(new java.awt.Font("Segoe UI", 0, 22)); // NOI18N
+        jMenuIUpdatePaciente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/actualizarPaciente.png"))); // NOI18N
         jMenuIUpdatePaciente.setText("Actualizar Paciente");
         jMenuIUpdatePaciente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -93,6 +95,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jMenuPaciente.add(jMenuIUpdatePaciente);
 
         jMenuItemSelectPaciente.setFont(new java.awt.Font("Segoe UI", 0, 22)); // NOI18N
+        jMenuItemSelectPaciente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/buscarPaciente.png"))); // NOI18N
         jMenuItemSelectPaciente.setText("Buscar Paciente");
         jMenuItemSelectPaciente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -102,6 +105,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jMenuPaciente.add(jMenuItemSelectPaciente);
 
         jMenuDeletePaciente.setFont(new java.awt.Font("Segoe UI", 0, 22)); // NOI18N
+        jMenuDeletePaciente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/EliminarPaciente.png"))); // NOI18N
         jMenuDeletePaciente.setText("Eliminar Paciente");
         jMenuDeletePaciente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

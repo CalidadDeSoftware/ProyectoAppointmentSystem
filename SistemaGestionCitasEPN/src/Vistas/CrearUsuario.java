@@ -18,9 +18,7 @@ import javax.swing.JOptionPane;
  */
 public class CrearUsuario extends javax.swing.JFrame {
             ResultSet rs = null;
-            Statement stm = null;
-          
-            
+            Statement stm = null;      
     /**
      * Creates new form CrearUsuario
      */
