@@ -89,6 +89,7 @@ public class registrarPacienteJFrame extends javax.swing.JFrame {
         txtSTelefonoPaciente.setText("");
         txtDireccionPaciente.setText("");
         txtEmailPaciente.setText("");
+        txtFechaNacimientoPaciente.setText("");
     }
 
     /**
