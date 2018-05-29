@@ -221,9 +221,6 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Buscar Paciente"/>
       </Properties>
-      <AccessibilityProperties>
-        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Buscar Paciente"/>
-      </AccessibilityProperties>
     </Component>
   </SubComponents>
 </Form>
