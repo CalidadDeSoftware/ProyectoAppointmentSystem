@@ -54,10 +54,8 @@ public class CrearUsuario extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         botonGuardarUsuario = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        txtFieldContraseña1 = new javax.swing.JTextField();
-        txtFieldConfirmarContraseña1 = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -198,12 +196,6 @@ public class CrearUsuario extends javax.swing.JFrame {
 
         jButton2.setText("Cancelar");
 
-        txtFieldContraseña1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFieldContraseña1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -211,44 +203,29 @@ public class CrearUsuario extends javax.swing.JFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(19, 19, 19)
-                        .addComponent(jLabel2)
-                        .addGap(138, 138, 138)
-                        .addComponent(txtFieldConfirmarContraseña1))
+                        .addComponent(jLabel2))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(botonGuardarUsuario))))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton2)
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(41, 41, 41)
-                        .addComponent(txtFieldContraseña1)
-                        .addGap(63, 63, 63))))
+                        .addComponent(jButton2)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(7, 7, 7)
-                        .addComponent(jLabel2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtFieldContraseña1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtFieldConfirmarContraseña1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(7, 7, 7)
+                .addComponent(jLabel2)
+                .addGap(16, 16, 16)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -268,8 +245,8 @@ public class CrearUsuario extends javax.swing.JFrame {
 
     private void botonGuardarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarUsuarioActionPerformed
         
-                                                        
-            Usuario usuario = new Usuario();
+            CrearUsuario usuario = new CrearUsuario();
+            //Usuario usuario = new Usuario();
             Conexion conexion = new Conexion();
             Connection cn = conexion.Conectar();
             String sql = "";
@@ -277,7 +254,7 @@ public class CrearUsuario extends javax.swing.JFrame {
            
             
             String Nombre = txtFieldNombre.getText();
-            String Contraseña = usuario.MD5(txtFieldContraseña1.getText());
+            String Contraseña = usuario.MD5(txtFieldContraseña.getText());
             String Rol = (String)txtFieldRol.getSelectedItem();
                     
             
@@ -309,6 +286,26 @@ public class CrearUsuario extends javax.swing.JFrame {
         
     }//GEN-LAST:event_botonGuardarUsuarioActionPerformed
     
+    public String MD5 (String md5){
+        
+        try {
+            java.security.MessageDigest md = java.security.MessageDigest.getInstance("MD5");
+            
+            byte[] array = md.digest(md5.getBytes());
+            StringBuffer sb = new StringBuffer();
+            
+            for (int i = 0; i < array.length; i++) {
+                sb.append(Integer.toHexString((array[i] & 0xFF) | 0x100).substring(1,3));
+            }
+                return sb.toString();
+        
+        }catch (java.security.NoSuchAlgorithmException e) {
+            
+        }
+        
+        return null;
+    }
+    
 public ResultSet consultar(String tabla) throws SQLException
 {
     
@@ -319,10 +316,6 @@ return rs;
     private void txtFieldRolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFieldRolActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtFieldRolActionPerformed
-
-    private void txtFieldContraseña1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFieldContraseña1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtFieldContraseña1ActionPerformed
 
     private void txtFieldConfirmarContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFieldConfirmarContraseñaActionPerformed
         // TODO add your handling code here:
@@ -383,9 +376,7 @@ return rs;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea textAreaUsuariosRegistrados;
     private javax.swing.JPasswordField txtFieldConfirmarContraseña;
-    private javax.swing.JTextField txtFieldConfirmarContraseña1;
     private javax.swing.JPasswordField txtFieldContraseña;
-    private javax.swing.JTextField txtFieldContraseña1;
     private javax.swing.JTextField txtFieldNombre;
     private javax.swing.JComboBox<String> txtFieldRol;
     // End of variables declaration//GEN-END:variables
