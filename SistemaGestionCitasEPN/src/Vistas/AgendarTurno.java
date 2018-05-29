@@ -37,28 +37,61 @@ public class AgendarTurno extends javax.swing.JFrame {
     Conexion miConexion = new Conexion();
     
     public void cargarComboBoxElegirMedico(){
-        String nombreCompletoMedico;
+        //String nombreCompletoMedico;
         jComboBoxNombreMedico.removeAllItems();
-        String sql = "select concat(PRIMERNOMBRE,' ',SEGUNDONOMBRE,' ',PRIMERAPELLIDO,' ',SEGUNDOAPELLIDO) as NOMBRECOMPLETO from EMPLEADO WHERE ESPECIALIDAD= '"+jComboBoxEspecialidad.getSelectedItem()+"'";
+        String sql = "select EMPLEADOID, concat(PRIMERNOMBRE,' ',SEGUNDONOMBRE,' ',PRIMERAPELLIDO,' ',SEGUNDOAPELLIDO) as NOMBRECOMPLETO from EMPLEADO WHERE ESPECIALIDAD= '"+jComboBoxEspecialidad.getSelectedItem()+"'";
+        String datos [] = new String[1];
         
         try{
             Statement st = miConexion.Conectar().createStatement();
             ResultSet rs = st.executeQuery(sql);
             while(rs.next()){
-                jComboBoxNombreMedico.addItem(rs.getString("NOMBRECOMPLETO"));  
+                jComboBoxNombreMedico.addItem(rs.getString("NOMBRECOMPLETO"));
+                datos[0]=rs.getString(1);
+                
                 //txtPrimerNombre.setText(rs.getString("PRIMERNOMBRE"));
                 //txtPrimerApellido.setText(rs.getString("PRIMERAPELLIDO"));
                 
                 //nombreCompletoMedico = txtPrimerNombre.getText()+" "+txtPrimerApellido.getText();
                 //txtNombreCompleto.setText(nombreCompletoMedico); 
-                
             }
+            
+            txtIdEmpleado.setText(datos[0]);
         }catch(SQLException ex){
             System.out.println(ex.getMessage());
             
         }
    
     }
+    
+    public void recuperarIdEmpleado(){
+        String sql = "select EMPLEADOID, concat(PRIMERNOMBRE,' ',SEGUNDONOMBRE,' ',PRIMERAPELLIDO,' ',SEGUNDOAPELLIDO) as NOMBRECOMPLETO from EMPLEADO WHERE NOMBRECOMPLETO= '"+jComboBoxNombreMedico.getSelectedItem()+"'";
+        String datos [] = new String[1];
+        
+        try{
+            Statement st = miConexion.Conectar().createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while(rs.next()){
+                datos[0]=rs.getString(1);
+                
+                //txtPrimerNombre.setText(rs.getString("PRIMERNOMBRE"));
+                //txtPrimerApellido.setText(rs.getString("PRIMERAPELLIDO"));
+                
+                //nombreCompletoMedico = txtPrimerNombre.getText()+" "+txtPrimerApellido.getText();
+                //txtNombreCompleto.setText(nombreCompletoMedico); 
+            }
+            
+            txtIdEmpleado.setText(datos[0]);
+            
+        }catch(SQLException ex){
+            System.out.println(ex.getMessage());
+            
+        }
+        
+    
+    }
+    
+    
     
     public void capturarDatosDataChooser(){
       int anio, mes, dia;
@@ -173,6 +206,7 @@ public class AgendarTurno extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jComboBoxNombreMedico = new javax.swing.JComboBox<>();
         txtNombreCompletoProfesional = new javax.swing.JTextField();
+        txtIdEmpleado = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jDateChooserTurnos = new com.toedter.calendar.JDateChooser();
@@ -236,6 +270,11 @@ public class AgendarTurno extends javax.swing.JFrame {
 
         jComboBoxNombreMedico.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jComboBoxNombreMedico.setMaximumRowCount(2);
+        jComboBoxNombreMedico.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBoxNombreMedicoItemStateChanged(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -254,8 +293,10 @@ public class AgendarTurno extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jComboBoxNombreMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(txtNombreCompletoProfesional, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(244, Short.MAX_VALUE))
+                .addComponent(txtNombreCompletoProfesional, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtIdEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -266,7 +307,8 @@ public class AgendarTurno extends javax.swing.JFrame {
                     .addComponent(jComboBoxEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
                     .addComponent(jComboBoxNombreMedico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNombreCompletoProfesional, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNombreCompletoProfesional, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtIdEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -591,7 +633,7 @@ public class AgendarTurno extends javax.swing.JFrame {
                     .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 511, Short.MAX_VALUE)))
+                        .addGap(0, 520, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -655,7 +697,7 @@ public class AgendarTurno extends javax.swing.JFrame {
                         .addComponent(jButton2)
                         .addGap(37, 37, 37)
                         .addComponent(btnCancelar)))
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -729,6 +771,13 @@ public class AgendarTurno extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "No selecciono fila");
         }
     }//GEN-LAST:event_jTablePacienteMouseClicked
+
+    private void jComboBoxNombreMedicoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxNombreMedicoItemStateChanged
+        //////// IMPLEMENTAR -----------------------
+        
+        recuperarIdEmpleado();
+        
+    }//GEN-LAST:event_jComboBoxNombreMedicoItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -805,6 +854,7 @@ public class AgendarTurno extends javax.swing.JFrame {
     private javax.swing.JTextField txtEmailPaciente;
     private javax.swing.JTextField txtFechaCompletaCita;
     private javax.swing.JTextField txtHoraCita;
+    private javax.swing.JTextField txtIdEmpleado;
     private javax.swing.JTextField txtNombreCompletoProfesional;
     private javax.swing.JTextField txtPirmerNombrePaciente;
     private javax.swing.JTextField txtPrimerApellidoPaciente;
