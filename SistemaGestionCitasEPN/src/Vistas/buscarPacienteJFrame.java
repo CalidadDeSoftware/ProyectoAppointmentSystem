@@ -99,8 +99,6 @@ public class buscarPacienteJFrame extends javax.swing.JFrame {
                 
             jTablePacienteBuscar.setModel(miModeloTabla);
             txtBuscarCedulaPaciente.setText("");
-        
-        
             }
         } catch (SQLException ex) {
             System.out.println("Error al Consultar Datos"); 

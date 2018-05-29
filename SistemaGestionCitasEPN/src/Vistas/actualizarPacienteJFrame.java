@@ -29,7 +29,7 @@ public class actualizarPacienteJFrame extends javax.swing.JFrame {
         setLocationRelativeTo(null);// centrado
         setResizable(false); // impide maximizar
         setModeloTabla();
-        
+        txtIdPaciente.setVisible(false);
     }
     Conexion miConexion = new Conexion();
     //**************** IMPLEMENTACION **********************//
@@ -137,7 +137,6 @@ public class actualizarPacienteJFrame extends javax.swing.JFrame {
                 datos[8]=rs2.getString(9);
                 datos[9]=rs2.getString(10);
                 datos[10]=rs2.getString(11);
-        
                 miModeloTabla.addRow(datos);
             }
            
@@ -156,6 +155,7 @@ public class actualizarPacienteJFrame extends javax.swing.JFrame {
         txtSTelefonoPaciente.setText("");
         txtDireccionPaciente.setText("");
         txtEmailPaciente.setText("");
+        txtFechaNacimientoPaciente.setText("");
     }
     
     public void actualizarDatosPaciente(){
@@ -169,13 +169,15 @@ public class actualizarPacienteJFrame extends javax.swing.JFrame {
                 +"',PRIMERTELEFONO='"+txtPApellidoPaciente.getText()
                 +"',SEGUNDOTELEFONO='"+txtSApellidoPaciente.getText()
                 +"',EMAIL='"+txtEmailPaciente.getText()
-                +"',DIRECCION='"+txtEmailPaciente.getText()
+                +"',DIRECCION='"+txtDireccionPaciente.getText()
+                +"',FECHANACIMIENTO='"+txtFechaNacimientoPaciente.getText()
                 +"' WHERE PACIENTEID ='"+txtIdPaciente.getText()+"'";
         try {
             PreparedStatement pps = miConexion.Conectar().prepareStatement(sql);
             int n= pps.executeUpdate();
             if(n>0){
                 JOptionPane.showMessageDialog(null, "Datos Actualizados Exitosamente");
+                mostrarDatosPaciente();
             }else{
                 JOptionPane.showMessageDialog(null, "Error Datos No Actualizados");
             }
@@ -236,6 +238,11 @@ public class actualizarPacienteJFrame extends javax.swing.JFrame {
         jLabel5.setText("Telefono 1");
 
         btnActualizar.setText("Actualizar");
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
 
         jLabel6.setText("Telefono 2");
 
@@ -338,57 +345,59 @@ public class actualizarPacienteJFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(txtIdPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(64, 64, 64))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(134, 134, 134)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(btnActualizar))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel9)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel4))
-                                .addGap(18, 18, 18)
+                                .addContainerGap()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(txtSApellidoPaciente, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtPApellidoPaciente, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtSNombrePaciente, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtCedulaPaciente, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtPNombrePaciente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(74, 74, 74)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(layout.createSequentialGroup()
+                                .addGap(134, 134, 134)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel7)
-                                    .addComponent(jLabel8))
-                                .addGap(29, 29, 29)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(btnActualizar))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel9)
+                                            .addComponent(jLabel1)
+                                            .addComponent(jLabel2)
+                                            .addComponent(jLabel3)
+                                            .addComponent(jLabel4))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(txtSApellidoPaciente, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtPApellidoPaciente, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtSNombrePaciente, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtCedulaPaciente, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtPNombrePaciente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(74, 74, 74)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtEmailPaciente)
-                                    .addComponent(txtDireccionPaciente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtSTelefonoPaciente)
-                                    .addComponent(txtPTelefonoPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(btnCancelar)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel10)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtFechaNacimientoPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(45, Short.MAX_VALUE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel6)
+                                            .addComponent(jLabel5)
+                                            .addComponent(jLabel7)
+                                            .addComponent(jLabel8))
+                                        .addGap(29, 29, 29)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(txtEmailPaciente)
+                                            .addComponent(txtDireccionPaciente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txtSTelefonoPaciente)
+                                            .addComponent(txtPTelefonoPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(btnCancelar)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel10)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(txtFechaNacimientoPaciente)))))
+                        .addGap(0, 35, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(txtIdPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -397,7 +406,7 @@ public class actualizarPacienteJFrame extends javax.swing.JFrame {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(txtCedulaPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -431,9 +440,9 @@ public class actualizarPacienteJFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnActualizar))
-                .addGap(57, 57, 57)
+                .addGap(18, 18, 18)
                 .addComponent(txtIdPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(50, 50, 50))
         );
 
         pack();
@@ -449,7 +458,9 @@ public class actualizarPacienteJFrame extends javax.swing.JFrame {
             txtSApellidoPaciente.setText(jTablePaciente.getValueAt(fila, 4).toString());
             txtPTelefonoPaciente.setText(jTablePaciente.getValueAt(fila, 5).toString());
             txtSTelefonoPaciente.setText(jTablePaciente.getValueAt(fila, 6).toString());
-
+            txtEmailPaciente.setText(jTablePaciente.getValueAt(fila, 7).toString());
+            txtDireccionPaciente.setText(jTablePaciente.getValueAt(fila, 8).toString());
+            txtFechaNacimientoPaciente.setText(jTablePaciente.getValueAt(fila, 9).toString());
         }else{
             JOptionPane.showMessageDialog(null, "No selecciono fila");
         }
@@ -458,6 +469,11 @@ public class actualizarPacienteJFrame extends javax.swing.JFrame {
     private void btnBuscarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarPacienteActionPerformed
         buscarPaciente();
     }//GEN-LAST:event_btnBuscarPacienteActionPerformed
+
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        // TODO add your handling code here:
+        actualizarDatosPaciente();
+    }//GEN-LAST:event_btnActualizarActionPerformed
 
     /**
      * @param args the command line arguments
