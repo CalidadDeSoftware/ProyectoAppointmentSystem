@@ -14,20 +14,20 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author Daro
+ * @author Usuario
  */
-public class BuscarEmpleado extends javax.swing.JFrame {
+public class buscarPacienteJFrame extends javax.swing.JFrame {
 
     /**
-     * Creates new form BuscarEmpleado
+     * Creates new form buscarPacienteJFrame
      */
-    public BuscarEmpleado() {
+    public buscarPacienteJFrame() {
         initComponents();
+        setDefaultCloseOperation(buscarPacienteJFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);// centrado
         setResizable(false); // impide maximizar
-        setTitle("Buscar Empleado");
+        setTitle("Buscar Paciente");
         setModeloTabla();
-        
     }
     
     Conexion miConexion = new Conexion();
@@ -40,34 +40,37 @@ public class BuscarEmpleado extends javax.swing.JFrame {
         miModeloTabla.addColumn("S.NOMBRE");
         miModeloTabla.addColumn("P.APELLIDO");
         miModeloTabla.addColumn("S.APELLIDO");
-        miModeloTabla.addColumn("F.NACIMIENTO");
+        miModeloTabla.addColumn("P.TELEFONO");
+        miModeloTabla.addColumn("S.TELEFONO");
         miModeloTabla.addColumn("EMAIL");
-        jTableEmpleadoBuscar.setModel(miModeloTabla);
-    
+        miModeloTabla.addColumn("DIRECCION");
+        miModeloTabla.addColumn("F.NACIMIENTO");
+        jTablePacienteBuscar.setModel(miModeloTabla);
     }
     
-    public void buscarEmpleado(){
-        
+    public void buscarPaciente(){
         DefaultTableModel miModeloTabla = new DefaultTableModel();
         miModeloTabla.addColumn("CÉDULA");
         miModeloTabla.addColumn("P.NOMBRE");
         miModeloTabla.addColumn("S.NOMBRE");
         miModeloTabla.addColumn("P.APELLIDO");
         miModeloTabla.addColumn("S.APELLIDO");
-        miModeloTabla.addColumn("F.NACIMIENTO");
+        miModeloTabla.addColumn("P.TELEFONO");
+        miModeloTabla.addColumn("S.TELEFONO");
         miModeloTabla.addColumn("EMAIL");
+        miModeloTabla.addColumn("DIRECCION");
+        miModeloTabla.addColumn("F.NACIMIENTO");
         
-        String cedulaEmpleado;
+        String cedulaPaciente;
         String sql = null;
-        cedulaEmpleado = txtBuscarCedulaEmpleado.getText();
-        
-        if(String.valueOf(cedulaEmpleado).compareTo("")==0){
+        cedulaPaciente = txtBuscarCedulaPaciente.getText();
+        if(String.valueOf(cedulaPaciente).compareTo("")==0){
             JOptionPane.showMessageDialog(null, "Ingrese parámetro de búsqueda");
         }else{
-            sql = "SELECT CEDULA,PRIMERNOMBRE,SEGUNDONOMBRE,PRIMERAPELLIDO,SEGUNDOAPELLIDO,FECHANACIMIENTO,EMAIL,DEPARTAMENTO,ESPECIALIDAD FROM EMPLEADO WHERE CEDULA = '"+txtBuscarCedulaEmpleado.getText()+"'"; 
+               sql = "SELECT CEDULA,PRIMERNOMBRE,SEGUNDONOMBRE,PRIMERAPELLIDO,SEGUNDOAPELLIDO,PRIMERTELEFONO,SEGUNDOTELEFONO,EMAIL,DIRECCION,FECHANACIMIENTO,PACIENTEID FROM PACIENTE WHERE CEDULA = '"+cedulaPaciente+"'"; 
         }
         
-        String datos [] = new String[8];
+        String datos [] = new String[12];
         try {
             Statement st= miConexion.Conectar().createStatement();
             ResultSet rs2=st.executeQuery(sql);
@@ -79,40 +82,38 @@ public class BuscarEmpleado extends javax.swing.JFrame {
                 datos[4]=rs2.getString(5);
                 datos[5]=rs2.getString(6);
                 datos[6]=rs2.getString(7);
-                datos[7]=rs2.getString(8); 
-                miModeloTabla.addRow(datos);         
+                datos[7]=rs2.getString(8);
+                datos[8]=rs2.getString(9);
+                datos[9]=rs2.getString(10);
+                datos[10]=rs2.getString(11);//FECHA NACIMIENTO
+                datos[11]=rs2.getString(12);//IDPACIENTE
+                miModeloTabla.addRow(datos);
             }
             
-            if (!cedulaEmpleado.equals(datos[0])) {
-
+            if (!cedulaPaciente.equals(datos[0])) {
                 
-                JOptionPane.showMessageDialog(null, "No se encontraron coincidencias con la búsqueda");
-                
-
                 JOptionPane.showMessageDialog(null, "No se econtraron coincidencias con la búsqueda !!");
-
-            }else{
                 
-                 
-            jTableEmpleadoBuscar.setModel(miModeloTabla);
-            txtBuscarCedulaEmpleado.setText("");
-            jTableEmpleadoBuscar.getColumnModel().getColumn(0).setPreferredWidth(15);
-            jTableEmpleadoBuscar.getColumnModel().getColumn(1).setPreferredWidth(15);
-            jTableEmpleadoBuscar.getColumnModel().getColumn(2).setPreferredWidth(15);
-            jTableEmpleadoBuscar.getColumnModel().getColumn(3).setPreferredWidth(15);
-            jTableEmpleadoBuscar.getColumnModel().getColumn(4).setPreferredWidth(15);
-            jTableEmpleadoBuscar.getColumnModel().getColumn(5).setPreferredWidth(15);
-            jTableEmpleadoBuscar.getColumnModel().getColumn(6).setPreferredWidth(15);
-            
+            }else{
+            jTablePacienteBuscar.setModel(miModeloTabla);
+            txtBuscarCedulaPaciente.setText("");
+            jTablePacienteBuscar.getColumnModel().getColumn(0).setPreferredWidth(15);
+            jTablePacienteBuscar.getColumnModel().getColumn(1).setPreferredWidth(15);
+            jTablePacienteBuscar.getColumnModel().getColumn(2).setPreferredWidth(15);
+            jTablePacienteBuscar.getColumnModel().getColumn(3).setPreferredWidth(15);
+            jTablePacienteBuscar.getColumnModel().getColumn(4).setPreferredWidth(15);
+            jTablePacienteBuscar.getColumnModel().getColumn(5).setPreferredWidth(15);
+            jTablePacienteBuscar.getColumnModel().getColumn(6).setPreferredWidth(15);
+            jTablePacienteBuscar.getColumnModel().getColumn(7).setPreferredWidth(15);
+            jTablePacienteBuscar.getColumnModel().getColumn(8).setPreferredWidth(15);
+            jTablePacienteBuscar.getColumnModel().getColumn(9).setPreferredWidth(15);
+            jTablePacienteBuscar.getColumnModel().getColumn(10).setPreferredWidth(15);
+            //jTablePacienteBuscar.getColumnModel().getColumn(11).setPreferredWidth(15);
             }
-
-         
         } catch (SQLException ex) {
             System.out.println("Error al insertar datos"); 
         }
-
-    }
-    
+    }           
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -123,21 +124,18 @@ public class BuscarEmpleado extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
-        txtBuscarCedulaEmpleado = new javax.swing.JTextField();
-        btnBuscarEmpleado = new javax.swing.JButton();
+        txtBuscarCedulaPaciente = new javax.swing.JTextField();
+        btnBuscarPaciente = new javax.swing.JButton();
         btnLimpiar = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTableEmpleadoBuscar = new javax.swing.JTable();
+        jTablePacienteBuscar = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel1.setText("Buscar Empleado");
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Formulario Buscar Empleado ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
 
@@ -146,26 +144,16 @@ public class BuscarEmpleado extends javax.swing.JFrame {
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel12.setText("Número de Cédula:");
 
-        txtBuscarCedulaEmpleado.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtBuscarCedulaEmpleado.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtBuscarCedulaEmpleadoKeyTyped(evt);
-            }
-        });
+        txtBuscarCedulaPaciente.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
-        btnBuscarEmpleado.setText("Buscar");
-        btnBuscarEmpleado.addActionListener(new java.awt.event.ActionListener() {
+        btnBuscarPaciente.setText("Buscar");
+        btnBuscarPaciente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarEmpleadoActionPerformed(evt);
+                btnBuscarPacienteActionPerformed(evt);
             }
         });
 
         btnLimpiar.setText("Limpiar");
-        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLimpiarActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -175,9 +163,9 @@ public class BuscarEmpleado extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel12)
                 .addGap(18, 18, 18)
-                .addComponent(txtBuscarCedulaEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtBuscarCedulaPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
-                .addComponent(btnBuscarEmpleado)
+                .addComponent(btnBuscarPaciente)
                 .addGap(18, 18, 18)
                 .addComponent(btnLimpiar)
                 .addGap(26, 26, 26))
@@ -188,15 +176,15 @@ public class BuscarEmpleado extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
-                    .addComponent(txtBuscarCedulaEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBuscarEmpleado)
+                    .addComponent(txtBuscarCedulaPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscarPaciente)
                     .addComponent(btnLimpiar))
                 .addContainerGap(21, Short.MAX_VALUE))
         );
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Resultados de búsqueda", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
 
-        jTableEmpleadoBuscar.setModel(new javax.swing.table.DefaultTableModel(
+        jTablePacienteBuscar.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -204,12 +192,12 @@ public class BuscarEmpleado extends javax.swing.JFrame {
 
             }
         ));
-        jTableEmpleadoBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
+        jTablePacienteBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTableEmpleadoBuscarMouseClicked(evt);
+                jTablePacienteBuscarMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(jTableEmpleadoBuscar);
+        jScrollPane1.setViewportView(jTablePacienteBuscar);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -217,14 +205,14 @@ public class BuscarEmpleado extends javax.swing.JFrame {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 791, Short.MAX_VALUE)
+                .addComponent(jScrollPane1)
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -234,66 +222,58 @@ public class BuscarEmpleado extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(81, 81, 81))
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(35, 35, 35))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(31, 31, 31)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(25, 25, 25))
         );
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel1.setText("Buscar Paciente");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(20, Short.MAX_VALUE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(24, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(16, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20))
+                .addContainerGap())
         );
+
+        jPanel3.getAccessibleContext().setAccessibleName("Formulario Buscar Paciente");
+        jLabel1.getAccessibleContext().setAccessibleName("Buscar Paciente");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnBuscarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarEmpleadoActionPerformed
-        buscarEmpleado();
-    }//GEN-LAST:event_btnBuscarEmpleadoActionPerformed
+    private void jTablePacienteBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTablePacienteBuscarMouseClicked
 
-    private void jTableEmpleadoBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableEmpleadoBuscarMouseClicked
-  
-    }//GEN-LAST:event_jTableEmpleadoBuscarMouseClicked
+    }//GEN-LAST:event_jTablePacienteBuscarMouseClicked
 
-    private void txtBuscarCedulaEmpleadoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarCedulaEmpleadoKeyTyped
-        char c = evt.getKeyChar();
-        if((c<'0' || c>'9') || txtBuscarCedulaEmpleado.getText().length()== 10){
-            //getToolkit().beep();
-            evt.consume();
-        }
-    }//GEN-LAST:event_txtBuscarCedulaEmpleadoKeyTyped
-
-    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
-        txtBuscarCedulaEmpleado.setText("");
-    }//GEN-LAST:event_btnLimpiarActionPerformed
+    private void btnBuscarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarPacienteActionPerformed
+        buscarPaciente();
+    }//GEN-LAST:event_btnBuscarPacienteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -312,26 +292,26 @@ public class BuscarEmpleado extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(BuscarEmpleado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(buscarPacienteJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(BuscarEmpleado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(buscarPacienteJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(BuscarEmpleado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(buscarPacienteJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(BuscarEmpleado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(buscarPacienteJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new BuscarEmpleado().setVisible(true);
+                new buscarPacienteJFrame().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBuscarEmpleado;
+    private javax.swing.JButton btnBuscarPaciente;
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
@@ -339,7 +319,7 @@ public class BuscarEmpleado extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTableEmpleadoBuscar;
-    private javax.swing.JTextField txtBuscarCedulaEmpleado;
+    private javax.swing.JTable jTablePacienteBuscar;
+    private javax.swing.JTextField txtBuscarCedulaPaciente;
     // End of variables declaration//GEN-END:variables
 }
