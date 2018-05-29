@@ -14,6 +14,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
@@ -211,34 +213,41 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
-        // TODO add your handling code here: 
-       String sql = "SELECT * FROM Usuarios WHERE Nombre = '?' and Contraseña = '?'";
-       ResultSet rs;
-       Conexion conexion = new Conexion();
-       Connection con = conexion.Conectar();
-       try {
-         
-         PreparedStatement pst = con.prepareStatement(sql);
-         pst.setString(1, textFieldUsuario.getText().toString());
-         pst.setString(2, txtContrasena.getPassword().toString());
-         
-         rs = pst.executeQuery();
-        
+       
+            // TODO add your handling code here:
+            String sql = "SELECT * FROM Usuarios WHERE Nombre = ? and Contraseña = ?";
+            ResultSet rs;
+            Conexion conexion = new Conexion();
+            Connection con = conexion.Conectar();
+            
+             try {
+            
+            
+            PreparedStatement pst = con.prepareStatement(sql);
+            pst.setString(1, textFieldUsuario.getText());
+            pst.setString(2, txtContrasena.getText());
+            
+            rs = pst.executeQuery();
+            
             
             if (rs.next()){
                 JOptionPane.showMessageDialog(null, "Acceso Permitido");
-                //new PantallaPrincipal().setVisible(true);
-                //this.dispose();
+                new PantallaPrincipal().setVisible(true);
+                this.dispose();
             
             } else{
-                                JOptionPane.showMessageDialog(null, "Acceso Denegado");}
+                JOptionPane.showMessageDialog(null, "Acceso Denegado");}
+       
+             } catch (SQLException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
             
                 
-           } catch (Exception e) {
+          
         
        
-}
+
        
         
     }//GEN-LAST:event_btnIngresarActionPerformed
