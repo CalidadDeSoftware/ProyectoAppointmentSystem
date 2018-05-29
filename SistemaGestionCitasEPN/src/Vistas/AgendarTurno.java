@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Calendar;
+import java.util.StringTokenizer;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -32,6 +33,10 @@ public class AgendarTurno extends javax.swing.JFrame {
         setTitle("Agendar Turno");
         //cargarComboBoxElegirMedico();
         setModeloTabla();
+        txtNombreCompletoProfesional.setVisible(false);
+        txtIdEmpleado.setVisible(false);
+        txtFechaCompletaCita.setVisible(false);
+        txtHoraCita.setVisible(false);
     }
     
     Conexion miConexion = new Conexion();
@@ -65,29 +70,17 @@ public class AgendarTurno extends javax.swing.JFrame {
     }
     
     public void recuperarIdEmpleado(){
-        String sql = "select EMPLEADOID, concat(PRIMERNOMBRE,' ',SEGUNDONOMBRE,' ',PRIMERAPELLIDO,' ',SEGUNDOAPELLIDO) as NOMBRECOMPLETO from EMPLEADO WHERE NOMBRECOMPLETO= '"+jComboBoxNombreMedico.getSelectedItem()+"'";
-        String datos [] = new String[1];
         
-        try{
-            Statement st = miConexion.Conectar().createStatement();
-            ResultSet rs = st.executeQuery(sql);
-            while(rs.next()){
-                datos[0]=rs.getString(1);
-                
-                //txtPrimerNombre.setText(rs.getString("PRIMERNOMBRE"));
-                //txtPrimerApellido.setText(rs.getString("PRIMERAPELLIDO"));
-                
-                //nombreCompletoMedico = txtPrimerNombre.getText()+" "+txtPrimerApellido.getText();
-                //txtNombreCompleto.setText(nombreCompletoMedico); 
-            }
-            
-            txtIdEmpleado.setText(datos[0]);
-            
-        }catch(SQLException ex){
-            System.out.println(ex.getMessage());
-            
+        String nombreCompleto = (String)jComboBoxNombreMedico.getSelectedItem();
+        StringTokenizer tokens=new StringTokenizer(nombreCompleto," ");
+        while(tokens.hasMoreTokens()){
+            JOptionPane.showMessageDialog(null,tokens.nextToken());
         }
         
+        
+        
+        
+       
     
     }
     
@@ -773,9 +766,7 @@ public class AgendarTurno extends javax.swing.JFrame {
     }//GEN-LAST:event_jTablePacienteMouseClicked
 
     private void jComboBoxNombreMedicoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxNombreMedicoItemStateChanged
-        //////// IMPLEMENTAR -----------------------
-        
-        recuperarIdEmpleado();
+    
         
     }//GEN-LAST:event_jComboBoxNombreMedicoItemStateChanged
 
