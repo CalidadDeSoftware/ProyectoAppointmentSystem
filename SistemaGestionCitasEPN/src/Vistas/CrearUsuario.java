@@ -17,7 +17,9 @@ import javax.swing.JOptionPane;
  * @author Dennis
  */
 public class CrearUsuario extends javax.swing.JFrame {
-
+            ResultSet rs = null;
+            Statement stm = null;
+            
     /**
      * Creates new form CrearUsuario
      */
@@ -48,7 +50,7 @@ public class CrearUsuario extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        textAreaUsuariosRegistrados = new javax.swing.JTextArea();
         jLabel2 = new javax.swing.JLabel();
         botonGuardarUsuario = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -144,29 +146,29 @@ public class CrearUsuario extends javax.swing.JFrame {
 
         jLabel6.setText("Usuarios Registrados");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        textAreaUsuariosRegistrados.setColumns(20);
+        textAreaUsuariosRegistrados.setRows(5);
+        jScrollPane1.setViewportView(textAreaUsuariosRegistrados);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(52, Short.MAX_VALUE)
                 .addComponent(jLabel6)
                 .addGap(40, 40, 40))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addComponent(jScrollPane1)
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1)
                 .addContainerGap())
         );
@@ -230,36 +232,52 @@ public class CrearUsuario extends javax.swing.JFrame {
 
     private void botonGuardarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarUsuarioActionPerformed
         
+                                                        
             Usuario usuario = new Usuario();
             Conexion conexion = new Conexion();
             Connection cn = conexion.Conectar();
             String sql = "";
-            int Id = 1;
+            String sql1="";
+           
+            
             String Nombre = txtFieldNombre.getText();
             String Contraseña = usuario.MD5(txtFieldContraseña.getText());
             String Rol = txtFieldRol.getText();
             
             
-            sql = "INSERT INTO Usuarios (Id, Nombre, Contraseña, Rol) VALUES (?,?,?,?)";
-            
-        try {
-            PreparedStatement pst = cn.prepareStatement(sql);
-            pst.setInt(1, Id);
-            pst.setString(2, Nombre);
-            pst.setString(3, Contraseña);
-            pst.setString(4, Rol);
-            int n = pst.executeUpdate();
-            
-            if (n>0){
-                JOptionPane.showMessageDialog(null, "Registro guardado con éxito"); 
+            sql = "INSERT INTO Usuarios (Nombre, Contraseña, Rol) VALUES (?,?,?)";
+            sql1 = "Select * from Usuarios";
+            try {
+                PreparedStatement pst = cn.prepareStatement(sql);
+        
+                pst.setString(1, Nombre);
+                pst.setString(2, Contraseña);
+                pst.setString(3, Rol);
+                int n = pst.executeUpdate();
+                
+                if (n>0){
+                    JOptionPane.showMessageDialog(null, "Registro guardado con éxito");
+                }
+                //stm = cn.prepareStatement(sql);
+                //String m = stm.getResultSet().toString();
+                
+                  //                  textAreaUsuariosRegistrados.append(m);
+
+            } catch (SQLException ex) {
+                Logger.getLogger(CrearUsuario.class.getName()).log(Level.SEVERE, null, ex);
             }
+      
             
-        } catch (SQLException ex) {
-            Logger.getLogger(CrearUsuario.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            
+        
     }//GEN-LAST:event_botonGuardarUsuarioActionPerformed
     
-        
+public ResultSet consultar(String tabla) throws SQLException
+{
+    
+rs = stm.executeQuery("SELECT * FROM "+ tabla);
+return rs;
+} 
     
     private void txtFieldRolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFieldRolActionPerformed
         // TODO add your handling code here:
@@ -314,7 +332,7 @@ public class CrearUsuario extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextArea textAreaUsuariosRegistrados;
     private javax.swing.JTextField txtFieldConfirmarContraseña;
     private javax.swing.JTextField txtFieldContraseña;
     private javax.swing.JTextField txtFieldNombre;

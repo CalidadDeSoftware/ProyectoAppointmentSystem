@@ -5,9 +5,15 @@
  */
 package Vistas;
 
+import Controlador.Conexion;
 import Modelo.Usuario;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.*;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
@@ -21,7 +27,7 @@ public class Login extends javax.swing.JFrame {
     /**
      * Creates new form Login
      */
-    String usuario1 = "dennis", contraseña1 = "dennis";
+    //String usuario1 = "dennis", contraseña1 = "dennis";
     
     public Login() {
         initComponents();
@@ -48,9 +54,9 @@ public class Login extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         txtContrasena = new javax.swing.JPasswordField();
-        txtUsuario = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jComboBoxRol = new javax.swing.JComboBox<>();
+        textFieldUsuario = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -97,14 +103,6 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        txtUsuario.setFont(new java.awt.Font("Tahoma", 0, 17)); // NOI18N
-        txtUsuario.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        txtUsuario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtUsuarioActionPerformed(evt);
-            }
-        });
-
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/rolEmpleado.png"))); // NOI18N
         jLabel5.setText("Rol:");
@@ -112,6 +110,12 @@ public class Login extends javax.swing.JFrame {
         jComboBoxRol.setFont(new java.awt.Font("Tahoma", 0, 17)); // NOI18N
         jComboBoxRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrador", "Doctor" }));
         jComboBoxRol.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        textFieldUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textFieldUsuarioActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -129,9 +133,9 @@ public class Login extends javax.swing.JFrame {
                             .addComponent(jLabel2)
                             .addComponent(jLabel5))
                         .addGap(49, 49, 49)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jComboBoxRol, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jComboBoxRol, 0, 200, Short.MAX_VALUE)
+                            .addComponent(textFieldUsuario))))
                 .addContainerGap(37, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -141,13 +145,16 @@ public class Login extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBoxRol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
-                .addGap(12, 12, 12)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(textFieldUsuario)))
                 .addGap(19, 19, 19)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(34, Short.MAX_VALUE))
         );
@@ -203,23 +210,35 @@ public class Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuarioActionPerformed
-
-        
-        if(this.txtUsuario.getText().isEmpty() || this.txtContrasena.getPassword().length == 0){
-        
-            JOptionPane.showMessageDialog(this, "Deber ingresar Usuario y Contraseña");
-            return;
-        }
-      
-        
-    }//GEN-LAST:event_txtUsuarioActionPerformed
-
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
         // TODO add your handling code here: 
-        new PantallaPrincipal().setVisible(true);
-        this.dispose();
- 
+       String sql = "SELECT * FROM Usuarios WHERE Nombre = '?' and Contraseña = '?'";
+       ResultSet rs;
+       Conexion conexion = new Conexion();
+       Connection con = conexion.Conectar();
+       try {
+         
+         PreparedStatement pst = con.prepareStatement(sql);
+         pst.setString(1, textFieldUsuario.getText().toString());
+         pst.setString(2, txtContrasena.getPassword().toString());
+         
+         rs = pst.executeQuery();
+        
+            
+            if (rs.next()){
+                JOptionPane.showMessageDialog(null, "Acceso Permitido");
+                //new PantallaPrincipal().setVisible(true);
+                //this.dispose();
+            
+            } else{
+                                JOptionPane.showMessageDialog(null, "Acceso Denegado");}
+
+            
+                
+           } catch (Exception e) {
+        
+       
+}
        
         
     }//GEN-LAST:event_btnIngresarActionPerformed
@@ -233,6 +252,10 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
       
     }//GEN-LAST:event_txtContrasenaKeyPressed
+
+    private void textFieldUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldUsuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textFieldUsuarioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -281,7 +304,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JTextField textFieldUsuario;
     private javax.swing.JPasswordField txtContrasena;
-    private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }
