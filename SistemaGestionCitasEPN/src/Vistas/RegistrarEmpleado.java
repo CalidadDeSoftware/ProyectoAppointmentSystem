@@ -31,6 +31,7 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
         setLocationRelativeTo(null);// centrado
         setResizable(false); // impide maximizar
         setTitle("Registrar Empleado");
+        txtRecuperarCedulaBD.setVisible(false);
     }
     
     //// IMPLEMENTACION DE METODOS PARA MANEJAR EL FORMULARO ////
@@ -50,6 +51,7 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
         nuevoEmpleado.setDepartamentoEmpleado(jComboBoxDepartamentoEmpleado.getSelectedItem().toString());
         nuevoEmpleado.setEspecialidadEmpleado(jComboBoxEspecialidadEmpleado.getSelectedItem().toString());
         
+         
         
         if(String.valueOf(nuevoEmpleado.getCedulaEmpleado()).compareTo("")==0 || 
            String.valueOf(nuevoEmpleado.getPrimerNombreEmpleado()).compareTo("")==0 ||
@@ -59,40 +61,38 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
            String.valueOf(nuevoEmpleado.getFechaNacimientoEmpleado()).compareTo("")==0 ||
            String.valueOf(nuevoEmpleado.getCorreoElectronicoEmpleado()).compareTo("")==0 ||
            String.valueOf(nuevoEmpleado.getDepartamentoEmpleado()).compareTo("")==0 ||
-           String.valueOf(nuevoEmpleado.getEspecialidadEmpleado()).compareTo("")==0 ){
-            JOptionPane.showMessageDialog(null, "Error - Uno o mas campos vacios");
+           String.valueOf(nuevoEmpleado.getEspecialidadEmpleado()).compareTo("")==0){
             
-        } else if (!valirdCi.validadorDeCedula(txtCedulaEmpleado.getText())) {
-            
-            System.err.println("Cedula no valida !!!");
-
-            
+            JOptionPane.showMessageDialog(null, "Error - Uno o mas campos vacios"); 
         }else{
             
-            String consultarCedulaDB = "SELECT CEDULA FROM EMPLEADO WHERE CEDULA='"+txtCedulaEmpleado.getText()+"'"; 
-            String datos [] = new String[1];
-            
+            /****************antes de insertar dato, realizo una consulta en la bd, del campo CI*********************/
+            String consultaCI = "SELECT CEDULA FROM EMPLEADO WHERE CEDULA='"+txtCedulaEmpleado.getText()+"'";
+            String valorConsulaCI=null;
             try {
             Statement st= miConexion.Conectar().createStatement();
-            ResultSet rs2=st.executeQuery(consultarCedulaDB);
+            ResultSet rs2=st.executeQuery(consultaCI);
             while(rs2.next()){
-                datos[0]=rs2.getString(1);
+                valorConsulaCI=rs2.getString(1);
             }
-      
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
-        
             
-          if (datos[0].equals(txtCedulaEmpleado.getText())) {
-              
-                JOptionPane.showMessageDialog(null, datos[0] + " CI YA EXISTE ");
+            txtRecuperarCedulaBD.setText(valorConsulaCI);
+      
+            } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            }
+            
+            if (txtRecuperarCedulaBD.getText().equals(txtCedulaEmpleado.getText())) {
+                JOptionPane.showMessageDialog(null, "Cédula ya se encuentra registrada");
                 
-                
-          }else{
-          
-              String sql="INSERT INTO EMPLEADO (CEDULA,PRIMERNOMBRE,SEGUNDONOMBRE,PRIMERAPELLIDO,SEGUNDOAPELLIDO,FECHANACIMIENTO,EMAIL,DEPARTAMENTO,ESPECIALIDAD)VALUES(?,?,?,?,?,?,?,?,?)";
-               try {
+            }else{
+                if (valirdCi.validadorDeCedula(txtCedulaEmpleado.getText())== false) {
+                    
+                }else{
+             
+                 ///////////////////////////////////////// INSERTAR DATOS ///////////////////////////////////////////////////////////////////
+            String sql="INSERT INTO EMPLEADO (CEDULA,PRIMERNOMBRE,SEGUNDONOMBRE,PRIMERAPELLIDO,SEGUNDOAPELLIDO,FECHANACIMIENTO,EMAIL,DEPARTAMENTO,ESPECIALIDAD)VALUES(?,?,?,?,?,?,?,?,?)";
+            try {
             PreparedStatement pst = miConexion.Conectar().prepareStatement(sql);
             pst.setString(1,nuevoEmpleado.getCedulaEmpleado());
             pst.setString(2,nuevoEmpleado.getPrimerNombreEmpleado());
@@ -114,30 +114,11 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Error Datos No Registrados");
             Logger.getLogger(RegistrarEmpleado.class.getName()).log(Level.SEVERE, null, ex);
                }
+      
+            //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                }
+            }
         }
-          
-          
-          
-          
-          }
-            
-           
-           
-           
-           
-
-        
-           
-           
-           
-           
-           
-            
-            
-            
-            
-            
-             
     }
     
     public void limpiarCampos(){
@@ -184,6 +165,7 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
         txtSegundoNombreEmpleado = new javax.swing.JTextField();
         txtSegundoApellidoEmpleado = new javax.swing.JTextField();
         txtEmailEmpleado = new javax.swing.JTextField();
+        txtRecuperarCedulaBD = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jComboBoxDepartamentoEmpleado = new javax.swing.JComboBox<>();
@@ -290,14 +272,17 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
                     .addComponent(txtCedulaEmpleado))
                 .addGap(50, 50, 50)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel7))
-                .addGap(22, 22, 22)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtSegundoNombreEmpleado)
-                    .addComponent(txtSegundoApellidoEmpleado)
-                    .addComponent(txtEmailEmpleado, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel7))
+                        .addGap(22, 22, 22)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtSegundoNombreEmpleado)
+                            .addComponent(txtSegundoApellidoEmpleado)
+                            .addComponent(txtEmailEmpleado, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)))
+                    .addComponent(txtRecuperarCedulaBD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -306,7 +291,8 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txtCedulaEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCedulaEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtRecuperarCedulaBD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -560,6 +546,7 @@ public class RegistrarEmpleado extends javax.swing.JFrame {
     private javax.swing.JTextField txtFechaNacimientoEmpleado;
     private javax.swing.JTextField txtPrimerApellidoEmpleado;
     private javax.swing.JTextField txtPrimerNombreEmpleado;
+    private javax.swing.JTextField txtRecuperarCedulaBD;
     private javax.swing.JTextField txtSegundoApellidoEmpleado;
     private javax.swing.JTextField txtSegundoNombreEmpleado;
     // End of variables declaration//GEN-END:variables
