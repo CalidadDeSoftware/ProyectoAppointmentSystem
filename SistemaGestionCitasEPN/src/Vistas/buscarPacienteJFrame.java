@@ -62,38 +62,39 @@ public class buscarPacienteJFrame extends javax.swing.JFrame {
         miModeloTabla.addColumn("F.NACIMIENTO");
         
         String cedulaPaciente;
-        String sql = null;
-        cedulaPaciente = txtBuscarCedulaPaciente.getText();
+        String sql2 = null;
+        cedulaPaciente = txtBuscarCedulaPaciente.getText().trim();
         if(String.valueOf(cedulaPaciente).compareTo("")==0){
             JOptionPane.showMessageDialog(null, "Ingrese parámetro de búsqueda");
         }else{
-               sql = "SELECT CEDULA,PRIMERNOMBRE,SEGUNDONOMBRE,PRIMERAPELLIDO,SEGUNDOAPELLIDO,PRIMERTELEFONO,SEGUNDOTELEFONO,EMAIL,DIRECCION,FECHANACIMIENTO,PACIENTEID FROM PACIENTE WHERE CEDULA = '"+cedulaPaciente+"'"; 
+               sql2 = "SELECT CEDULA,PRIMERNOMBRE,SEGUNDONOMBRE,PRIMERAPELLIDO,SEGUNDOAPELLIDO,PRIMERTELEFONO,SEGUNDOTELEFONO,EMAIL,DIRECCION,FECHANACIMIENTO FROM PACIENTE WHERE CEDULA = '"+cedulaPaciente+"'"; 
         }
-        
-        String datos [] = new String[12];
+        String datos [] = new String[11];
         try {
             Statement st= miConexion.Conectar().createStatement();
-            ResultSet rs2=st.executeQuery(sql);
-            while(rs2.next()){
-                datos[0]=rs2.getString(1);
-                datos[1]=rs2.getString(2);
-                datos[2]=rs2.getString(3);
-                datos[3]=rs2.getString(4);
-                datos[4]=rs2.getString(5);
-                datos[5]=rs2.getString(6);
-                datos[6]=rs2.getString(7);
-                datos[7]=rs2.getString(8);
-                datos[8]=rs2.getString(9);
-                datos[9]=rs2.getString(10);
-                datos[10]=rs2.getString(11);//FECHA NACIMIENTO
-                datos[11]=rs2.getString(12);//IDPACIENTE
+            ResultSet rs3=st.executeQuery(sql2);
+            //System.out.println(rs2);
+            while(rs3.next()){
+                datos[0]=rs3.getString(1);
+                datos[1]=rs3.getString(2);
+                datos[2]=rs3.getString(3);
+                datos[3]=rs3.getString(4);
+                datos[4]=rs3.getString(5);
+                datos[5]=rs3.getString(6);
+                datos[6]=rs3.getString(7);
+                datos[7]=rs3.getString(8);
+                datos[8]=rs3.getString(9);
+                datos[9]=rs3.getString(10);
+                datos[10]=rs3.getString(11);//FECHA NACIMIENTO
+                //datos[11]=rs3.getString(12);//IDPACIENTE
                 miModeloTabla.addRow(datos);
             }
             
+            for(int i=0;i<datos.length;i++){
+                System.out.println(datos[i]);
+            }
             if (!cedulaPaciente.equals(datos[0])) {
-                
-                JOptionPane.showMessageDialog(null, "No se econtraron coincidencias con la búsqueda !!");
-                
+                JOptionPane.showMessageDialog(null, "No se encontraron coincidencias con la búsqueda !!");
             }else{
             jTablePacienteBuscar.setModel(miModeloTabla);
             txtBuscarCedulaPaciente.setText("");
@@ -108,10 +109,10 @@ public class buscarPacienteJFrame extends javax.swing.JFrame {
             jTablePacienteBuscar.getColumnModel().getColumn(8).setPreferredWidth(15);
             jTablePacienteBuscar.getColumnModel().getColumn(9).setPreferredWidth(15);
             jTablePacienteBuscar.getColumnModel().getColumn(10).setPreferredWidth(15);
-            //jTablePacienteBuscar.getColumnModel().getColumn(11).setPreferredWidth(15);
+            jTablePacienteBuscar.getColumnModel().getColumn(11).setPreferredWidth(15);
             }
         } catch (SQLException ex) {
-            System.out.println("Error al insertar datos"); 
+            System.out.println("Error al Consultar Datos"); 
         }
     }           
 

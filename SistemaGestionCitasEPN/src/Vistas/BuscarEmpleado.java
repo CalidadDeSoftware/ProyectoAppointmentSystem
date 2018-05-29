@@ -71,6 +71,7 @@ public class BuscarEmpleado extends javax.swing.JFrame {
         try {
             Statement st= miConexion.Conectar().createStatement();
             ResultSet rs2=st.executeQuery(sql);
+            System.out.println(rs2);
             while(rs2.next()){
                 datos[0]=rs2.getString(1);
                 datos[1]=rs2.getString(2);
