@@ -115,7 +115,7 @@ public class Login extends javax.swing.JFrame {
         jLabel5.setText("Rol:");
 
         jComboBoxRol.setFont(new java.awt.Font("Tahoma", 0, 17)); // NOI18N
-        jComboBoxRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrador", " " }));
+        jComboBoxRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrador" }));
         jComboBoxRol.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         textFieldUsuario.addActionListener(new java.awt.event.ActionListener() {
@@ -228,8 +228,8 @@ public class Login extends javax.swing.JFrame {
             Connection con = conexion.Conectar();
             System.out.print(con);
             
-            new PantallaPrincipal().setVisible(true);
-             this.dispose();
+            //new PantallaPrincipal().setVisible(true);
+             //this.dispose();
             
              try {
             
