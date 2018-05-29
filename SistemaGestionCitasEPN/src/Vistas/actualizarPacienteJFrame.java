@@ -6,7 +6,6 @@
 package Vistas;
 
 import Controlador.Conexion;
-import static Vistas.ActualizarEmpleado.txtCedulaEmpleado;
 import java.awt.HeadlessException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -70,7 +69,6 @@ public class actualizarPacienteJFrame extends javax.swing.JFrame {
         if(String.valueOf(cedulaPaciente).compareTo("")==0){
             JOptionPane.showMessageDialog(null, "Ingrese parámetro de búsqueda");
         }else{
-            
             sql = "SELECT CEDULA,PRIMERNOMBRE,SEGUNDONOMBRE,PRIMERAPELLIDO,SEGUNDOAPELLIDO,PRIMERTELEFONO,SEGUNDOTELEFONO,EMAIL,DIRECCION,FECHANACIMIENTO,PACIENTEID FROM PACIENTE WHERE CEDULA = '"+cedulaPaciente+"'"; 
         }
         
@@ -185,7 +183,7 @@ public class actualizarPacienteJFrame extends javax.swing.JFrame {
     public void actualizarDatosPaciente(){
         String sql;
         sql = "UPDATE PACIENTE SET "
-                + "CEDULA='"+txtCedulaEmpleado.getText()
+                + "CEDULA='"+txtCedulaPaciente.getText()
                 +"',PRIMERNOMBRE='"+txtPNombrePaciente.getText()
                 +"',SEGUNDONOMBRE='"+txtSNombrePaciente.getText()
                 +"',PRIMERAPELLIDO='"+txtPApellidoPaciente.getText()

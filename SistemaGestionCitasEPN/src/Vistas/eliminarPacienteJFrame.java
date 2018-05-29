@@ -73,7 +73,7 @@ public class eliminarPacienteJFrame extends javax.swing.JFrame {
         }else{
             sql = "SELECT CEDULA,PRIMERNOMBRE,SEGUNDONOMBRE,PRIMERAPELLIDO,SEGUNDOAPELLIDO,PRIMERTELEFONO,SEGUNDOTELEFONO,EMAIL,DIRECCION,FECHANACIMIENTO,PACIENTEID FROM PACIENTE WHERE CEDULA = '"+cedulaPaciente+"'"; 
         }
-        String datos [] = new String[10];
+        String datos [] = new String[12];
         try {
             Statement st= miConexion.Conectar().createStatement();
             ResultSet rs2=st.executeQuery(sql);
@@ -331,13 +331,13 @@ public class eliminarPacienteJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarPacienteActionPerformed
 
     private void jTablePacienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTablePacienteMouseClicked
-        String idEmpleado,sql;
-        idEmpleado = txtIdPaciente.getText();
+        String idPaciente,sql;
+        idPaciente = txtIdPaciente.getText();
 
-        if (JOptionPane.showConfirmDialog(null, "Esta seguro de eliminar Empleado?", "WARNING",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+        if (JOptionPane.showConfirmDialog(null, "Esta seguro de eliminar Paciente?", "WARNING",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
             // yes option
 
-            sql="DELETE FROM EMPLEADO WHERE EMPLEADOID='"+txtIdPaciente.getText()+"'";
+            sql="DELETE FROM PACIENTE WHERE PACIENTEID='"+txtIdPaciente.getText()+"'";
             try {
                 PreparedStatement pps = miConexion.Conectar().prepareStatement(sql);
                 int n= pps.executeUpdate();
