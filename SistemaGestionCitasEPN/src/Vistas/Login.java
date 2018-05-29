@@ -99,6 +99,11 @@ public class Login extends javax.swing.JFrame {
 
         txtContrasena.setFont(new java.awt.Font("Tahoma", 0, 17)); // NOI18N
         txtContrasena.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        txtContrasena.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtContrasenaActionPerformed(evt);
+            }
+        });
         txtContrasena.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtContrasenaKeyPressed(evt);
@@ -215,23 +220,27 @@ public class Login extends javax.swing.JFrame {
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
        
             // TODO add your handling code here:
+            Usuario usuario = new Usuario();
+            
             String sql = "SELECT * FROM Usuarios WHERE Nombre = ? and Contraseña = ?";
             ResultSet rs;
             Conexion conexion = new Conexion();
             Connection con = conexion.Conectar();
+            System.out.print(con);
             
              try {
             
             
             PreparedStatement pst = con.prepareStatement(sql);
             pst.setString(1, textFieldUsuario.getText());
-            pst.setString(2, txtContrasena.getText());
+            pst.setString(2, usuario.MD5(txtContrasena.getText()));
+            
             
             rs = pst.executeQuery();
             
             
             if (rs.next()){
-                JOptionPane.showMessageDialog(null, "Acceso Permitido");
+                //JOptionPane.showMessageDialog(null, "Acceso Permitido");
                 new PantallaPrincipal().setVisible(true);
                 this.dispose();
             
@@ -265,6 +274,10 @@ public class Login extends javax.swing.JFrame {
     private void textFieldUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldUsuarioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_textFieldUsuarioActionPerformed
+
+    private void txtContrasenaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtContrasenaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtContrasenaActionPerformed
 
     /**
      * @param args the command line arguments
