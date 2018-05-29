@@ -95,7 +95,7 @@ public class EliminarEmpleado extends javax.swing.JFrame {
             
              if (!cedulaEmpleado.equals(datos[0])) {
                 
-                JOptionPane.showMessageDialog(null, "No se econtraron coincidencias con la búsqueda !!");
+                JOptionPane.showMessageDialog(null, "No se encontraron coincidencias con la búsqueda");
                 
             }else{
                  
@@ -191,9 +191,10 @@ public class EliminarEmpleado extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText("Eliminar Empleado");
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Formulario Elimina Empleado "));
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Formulario Elimina Empleado ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
 
         jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Ingresa los datos para buscar", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
 
@@ -201,6 +202,11 @@ public class EliminarEmpleado extends javax.swing.JFrame {
         jLabel13.setText("Número de Cédula:");
 
         txtBuscarCedulaEmplead.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtBuscarCedulaEmplead.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtBuscarCedulaEmpleadKeyTyped(evt);
+            }
+        });
 
         btnBuscarEmpleado1.setText("Buscar");
         btnBuscarEmpleado1.addActionListener(new java.awt.event.ActionListener() {
@@ -210,6 +216,11 @@ public class EliminarEmpleado extends javax.swing.JFrame {
         });
 
         btnLimpiar1.setText("Limpiar");
+        btnLimpiar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiar1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -319,7 +330,7 @@ public class EliminarEmpleado extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(73, 73, 73))
+                .addGap(20, 20, 20))
         );
 
         pack();
@@ -362,6 +373,18 @@ public class EliminarEmpleado extends javax.swing.JFrame {
  
         
     }//GEN-LAST:event_jTableEmpleadoMouseClicked
+
+    private void txtBuscarCedulaEmpleadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarCedulaEmpleadKeyTyped
+        char c = evt.getKeyChar();
+        if((c<'0' || c>'9') || txtBuscarCedulaEmplead.getText().length()== 10){
+            //getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtBuscarCedulaEmpleadKeyTyped
+
+    private void btnLimpiar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiar1ActionPerformed
+        txtBuscarCedulaEmplead.setText("");
+    }//GEN-LAST:event_btnLimpiar1ActionPerformed
 
     /**
      * @param args the command line arguments

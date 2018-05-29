@@ -89,7 +89,7 @@ public class BuscarEmpleado extends javax.swing.JFrame {
             
             if (!cedulaEmpleado.equals(datos[0])) {
                 
-                JOptionPane.showMessageDialog(null, "No se econtraron coincidencias con la búsqueda !!");
+                JOptionPane.showMessageDialog(null, "No se encontraron coincidencias con la búsqueda");
                 
             }else{
                 
@@ -148,6 +148,11 @@ public class BuscarEmpleado extends javax.swing.JFrame {
         jLabel12.setText("Número de Cédula:");
 
         txtBuscarCedulaEmpleado.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtBuscarCedulaEmpleado.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtBuscarCedulaEmpleadoKeyTyped(evt);
+            }
+        });
 
         btnBuscarEmpleado.setText("Buscar");
         btnBuscarEmpleado.addActionListener(new java.awt.event.ActionListener() {
@@ -157,6 +162,11 @@ public class BuscarEmpleado extends javax.swing.JFrame {
         });
 
         btnLimpiar.setText("Limpiar");
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -273,6 +283,18 @@ public class BuscarEmpleado extends javax.swing.JFrame {
     private void jTableEmpleadoBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableEmpleadoBuscarMouseClicked
   
     }//GEN-LAST:event_jTableEmpleadoBuscarMouseClicked
+
+    private void txtBuscarCedulaEmpleadoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarCedulaEmpleadoKeyTyped
+        char c = evt.getKeyChar();
+        if((c<'0' || c>'9') || txtBuscarCedulaEmpleado.getText().length()== 10){
+            //getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtBuscarCedulaEmpleadoKeyTyped
+
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        txtBuscarCedulaEmpleado.setText("");
+    }//GEN-LAST:event_btnLimpiarActionPerformed
 
     /**
      * @param args the command line arguments

@@ -6,6 +6,7 @@
 package Vistas;
 
 import Controlador.Conexion;
+import static Vistas.RegistrarEmpleado.txtCedulaEmpleado;
 import java.awt.HeadlessException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -99,7 +100,7 @@ public class ActualizarEmpleado extends javax.swing.JFrame {
             
             if (!cedulaEmpleado.equals(datos[0])) {
                 
-                JOptionPane.showMessageDialog(null, "No se econtraron coincidencias con la búsqueda !!");
+                JOptionPane.showMessageDialog(null, "No se encontraron coincidencias con la búsqueda");
                 
             }else{
                 
@@ -271,6 +272,11 @@ public class ActualizarEmpleado extends javax.swing.JFrame {
         jLabel12.setText("Número de Cédula:");
 
         txtBuscarCedulaEmpleado.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtBuscarCedulaEmpleado.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtBuscarCedulaEmpleadoKeyTyped(evt);
+            }
+        });
 
         btnBuscarEmpleado.setText("Buscar");
         btnBuscarEmpleado.addActionListener(new java.awt.event.ActionListener() {
@@ -280,6 +286,11 @@ public class ActualizarEmpleado extends javax.swing.JFrame {
         });
 
         btnLimpiar.setText("Limpiar");
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -366,13 +377,34 @@ public class ActualizarEmpleado extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel6.setText("Correo Electrónico:");
 
+        txtCedulaEmpleado.setEditable(false);
         txtCedulaEmpleado.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtCedulaEmpleado.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCedulaEmpleadoKeyTyped(evt);
+            }
+        });
 
         txtPrimerNombreEmpleado.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtPrimerNombreEmpleado.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPrimerNombreEmpleadoKeyTyped(evt);
+            }
+        });
 
         txtPrimerApellidoEmpleado.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtPrimerApellidoEmpleado.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPrimerApellidoEmpleadoKeyTyped(evt);
+            }
+        });
 
         txtFechaNacimientoEmpleado.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtFechaNacimientoEmpleado.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtFechaNacimientoEmpleadoKeyTyped(evt);
+            }
+        });
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel7.setText("Segundo Nombre:");
@@ -381,8 +413,18 @@ public class ActualizarEmpleado extends javax.swing.JFrame {
         jLabel8.setText("Segundo Apellido:");
 
         txtSegundoNombreEmpleado.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtSegundoNombreEmpleado.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtSegundoNombreEmpleadoKeyTyped(evt);
+            }
+        });
 
         txtSegundoApellidoEmpleado.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtSegundoApellidoEmpleado.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtSegundoApellidoEmpleadoKeyTyped(evt);
+            }
+        });
 
         txtEmailEmpleado.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
@@ -540,7 +582,7 @@ public class ActualizarEmpleado extends javax.swing.JFrame {
                         .addComponent(btnActualizarEmpleado)
                         .addGap(34, 34, 34)
                         .addComponent(btnCancelar)))
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -587,6 +629,66 @@ public class ActualizarEmpleado extends javax.swing.JFrame {
     private void btnActualizarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarEmpleadoActionPerformed
         actualizarDatosEmpleado();
     }//GEN-LAST:event_btnActualizarEmpleadoActionPerformed
+
+    private void txtBuscarCedulaEmpleadoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarCedulaEmpleadoKeyTyped
+          char c = evt.getKeyChar();
+        if((c<'0' || c>'9') || txtBuscarCedulaEmpleado.getText().length()== 10){
+            //getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtBuscarCedulaEmpleadoKeyTyped
+
+    private void txtPrimerNombreEmpleadoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrimerNombreEmpleadoKeyTyped
+        char c = evt.getKeyChar();
+        if((c<'a' || c>'z') && (c<'A'|| c>'Z')&& (c<' ' || c>' ')){
+            //getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtPrimerNombreEmpleadoKeyTyped
+
+    private void txtSegundoNombreEmpleadoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSegundoNombreEmpleadoKeyTyped
+        char c = evt.getKeyChar();
+        if((c<'a' || c>'z') && (c<'A'|| c>'Z')&& (c<' ' || c>' ')){
+            //getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtSegundoNombreEmpleadoKeyTyped
+
+    private void txtPrimerApellidoEmpleadoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrimerApellidoEmpleadoKeyTyped
+        char c = evt.getKeyChar();
+        if((c<'a' || c>'z') && (c<'A'|| c>'Z')&& (c<' ' || c>' ')){
+            //getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtPrimerApellidoEmpleadoKeyTyped
+
+    private void txtSegundoApellidoEmpleadoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSegundoApellidoEmpleadoKeyTyped
+        char c = evt.getKeyChar();
+        if((c<'a' || c>'z') && (c<'A'|| c>'Z')&& (c<' ' || c>' ')){
+            //getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtSegundoApellidoEmpleadoKeyTyped
+
+    private void txtCedulaEmpleadoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCedulaEmpleadoKeyTyped
+        char c = evt.getKeyChar();
+        if((c<'0' || c>'9') || txtCedulaEmpleado.getText().length()== 10){
+            //getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtCedulaEmpleadoKeyTyped
+
+    private void txtFechaNacimientoEmpleadoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFechaNacimientoEmpleadoKeyTyped
+        char c = evt.getKeyChar();
+        if((c<'0' || c>'9') || txtFechaNacimientoEmpleado.getText().length()== 10){
+            //getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtFechaNacimientoEmpleadoKeyTyped
+
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        txtBuscarCedulaEmpleado.setText("");
+    }//GEN-LAST:event_btnLimpiarActionPerformed
 
     /**
      * @param args the command line arguments

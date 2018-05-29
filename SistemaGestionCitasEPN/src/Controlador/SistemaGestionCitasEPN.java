@@ -5,6 +5,7 @@
  */
 package Controlador;
 
+import Modelo.ValidarCedula;
 import Vistas.Login;
 
 /**
@@ -19,6 +20,8 @@ public class SistemaGestionCitasEPN {
     public static void main(String[] args) {
         // TODO code application logic here
         new Login().setVisible(true); 
+        
+   
     }
     
 }
