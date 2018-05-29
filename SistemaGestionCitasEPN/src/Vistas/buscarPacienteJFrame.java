@@ -6,10 +6,17 @@
 package Vistas;
 
 import Controlador.Conexion;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.Action;
 import javax.swing.JOptionPane;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -28,7 +35,25 @@ public class buscarPacienteJFrame extends javax.swing.JFrame {
         setResizable(false); // impide maximizar
         setTitle("Buscar Paciente");
         setModeloTabla();
+        
+        txtBuscarCedulaPaciente.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                buscarPaciente();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                buscarPaciente();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+               buscarPaciente();
+            }
+        });
     }
+    
     
     Conexion miConexion = new Conexion();
     
@@ -67,7 +92,7 @@ public class buscarPacienteJFrame extends javax.swing.JFrame {
         if(String.valueOf(cedulaPaciente).compareTo("")==0){
             JOptionPane.showMessageDialog(null, "Ingrese parámetro de búsqueda");
         }else{
-               sql2 = "SELECT CEDULA,PRIMERNOMBRE,SEGUNDONOMBRE,PRIMERAPELLIDO,SEGUNDOAPELLIDO,PRIMERTELEFONO,SEGUNDOTELEFONO,EMAIL,DIRECCION,FECHANACIMIENTO FROM PACIENTE WHERE CEDULA = '"+cedulaPaciente+"'"; 
+               sql2 = "SELECT CEDULA,PRIMERNOMBRE,SEGUNDONOMBRE,PRIMERAPELLIDO,SEGUNDOAPELLIDO,PRIMERTELEFONO,SEGUNDOTELEFONO,EMAIL,DIRECCION,FECHANACIMIENTO FROM PACIENTE WHERE CEDULA LIKE '"+cedulaPaciente+"%'"; 
         }
         String datos [] = new String[12];
         try {
@@ -89,9 +114,9 @@ public class buscarPacienteJFrame extends javax.swing.JFrame {
                 //datos[11]=rs3.getString(12);//IDPACIENTE
                 miModeloTabla.addRow(datos);
             }
-            
+            jTablePacienteBuscar.setModel(miModeloTabla);
         
-            if (!cedulaPaciente.equals(datos[0])) {
+            /*if (!cedulaPaciente.equals(datos[0])) {
                 
                 JOptionPane.showMessageDialog(null, "No se encontraron coincidencias con la búsqueda ");
                 
@@ -99,11 +124,12 @@ public class buscarPacienteJFrame extends javax.swing.JFrame {
                 
             jTablePacienteBuscar.setModel(miModeloTabla);
             txtBuscarCedulaPaciente.setText("");
-            }
+            }*/
         } catch (SQLException ex) {
             System.out.println("Error al Consultar Datos"); 
         }
-    }           
+    }
+//public void     
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -135,6 +161,11 @@ public class buscarPacienteJFrame extends javax.swing.JFrame {
         jLabel12.setText("Número de Cédula:");
 
         txtBuscarCedulaPaciente.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtBuscarCedulaPaciente.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                txtBuscarCedulaPacientePropertyChange(evt);
+            }
+        });
 
         btnBuscarPaciente.setText("Buscar");
         btnBuscarPaciente.addActionListener(new java.awt.event.ActionListener() {
@@ -252,7 +283,6 @@ public class buscarPacienteJFrame extends javax.swing.JFrame {
         );
 
         jPanel3.getAccessibleContext().setAccessibleName("Formulario Buscar Paciente");
-        jLabel1.getAccessibleContext().setAccessibleName("Buscar Paciente");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -264,6 +294,11 @@ public class buscarPacienteJFrame extends javax.swing.JFrame {
     private void btnBuscarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarPacienteActionPerformed
         buscarPaciente();
     }//GEN-LAST:event_btnBuscarPacienteActionPerformed
+
+    private void txtBuscarCedulaPacientePropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_txtBuscarCedulaPacientePropertyChange
+        // TODO add your handling code here:
+        //buscarPaciente();
+    }//GEN-LAST:event_txtBuscarCedulaPacientePropertyChange
 
     /**
      * @param args the command line arguments

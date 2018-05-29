@@ -251,13 +251,10 @@ public class CrearUsuario extends javax.swing.JFrame {
             Connection cn = conexion.Conectar();
             String sql = "";
             String sql1="";
-           
-            
+
             String Nombre = txtFieldNombre.getText();
             String Contraseña = usuario.MD5(txtFieldContraseña.getText());
             String Rol = (String)txtFieldRol.getSelectedItem();
-                    
-            
             
             sql = "INSERT INTO Usuarios (Nombre, Contraseña, Rol) VALUES (?,?,?)";
             sql1 = "Select * from Usuarios";

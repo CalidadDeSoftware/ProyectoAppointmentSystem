@@ -12,6 +12,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -30,6 +32,22 @@ public class actualizarPacienteJFrame extends javax.swing.JFrame {
         setResizable(false); // impide maximizar
         setModeloTabla();
         txtIdPaciente.setVisible(false);
+        txtBuscarCedulaPaciente.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                buscarPaciente();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                buscarPaciente();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+               buscarPaciente();
+            }
+        });
     }
     Conexion miConexion = new Conexion();
     //**************** IMPLEMENTACION **********************//
@@ -69,7 +87,7 @@ public class actualizarPacienteJFrame extends javax.swing.JFrame {
         if(String.valueOf(cedulaPaciente).compareTo("")==0){
             JOptionPane.showMessageDialog(null, "Ingrese parámetro de búsqueda");
         }else{
-            sql = "SELECT CEDULA,PRIMERNOMBRE,SEGUNDONOMBRE,PRIMERAPELLIDO,SEGUNDOAPELLIDO,PRIMERTELEFONO,SEGUNDOTELEFONO,EMAIL,DIRECCION,FECHANACIMIENTO,PACIENTEID FROM PACIENTE WHERE CEDULA = '"+cedulaPaciente+"'"; 
+            sql = "SELECT CEDULA,PRIMERNOMBRE,SEGUNDONOMBRE,PRIMERAPELLIDO,SEGUNDOAPELLIDO,PRIMERTELEFONO,SEGUNDOTELEFONO,EMAIL,DIRECCION,FECHANACIMIENTO,PACIENTEID FROM PACIENTE WHERE CEDULA LIKE '"+cedulaPaciente+"%'"; 
         }
         
         String datos [] = new String[12];
@@ -91,15 +109,17 @@ public class actualizarPacienteJFrame extends javax.swing.JFrame {
               
                 miModeloTabla.addRow(datos);
             }
+            jTablePaciente.setModel(miModeloTabla);
+            txtIdPaciente.setText(datos[10]);
             
-            if (!cedulaPaciente.equals(datos[0])) {
+            /*if (!cedulaPaciente.equals(datos[0])) {
                 JOptionPane.showMessageDialog(null, "No se encontraron coincidencias con la Búsqueda");    
            }else{
             jTablePaciente.setModel(miModeloTabla);
             txtIdPaciente.setText(datos[10]);
             txtBuscarCedulaPaciente.setText("");
             
-            }
+            }*/
         } catch (SQLException ex) {
             System.out.println("Error al Insertar Datos"); 
         }
