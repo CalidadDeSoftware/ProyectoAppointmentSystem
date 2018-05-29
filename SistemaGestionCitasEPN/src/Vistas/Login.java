@@ -228,6 +228,9 @@ public class Login extends javax.swing.JFrame {
             Connection con = conexion.Conectar();
             System.out.print(con);
             
+            new PantallaPrincipal().setVisible(true);
+             this.dispose();
+            
              try {
             
             
