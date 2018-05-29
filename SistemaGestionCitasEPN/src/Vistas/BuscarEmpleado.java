@@ -86,11 +86,8 @@ public class BuscarEmpleado extends javax.swing.JFrame {
             
             if (!cedulaEmpleado.equals(datos[0])) {
 
-                
                 JOptionPane.showMessageDialog(null, "No se encontraron coincidencias con la búsqueda");
-                
 
-                JOptionPane.showMessageDialog(null, "No se econtraron coincidencias con la búsqueda !!");
 
             }else{
                 

@@ -87,28 +87,18 @@ public class actualizarPacienteJFrame extends javax.swing.JFrame {
                 datos[7]=rs2.getString(8);
                 datos[8]=rs2.getString(9);
                 datos[9]=rs2.getString(10);
-                datos[10]=rs2.getString(11);//FECHA NACIMIENTO
-                datos[11]=rs2.getString(12);//IDPACIENTE
+                datos[10]=rs2.getString(11);
+              
                 miModeloTabla.addRow(datos);
             }
             
             if (!cedulaPaciente.equals(datos[0])) {
                 JOptionPane.showMessageDialog(null, "No se encontraron coincidencias con la Búsqueda");    
-            }else{
+           }else{
             jTablePaciente.setModel(miModeloTabla);
-            txtIdPaciente.setText(datos[11]);
+            txtIdPaciente.setText(datos[10]);
             txtBuscarCedulaPaciente.setText("");
-            jTablePaciente.getColumnModel().getColumn(0).setPreferredWidth(15);
-            jTablePaciente.getColumnModel().getColumn(1).setPreferredWidth(15);
-            jTablePaciente.getColumnModel().getColumn(2).setPreferredWidth(15);
-            jTablePaciente.getColumnModel().getColumn(3).setPreferredWidth(15);
-            jTablePaciente.getColumnModel().getColumn(4).setPreferredWidth(15);
-            jTablePaciente.getColumnModel().getColumn(5).setPreferredWidth(15);
-            jTablePaciente.getColumnModel().getColumn(6).setPreferredWidth(15);
-            jTablePaciente.getColumnModel().getColumn(7).setPreferredWidth(15);
-            jTablePaciente.getColumnModel().getColumn(8).setPreferredWidth(15);
-            jTablePaciente.getColumnModel().getColumn(9).setPreferredWidth(15);
-            jTablePaciente.getColumnModel().getColumn(10).setPreferredWidth(15);
+            
             }
         } catch (SQLException ex) {
             System.out.println("Error al Insertar Datos"); 
@@ -147,22 +137,10 @@ public class actualizarPacienteJFrame extends javax.swing.JFrame {
                 datos[8]=rs2.getString(9);
                 datos[9]=rs2.getString(10);
                 datos[10]=rs2.getString(11);
-                datos[11]=rs2.getString(12);//IP PACIENTE
+        
                 miModeloTabla.addRow(datos);
             }
-            jTablePaciente.setModel(miModeloTabla);
-            jTablePaciente.getColumnModel().getColumn(0).setPreferredWidth(15);
-            jTablePaciente.getColumnModel().getColumn(1).setPreferredWidth(15);
-            jTablePaciente.getColumnModel().getColumn(2).setPreferredWidth(15);
-            jTablePaciente.getColumnModel().getColumn(3).setPreferredWidth(15);
-            jTablePaciente.getColumnModel().getColumn(4).setPreferredWidth(15);
-            jTablePaciente.getColumnModel().getColumn(5).setPreferredWidth(15);
-            jTablePaciente.getColumnModel().getColumn(6).setPreferredWidth(15);
-            jTablePaciente.getColumnModel().getColumn(7).setPreferredWidth(15);
-            jTablePaciente.getColumnModel().getColumn(8).setPreferredWidth(15);
-            jTablePaciente.getColumnModel().getColumn(9).setPreferredWidth(15);
-            jTablePaciente.getColumnModel().getColumn(10).setPreferredWidth(15);
-            jTablePaciente.getColumnModel().getColumn(11).setPreferredWidth(15);
+           
         } catch (SQLException ex) {
             System.out.println("Error al mostrar Datos"); 
         }
@@ -247,6 +225,7 @@ public class actualizarPacienteJFrame extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTablePaciente = new javax.swing.JTable();
         txtIdPaciente = new javax.swing.JTextField();
+        txtFechaNacimientoPaciente = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -349,8 +328,8 @@ public class actualizarPacienteJFrame extends javax.swing.JFrame {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         txtIdPaciente.setToolTipText("");
@@ -359,6 +338,10 @@ public class actualizarPacienteJFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(txtIdPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(64, 64, 64))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -367,7 +350,7 @@ public class actualizarPacienteJFrame extends javax.swing.JFrame {
                             .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(120, 120, 120)
+                        .addGap(134, 134, 134)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -401,12 +384,11 @@ public class actualizarPacienteJFrame extends javax.swing.JFrame {
                                     .addComponent(txtSTelefonoPaciente)
                                     .addComponent(txtPTelefonoPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(btnCancelar)
-                            .addComponent(jLabel10))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel10)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtFechaNacimientoPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(45, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(txtIdPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(64, 64, 64))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -415,7 +397,7 @@ public class actualizarPacienteJFrame extends javax.swing.JFrame {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(txtCedulaPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -443,12 +425,13 @@ public class actualizarPacienteJFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(txtSApellidoPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel10))
+                    .addComponent(jLabel10)
+                    .addComponent(txtFechaNacimientoPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnActualizar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addGap(57, 57, 57)
                 .addComponent(txtIdPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -535,6 +518,7 @@ public class actualizarPacienteJFrame extends javax.swing.JFrame {
     private javax.swing.JTextField txtCedulaPaciente;
     private javax.swing.JTextField txtDireccionPaciente;
     private javax.swing.JTextField txtEmailPaciente;
+    private javax.swing.JTextField txtFechaNacimientoPaciente;
     private javax.swing.JTextField txtIdPaciente;
     private javax.swing.JTextField txtPApellidoPaciente;
     private javax.swing.JTextField txtPNombrePaciente;

@@ -40,6 +40,7 @@ public class registrarPacienteJFrame extends javax.swing.JFrame {
         nuevoPaciente.setsTelefonoPaciente(txtSTelefonoPaciente.getText().trim());
         nuevoPaciente.setDireccionPaciente(txtDireccionPaciente.getText().trim());
         nuevoPaciente.setEmaiPaciente(txtEmailPaciente.getText().trim());
+        nuevoPaciente.setFechaNacimientoPaciente(txtFechaNacimientoPaciente.getText());
            
         if(String.valueOf(nuevoPaciente.getCedulaPaciente()).compareTo("")==0 || 
            String.valueOf(nuevoPaciente.getpNombrePaciente()).compareTo("")==0 ||
@@ -121,6 +122,7 @@ public class registrarPacienteJFrame extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         txtDireccionPaciente = new javax.swing.JTextField();
         txtPTelefonoPaciente = new javax.swing.JTextField();
+        txtFechaNacimientoPaciente = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -183,7 +185,7 @@ public class registrarPacienteJFrame extends javax.swing.JFrame {
                             .addComponent(txtPNombrePaciente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(btnAceptar))
                 .addGap(60, 60, 60)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnCancelar)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -199,7 +201,10 @@ public class registrarPacienteJFrame extends javax.swing.JFrame {
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtPTelefonoPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel10))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtFechaNacimientoPaciente)))
                 .addContainerGap(37, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -244,7 +249,8 @@ public class registrarPacienteJFrame extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtSApellidoPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4)
-                            .addComponent(jLabel10))))
+                            .addComponent(jLabel10)
+                            .addComponent(txtFechaNacimientoPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnAceptar)
@@ -335,6 +341,7 @@ public class registrarPacienteJFrame extends javax.swing.JFrame {
     private javax.swing.JTextField txtCedulaPaciente;
     private javax.swing.JTextField txtDireccionPaciente;
     private javax.swing.JTextField txtEmailPaciente;
+    private javax.swing.JTextField txtFechaNacimientoPaciente;
     private javax.swing.JTextField txtPApellidoPaciente;
     private javax.swing.JTextField txtPNombrePaciente;
     private javax.swing.JTextField txtPTelefonoPaciente;

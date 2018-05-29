@@ -89,7 +89,6 @@ public class eliminarPacienteJFrame extends javax.swing.JFrame {
                 datos[8]=rs2.getString(9);
                 datos[9]=rs2.getString(10);
                 datos[10]=rs2.getString(11);
-                datos[11]=rs2.getString(12);//IP PACIENTE
                 miModeloTabla.addRow(datos);
             }
              if (!cedulaPaciente.equals(datos[0])) {
@@ -98,19 +97,9 @@ public class eliminarPacienteJFrame extends javax.swing.JFrame {
                 
             }else{
             jTablePaciente.setModel(miModeloTabla);
-            txtIdPaciente.setText(datos[11]);
+            txtIdPaciente.setText(datos[10]);
             txtBuscarCedulaPaciente.setText("");
-            jTablePaciente.getColumnModel().getColumn(0).setPreferredWidth(15);
-            jTablePaciente.getColumnModel().getColumn(1).setPreferredWidth(15);
-            jTablePaciente.getColumnModel().getColumn(2).setPreferredWidth(15);
-            jTablePaciente.getColumnModel().getColumn(3).setPreferredWidth(15);
-            jTablePaciente.getColumnModel().getColumn(4).setPreferredWidth(15);
-            jTablePaciente.getColumnModel().getColumn(5).setPreferredWidth(15);
-            jTablePaciente.getColumnModel().getColumn(6).setPreferredWidth(15);
-            jTablePaciente.getColumnModel().getColumn(7).setPreferredWidth(15);
-            jTablePaciente.getColumnModel().getColumn(8).setPreferredWidth(15);
-            jTablePaciente.getColumnModel().getColumn(9).setPreferredWidth(15);
-            jTablePaciente.getColumnModel().getColumn(10).setPreferredWidth(15);
+           
              }  
         } catch (SQLException ex) {
             System.out.println("Error al insertar Datos"); 
@@ -131,7 +120,7 @@ public class eliminarPacienteJFrame extends javax.swing.JFrame {
        miModeloTabla.addColumn("F.NACIMIENTO");;
        String sql = null;
         
-        sql = "SELECT CEDULA,PRIMERNOMBRE,SEGUNDONOMBRE,PRIMERAPELLIDO,SEGUNDOAPELLIDO,PRIMERTELEFONO,SEGUNDOTELEFONO,EMAIL,DIRECCION,FECHANACIMIENTO,PACIENTEID FROM PACIENTE"; 
+        sql = "SELECT CEDULA,PRIMERNOMBRE,SEGUNDONOMBRE,PRIMERAPELLIDO,SEGUNDOAPELLIDO,PRIMERTELEFONO,SEGUNDOTELEFONO,EMAIL,DIRECCION,FECHANACIMIENTO FROM PACIENTE WHERE CEDULA= '"+txtIdPaciente.getText()+"'";
         String datos [] = new String[12];
         try {
             Statement st= miConexion.Conectar().createStatement();
@@ -152,18 +141,7 @@ public class eliminarPacienteJFrame extends javax.swing.JFrame {
                 miModeloTabla.addRow(datos);
             }
             jTablePaciente.setModel(miModeloTabla);
-            jTablePaciente.getColumnModel().getColumn(0).setPreferredWidth(15);
-            jTablePaciente.getColumnModel().getColumn(1).setPreferredWidth(15);
-            jTablePaciente.getColumnModel().getColumn(2).setPreferredWidth(15);
-            jTablePaciente.getColumnModel().getColumn(3).setPreferredWidth(15);
-            jTablePaciente.getColumnModel().getColumn(4).setPreferredWidth(15);
-            jTablePaciente.getColumnModel().getColumn(5).setPreferredWidth(15);
-            jTablePaciente.getColumnModel().getColumn(6).setPreferredWidth(15);
-            jTablePaciente.getColumnModel().getColumn(7).setPreferredWidth(15);
-            jTablePaciente.getColumnModel().getColumn(8).setPreferredWidth(15);
-            jTablePaciente.getColumnModel().getColumn(9).setPreferredWidth(15);
-            jTablePaciente.getColumnModel().getColumn(10).setPreferredWidth(15);
-            jTablePaciente.getColumnModel().getColumn(11).setPreferredWidth(15);     
+               
         } catch (SQLException ex) {
             System.out.println("Error al mostrar datos"); 
         }

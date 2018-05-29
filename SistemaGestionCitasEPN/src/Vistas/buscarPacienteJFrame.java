@@ -69,7 +69,7 @@ public class buscarPacienteJFrame extends javax.swing.JFrame {
         }else{
                sql2 = "SELECT CEDULA,PRIMERNOMBRE,SEGUNDONOMBRE,PRIMERAPELLIDO,SEGUNDOAPELLIDO,PRIMERTELEFONO,SEGUNDOTELEFONO,EMAIL,DIRECCION,FECHANACIMIENTO FROM PACIENTE WHERE CEDULA = '"+cedulaPaciente+"'"; 
         }
-        String datos [] = new String[11];
+        String datos [] = new String[12];
         try {
             Statement st= miConexion.Conectar().createStatement();
             ResultSet rs3=st.executeQuery(sql2);
@@ -85,31 +85,22 @@ public class buscarPacienteJFrame extends javax.swing.JFrame {
                 datos[7]=rs3.getString(8);
                 datos[8]=rs3.getString(9);
                 datos[9]=rs3.getString(10);
-                datos[10]=rs3.getString(11);//FECHA NACIMIENTO
+                //datos[10]=rs3.getString(11);//FECHA NACIMIENTO
                 //datos[11]=rs3.getString(12);//IDPACIENTE
                 miModeloTabla.addRow(datos);
             }
             
-            for(int i=0;i<datos.length;i++){
-                System.out.println(datos[i]);
-            }
+        
             if (!cedulaPaciente.equals(datos[0])) {
-                JOptionPane.showMessageDialog(null, "No se encontraron coincidencias con la búsqueda !!");
+                
+                JOptionPane.showMessageDialog(null, "No se encontraron coincidencias con la búsqueda ");
+                
             }else{
+                
             jTablePacienteBuscar.setModel(miModeloTabla);
             txtBuscarCedulaPaciente.setText("");
-            jTablePacienteBuscar.getColumnModel().getColumn(0).setPreferredWidth(15);
-            jTablePacienteBuscar.getColumnModel().getColumn(1).setPreferredWidth(15);
-            jTablePacienteBuscar.getColumnModel().getColumn(2).setPreferredWidth(15);
-            jTablePacienteBuscar.getColumnModel().getColumn(3).setPreferredWidth(15);
-            jTablePacienteBuscar.getColumnModel().getColumn(4).setPreferredWidth(15);
-            jTablePacienteBuscar.getColumnModel().getColumn(5).setPreferredWidth(15);
-            jTablePacienteBuscar.getColumnModel().getColumn(6).setPreferredWidth(15);
-            jTablePacienteBuscar.getColumnModel().getColumn(7).setPreferredWidth(15);
-            jTablePacienteBuscar.getColumnModel().getColumn(8).setPreferredWidth(15);
-            jTablePacienteBuscar.getColumnModel().getColumn(9).setPreferredWidth(15);
-            jTablePacienteBuscar.getColumnModel().getColumn(10).setPreferredWidth(15);
-            jTablePacienteBuscar.getColumnModel().getColumn(11).setPreferredWidth(15);
+        
+        
             }
         } catch (SQLException ex) {
             System.out.println("Error al Consultar Datos"); 
