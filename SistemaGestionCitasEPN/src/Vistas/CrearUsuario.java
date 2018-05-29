@@ -11,7 +11,7 @@ import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-
+ 
 /**
  *
  * @author Dennis
@@ -19,12 +19,14 @@ import javax.swing.JOptionPane;
 public class CrearUsuario extends javax.swing.JFrame {
             ResultSet rs = null;
             Statement stm = null;
+          
             
     /**
      * Creates new form CrearUsuario
      */
     public CrearUsuario() {
         initComponents();
+         setLocationRelativeTo(null);// centrado
     }
 
     /**
@@ -43,10 +45,10 @@ public class CrearUsuario extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         txtFieldNombre = new javax.swing.JTextField();
-        txtFieldContraseña = new javax.swing.JTextField();
-        txtFieldConfirmarContraseña = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        txtFieldRol = new javax.swing.JTextField();
+        txtFieldRol = new javax.swing.JComboBox<>();
+        txtFieldContraseña = new javax.swing.JPasswordField();
+        txtFieldConfirmarContraseña = new javax.swing.JPasswordField();
         jPanel3 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -54,6 +56,8 @@ public class CrearUsuario extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         botonGuardarUsuario = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        txtFieldContraseña1 = new javax.swing.JTextField();
+        txtFieldConfirmarContraseña1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -94,10 +98,22 @@ public class CrearUsuario extends javax.swing.JFrame {
 
         jLabel7.setText("Rol de Usuario");
 
-        txtFieldRol.setPreferredSize(new java.awt.Dimension(20, 20));
+        txtFieldRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrador", "Paciente" }));
         txtFieldRol.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtFieldRolActionPerformed(evt);
+            }
+        });
+
+        txtFieldContraseña.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFieldContraseñaActionPerformed(evt);
+            }
+        });
+
+        txtFieldConfirmarContraseña.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFieldConfirmarContraseñaActionPerformed(evt);
             }
         });
 
@@ -115,9 +131,9 @@ public class CrearUsuario extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txtFieldNombre)
+                    .addComponent(txtFieldRol, 0, 121, Short.MAX_VALUE)
                     .addComponent(txtFieldContraseña)
-                    .addComponent(txtFieldConfirmarContraseña, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
-                    .addComponent(txtFieldRol, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(txtFieldConfirmarContraseña))
                 .addGap(23, 23, 23))
         );
         jPanel2Layout.setVerticalGroup(
@@ -139,7 +155,7 @@ public class CrearUsuario extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(txtFieldConfirmarContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -184,35 +200,57 @@ public class CrearUsuario extends javax.swing.JFrame {
 
         jButton2.setText("Cancelar");
 
+        txtFieldContraseña1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFieldContraseña1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jLabel2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botonGuardarUsuario))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton2)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addGap(19, 19, 19)
+                        .addComponent(jLabel2)
+                        .addGap(138, 138, 138)
+                        .addComponent(txtFieldConfirmarContraseña1))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(botonGuardarUsuario))))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jButton2)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(41, 41, 41)
+                        .addComponent(txtFieldContraseña1)
+                        .addGap(63, 63, 63))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(7, 7, 7)
-                .addComponent(jLabel2)
-                .addGap(14, 14, 14)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(7, 7, 7)
+                        .addComponent(jLabel2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtFieldContraseña1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtFieldConfirmarContraseña1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -220,7 +258,7 @@ public class CrearUsuario extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonGuardarUsuario)
                     .addComponent(jButton2))
-                .addGap(0, 8, Short.MAX_VALUE))
+                .addGap(0, 3, Short.MAX_VALUE))
         );
 
         pack();
@@ -241,8 +279,9 @@ public class CrearUsuario extends javax.swing.JFrame {
            
             
             String Nombre = txtFieldNombre.getText();
-            String Contraseña = usuario.MD5(txtFieldContraseña.getText());
-            String Rol = txtFieldRol.getText();
+            String Contraseña = usuario.MD5(txtFieldContraseña1.getText());
+            String Rol = (String)txtFieldRol.getSelectedItem();
+                    
             
             
             sql = "INSERT INTO Usuarios (Nombre, Contraseña, Rol) VALUES (?,?,?)";
@@ -282,6 +321,18 @@ return rs;
     private void txtFieldRolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFieldRolActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtFieldRolActionPerformed
+
+    private void txtFieldContraseña1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFieldContraseña1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFieldContraseña1ActionPerformed
+
+    private void txtFieldConfirmarContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFieldConfirmarContraseñaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFieldConfirmarContraseñaActionPerformed
+
+    private void txtFieldContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFieldContraseñaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFieldContraseñaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -333,9 +384,11 @@ return rs;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea textAreaUsuariosRegistrados;
-    private javax.swing.JTextField txtFieldConfirmarContraseña;
-    private javax.swing.JTextField txtFieldContraseña;
+    private javax.swing.JPasswordField txtFieldConfirmarContraseña;
+    private javax.swing.JTextField txtFieldConfirmarContraseña1;
+    private javax.swing.JPasswordField txtFieldContraseña;
+    private javax.swing.JTextField txtFieldContraseña1;
     private javax.swing.JTextField txtFieldNombre;
-    private javax.swing.JTextField txtFieldRol;
+    private javax.swing.JComboBox<String> txtFieldRol;
     // End of variables declaration//GEN-END:variables
 }
