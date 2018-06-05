@@ -42,10 +42,21 @@ public class AgendarTurno extends javax.swing.JFrame {
         txtSegundoNombreDoc.setVisible(false);
         txtPrimerApellidoDoc.setVisible(false);
         txtSegundoApellidoDoc.setVisible(false);
+        txtIdMedico.setVisible(false);
+        txtIdPacienteTurno.setVisible(false);
+        txtIdMedicoRecuperado.setVisible(false);
+        txtFechaCitaRecuperada.setVisible(false);
+        txtHoraCitaRecuperada.setVisible(false);
+        txtHoraCita.setVisible(false);
+        txtFechaCompletaCita.setVisible(false);
 
     }
     
     Conexion miConexion = new Conexion();
+    
+    public static String textoId;
+    
+    
     
     
     public void cargarComboBoxElegirMedico(){
@@ -165,8 +176,7 @@ public class AgendarTurno extends javax.swing.JFrame {
         }
 
     }
-    
-    
+      
     
     public void agendarTurno(){
         
@@ -187,28 +197,39 @@ public class AgendarTurno extends javax.swing.JFrame {
         }else{
             
             /****************antes de insertar dato, realizo una consulta en la bd, de los campos EMPLEADOID,FECHATURNO,HORATURNO*********************/
-           /* String consultaCI = "SELECT EMPLEADOID,FECHATURNO,HORATURNO FROM EMPLEADO WHERE CEDULA='"+txtCedulaEmpleado.getText()+"'";
-            String valorConsulaCI=null;
+           String consultaCI = "SELECT EMPLEADOID,FECHATURNO,HORATURNO FROM TURNO WHERE EMPLEADOID='"+txtIdMedico.getText()+"' AND FECHATURNO= '"+txtFechaCompletaCita.getText()+"' AND HORATURNO= '"+txtHoraCita.getText()+"'";
+           
+           //String consultaCI = "SELECT EMPLEADOID FROM TURNO WHERE EMPLEADOID='"+txtIdMedico.getText()+"' ";
+           String valorConsultaEmpleadoId=null; 
+           String valorConsulaFechaTurno=null;
+           String valorConsultaHoraTurno=null;
+           
             try {
             Statement st= miConexion.Conectar().createStatement();
             ResultSet rs2=st.executeQuery(consultaCI);
             while(rs2.next()){
-                valorConsulaCI=rs2.getString(1);
+                valorConsultaEmpleadoId=rs2.getString(1);
+                valorConsulaFechaTurno=rs2.getString(2);
+                valorConsultaHoraTurno=rs2.getString(3);
+                
             }
             
-            txtRecuperarCedulaBD.setText(valorConsulaCI);
+            txtIdMedicoRecuperado.setText(valorConsultaEmpleadoId);
+            txtFechaCitaRecuperada.setText(valorConsulaFechaTurno);
+            txtHoraCitaRecuperada.setText(valorConsultaHoraTurno);
       
             } catch (SQLException ex) {
             System.out.println(ex.getMessage());
             }
             
-            if (txtRecuperarCedulaBD.getText().equals(txtCedulaEmpleado.getText())) {
-                JOptionPane.showMessageDialog(null, "Cédula ya se encuentra registrada");
+            
+            
+            
+            if (txtIdMedicoRecuperado.getText().equals(txtIdMedico.getText()) || txtFechaCitaRecuperada.getText().equals(txtFechaCompletaCita.getText()) || txtHoraCitaRecuperada.getText().equals(txtHoraCita.getText())     ) {
+                
+                JOptionPane.showMessageDialog(null,"Medico no disponible en la fecha y hora seleccionada","Error",JOptionPane.ERROR_MESSAGE);
                 
             }else{
-                if (valirdCi.validadorDeCedula(txtCedulaEmpleado.getText())== false) {
-                    
-                }else{*/
              
                  ///////////////////////////////////////// INSERTAR DATOS ///////////////////////////////////////////////////////////////////
             String sql="INSERT INTO TURNO (EMPLEADOID,PACIENTEID,ESPECIALIDADTURNO,FECHATURNO,HORATURNO)VALUES(?,?,?,?,?)";
@@ -231,8 +252,10 @@ public class AgendarTurno extends javax.swing.JFrame {
                }
       
             //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                }
+                
             }
+        }
+    }
             
      
         
@@ -270,6 +293,7 @@ public class AgendarTurno extends javax.swing.JFrame {
         txtPrimerApellidoDoc = new javax.swing.JTextField();
         txtSegundoApellidoDoc = new javax.swing.JTextField();
         txtIdMedico = new javax.swing.JTextField();
+        btnVerificarDisponibilidadMedico = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jDateChooserTurnos = new com.toedter.calendar.JDateChooser();
@@ -306,6 +330,9 @@ public class AgendarTurno extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         txtEmailPaciente = new javax.swing.JTextField();
         txtIdPacienteTurno = new javax.swing.JTextField();
+        txtIdMedicoRecuperado = new javax.swing.JTextField();
+        txtFechaCitaRecuperada = new javax.swing.JTextField();
+        txtHoraCitaRecuperada = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
 
@@ -340,6 +367,13 @@ public class AgendarTurno extends javax.swing.JFrame {
             }
         });
 
+        btnVerificarDisponibilidadMedico.setText("Disponibilidad Profesional");
+        btnVerificarDisponibilidadMedico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerificarDisponibilidadMedicoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -356,30 +390,24 @@ public class AgendarTurno extends javax.swing.JFrame {
                         .addComponent(jComboBoxEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jComboBoxNombreMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
+                .addComponent(btnVerificarDisponibilidadMedico)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(txtNombreCompletoProfesional, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtPrimerNombreDoc)
-                    .addComponent(txtSegundoNombreDoc))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtPrimerApellidoDoc)
-                    .addComponent(txtSegundoApellidoDoc))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtIdMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(txtPrimerNombreDoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtPrimerApellidoDoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtSegundoNombreDoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtSegundoApellidoDoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtIdMedico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtPrimerNombreDoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtPrimerApellidoDoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtSegundoNombreDoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtSegundoApellidoDoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -388,9 +416,15 @@ public class AgendarTurno extends javax.swing.JFrame {
                         .addComponent(jComboBoxEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel3)
                         .addComponent(jComboBoxNombreMedico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtNombreCompletoProfesional, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(txtIdMedico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(btnVerificarDisponibilidadMedico))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtIdMedico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtSegundoApellidoDoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtSegundoNombreDoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtPrimerApellidoDoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtPrimerNombreDoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtNombreCompletoProfesional, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Fecha y Hora", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
@@ -453,10 +487,10 @@ public class AgendarTurno extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jComboBoxHoraCita, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(txtHoraCita, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtHoraCita, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtFechaCompletaCita, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(txtFechaCompletaCita, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(106, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -512,7 +546,7 @@ public class AgendarTurno extends javax.swing.JFrame {
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnGenerarDetalleTurno)
-                .addContainerGap(143, Short.MAX_VALUE))
+                .addContainerGap(157, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -609,36 +643,43 @@ public class AgendarTurno extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setText("Cédula:");
 
+        txtCedulaPaciente.setEditable(false);
         txtCedulaPaciente.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel5.setText("Primer Nombre:");
 
+        txtPirmerNombrePaciente.setEditable(false);
         txtPirmerNombrePaciente.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel6.setText("Primer Apellido:");
 
+        txtPrimerApellidoPaciente.setEditable(false);
         txtPrimerApellidoPaciente.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel8.setText("Segundo Nombre:");
 
+        txtSegundoNombrePaciente.setEditable(false);
         txtSegundoNombrePaciente.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel9.setText("Segundo Apellido:");
 
+        txtSegundoApellidoPaciente.setEditable(false);
         txtSegundoApellidoPaciente.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel10.setText("Teléfono:");
 
+        txtTelefonoPaciente.setEditable(false);
         txtTelefonoPaciente.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel11.setText("Correo Electrónico:");
 
+        txtEmailPaciente.setEditable(false);
         txtEmailPaciente.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtEmailPaciente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -651,7 +692,7 @@ public class AgendarTurno extends javax.swing.JFrame {
         jPanel10Layout.setHorizontalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
-                .addContainerGap(176, Short.MAX_VALUE)
+                .addContainerGap(190, Short.MAX_VALUE)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
                     .addComponent(jLabel4)
@@ -715,7 +756,13 @@ public class AgendarTurno extends javax.swing.JFrame {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(txtIdPacienteTurno, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtIdPacienteTurno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(3, 3, 3)
+                        .addComponent(txtHoraCitaRecuperada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtFechaCitaRecuperada, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtIdMedicoRecuperado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -728,7 +775,11 @@ public class AgendarTurno extends javax.swing.JFrame {
                         .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                        .addComponent(txtIdPacienteTurno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtIdPacienteTurno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtHoraCitaRecuperada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtFechaCitaRecuperada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtIdMedicoRecuperado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(34, 34, 34)))
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -786,11 +837,11 @@ public class AgendarTurno extends javax.swing.JFrame {
                             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(547, 547, 547)
-                        .addComponent(jButton2)
-                        .addGap(37, 37, 37)
-                        .addComponent(btnCancelar)))
-                .addContainerGap(30, Short.MAX_VALUE))
+                        .addGap(507, 507, 507)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -800,10 +851,10 @@ public class AgendarTurno extends javax.swing.JFrame {
                 .addGap(13, 13, 13)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(btnCancelar))
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -907,6 +958,23 @@ public class AgendarTurno extends javax.swing.JFrame {
         agendarTurno();
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void btnVerificarDisponibilidadMedicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerificarDisponibilidadMedicoActionPerformed
+        
+    
+        if (jComboBoxNombreMedico.getItemCount() == 0) {
+            JOptionPane.showMessageDialog(null, "Primero elija un profesional");
+        }else{
+            
+            textoId = txtIdMedico.getText();
+            
+            VerDisponibilidadMedico verD = new VerDisponibilidadMedico();
+        
+            verD.setVisible(true);
+        
+        
+        }
+    }//GEN-LAST:event_btnVerificarDisponibilidadMedicoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -945,6 +1013,7 @@ public class AgendarTurno extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnGenerarDetalleTurno;
+    private javax.swing.JButton btnVerificarDisponibilidadMedico;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -980,9 +1049,12 @@ public class AgendarTurno extends javax.swing.JFrame {
     private javax.swing.JTextField txtCedulaPacienteBuscar;
     private javax.swing.JTextArea txtDetalleDeTurno;
     private javax.swing.JTextField txtEmailPaciente;
+    private javax.swing.JTextField txtFechaCitaRecuperada;
     private javax.swing.JTextField txtFechaCompletaCita;
     private javax.swing.JTextField txtHoraCita;
-    private javax.swing.JTextField txtIdMedico;
+    private javax.swing.JTextField txtHoraCitaRecuperada;
+    public static javax.swing.JTextField txtIdMedico;
+    private javax.swing.JTextField txtIdMedicoRecuperado;
     private javax.swing.JTextField txtIdPacienteTurno;
     private javax.swing.JTextField txtNombreCompletoProfesional;
     private javax.swing.JTextField txtPirmerNombrePaciente;
