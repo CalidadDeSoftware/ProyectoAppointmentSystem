@@ -7,10 +7,13 @@ package Vistas;
 
 import Controlador.Conexion;
 import Modelo.Usuario;
+import static Vistas.ActualizarEmpleado.txtCedulaEmpleado;
+import java.awt.HeadlessException;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
  
 /**
  *
@@ -26,7 +29,7 @@ public class CrearUsuario extends javax.swing.JFrame {
         initComponents();
          setLocationRelativeTo(null);// centrado
     }
-
+Conexion miConexion = new Conexion();
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -49,11 +52,12 @@ public class CrearUsuario extends javax.swing.JFrame {
         txtFieldConfirmarContraseña = new javax.swing.JPasswordField();
         jPanel3 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        textAreaUsuariosRegistrados = new javax.swing.JTextArea();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTableUsuarios = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         botonGuardarUsuario = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -94,7 +98,7 @@ public class CrearUsuario extends javax.swing.JFrame {
 
         jLabel7.setText("Rol de Usuario");
 
-        txtFieldRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrador", "Paciente" }));
+        txtFieldRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrador", "Empleado" }));
         txtFieldRol.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtFieldRolActionPerformed(evt);
@@ -151,29 +155,38 @@ public class CrearUsuario extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(txtFieldConfirmarContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel6.setText("Usuarios Registrados");
 
-        textAreaUsuariosRegistrados.setColumns(20);
-        textAreaUsuariosRegistrados.setRows(5);
-        jScrollPane1.setViewportView(textAreaUsuariosRegistrados);
+        jTableUsuarios.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Id", "Nombre", "Rol"
+            }
+        ));
+        jScrollPane2.setViewportView(jTableUsuarios);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(52, Short.MAX_VALUE)
-                .addComponent(jLabel6)
-                .addGap(40, 40, 40))
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1)
-                .addContainerGap())
+                .addGap(40, 40, 40)
+                .addComponent(jLabel6)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 443, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(19, 19, 19))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -181,8 +194,8 @@ public class CrearUsuario extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1)
-                .addContainerGap())
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jLabel2.setText("Datos");
@@ -195,6 +208,18 @@ public class CrearUsuario extends javax.swing.JFrame {
         });
 
         jButton2.setText("Cancelar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("Actualizar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -208,16 +233,17 @@ public class CrearUsuario extends javax.swing.JFrame {
                         .addComponent(jLabel2))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(botonGuardarUsuario))))
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton2)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(botonGuardarUsuario)
+                .addGap(18, 18, 18)
+                .addComponent(jButton2)
+                .addGap(18, 18, 18)
+                .addComponent(jButton1)
+                .addGap(341, 341, 341))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -232,8 +258,9 @@ public class CrearUsuario extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonGuardarUsuario)
-                    .addComponent(jButton2))
-                .addGap(0, 3, Short.MAX_VALUE))
+                    .addComponent(jButton2)
+                    .addComponent(jButton1))
+                .addGap(0, 49, Short.MAX_VALUE))
         );
 
         pack();
@@ -244,6 +271,15 @@ public class CrearUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_txtFieldNombreActionPerformed
 
     private void botonGuardarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarUsuarioActionPerformed
+        
+        if(txtFieldNombre.getText()=="" || txtFieldContraseña.getText()=="" || txtFieldConfirmarContraseña.
+                getText()==""){
+        JOptionPane.showMessageDialog(null, "Debe llenar todos los campos.");
+                }else{
+        }
+
+        
+        if (txtFieldContraseña.getText().equals(txtFieldConfirmarContraseña.getText())){
         
             CrearUsuario usuario = new CrearUsuario();
             //Usuario usuario = new Usuario();
@@ -258,6 +294,8 @@ public class CrearUsuario extends javax.swing.JFrame {
             
             sql = "INSERT INTO Usuarios (Nombre, Contraseña, Rol) VALUES (?,?,?)";
             sql1 = "Select * from Usuarios";
+            
+            
             try {
                 PreparedStatement pst = cn.prepareStatement(sql);
         
@@ -277,7 +315,8 @@ public class CrearUsuario extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 Logger.getLogger(CrearUsuario.class.getName()).log(Level.SEVERE, null, ex);
             }
-      
+      }else{
+            JOptionPane.showMessageDialog(null, "La confirmación de la contraseña no coincide con la original.");}
             
             
         
@@ -309,6 +348,41 @@ public ResultSet consultar(String tabla) throws SQLException
 rs = stm.executeQuery("SELECT * FROM "+ tabla);
 return rs;
 } 
+    public void actualizarTablaUsuario(){
+    
+        DefaultTableModel miModeloTabla = new DefaultTableModel();
+        miModeloTabla.addColumn("Id");
+        miModeloTabla.addColumn("Nombre");
+        miModeloTabla.addColumn("Rol");
+      
+    String sql=null;
+    sql = "SELECT Id, Nombre, Rol FROM Usuarios";
+    
+    String datos [] = new String[3];
+        try {
+            
+            Statement st= miConexion.Conectar().createStatement();
+            ResultSet rs2=st.executeQuery(sql);
+            while(rs2.next()){
+                datos[0]=rs2.getString(1);
+                datos[1]=rs2.getString(2);
+                datos[2]=rs2.getString(3);
+ 
+                
+                miModeloTabla.addRow(datos);}
+            
+            jTableUsuarios.setModel(miModeloTabla);
+            
+           
+            jTableUsuarios.getColumnModel().getColumn(0).setPreferredWidth(15);
+            jTableUsuarios.getColumnModel().getColumn(1).setPreferredWidth(15);
+            jTableUsuarios.getColumnModel().getColumn(2).setPreferredWidth(15);
+           
+            
+} catch (Exception e) {
+        }
+            }
+    
     
     private void txtFieldRolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFieldRolActionPerformed
         // TODO add your handling code here:
@@ -321,6 +395,14 @@ return rs;
     private void txtFieldContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFieldContraseñaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtFieldContraseñaActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        actualizarTablaUsuario();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -359,6 +441,7 @@ return rs;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonGuardarUsuario;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -370,8 +453,8 @@ return rs;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea textAreaUsuariosRegistrados;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTableUsuarios;
     private javax.swing.JPasswordField txtFieldConfirmarContraseña;
     private javax.swing.JPasswordField txtFieldContraseña;
     private javax.swing.JTextField txtFieldNombre;
