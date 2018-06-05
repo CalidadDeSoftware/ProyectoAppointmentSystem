@@ -194,6 +194,11 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         itemEliminarTurno.setFont(new java.awt.Font("Segoe UI", 0, 22)); // NOI18N
         itemEliminarTurno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/EliminarTurno.png"))); // NOI18N
         itemEliminarTurno.setText("Eliminar Turno");
+        itemEliminarTurno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemEliminarTurnoActionPerformed(evt);
+            }
+        });
         jMenuTurno.add(itemEliminarTurno);
 
         jMenuBar1.add(jMenuTurno);
@@ -297,8 +302,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_itemAgendarTurnoActionPerformed
 
     private void itemReagendarTurnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemReagendarTurnoActionPerformed
-       ReAgendarTurno rt = new ReAgendarTurno();
-       rt.setVisible(true);
+     
     }//GEN-LAST:event_itemReagendarTurnoActionPerformed
 
     private void jMenuDeletePacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuDeletePacienteActionPerformed
@@ -351,6 +355,11 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             dispose();
         }
     }//GEN-LAST:event_jMenuCerrarSesionMouseClicked
+
+    private void itemEliminarTurnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemEliminarTurnoActionPerformed
+       EliminarTurno rt = new EliminarTurno();
+       rt.setVisible(true);
+    }//GEN-LAST:event_itemEliminarTurnoActionPerformed
 
     /**
      * @param args the command line arguments
