@@ -8,12 +8,16 @@
 package Vistas;
 
 import Controlador.Conexion;
+import static Vistas.RegistrarEmpleado.txtCedulaEmpleado;
 import java.awt.JobAttributes;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Calendar;
 import java.util.StringTokenizer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -34,34 +38,28 @@ public class AgendarTurno extends javax.swing.JFrame {
         //cargarComboBoxElegirMedico();
         setModeloTabla();
         txtNombreCompletoProfesional.setVisible(false);
-        txtIdEmpleado.setVisible(false);
-        txtFechaCompletaCita.setVisible(false);
-        txtHoraCita.setVisible(false);
+        txtPrimerNombreDoc.setVisible(false);
+        txtSegundoNombreDoc.setVisible(false);
+        txtPrimerApellidoDoc.setVisible(false);
+        txtSegundoApellidoDoc.setVisible(false);
+
     }
     
     Conexion miConexion = new Conexion();
     
+    
     public void cargarComboBoxElegirMedico(){
-        //String nombreCompletoMedico;
         jComboBoxNombreMedico.removeAllItems();
         String sql = "select EMPLEADOID, concat(PRIMERNOMBRE,' ',SEGUNDONOMBRE,' ',PRIMERAPELLIDO,' ',SEGUNDOAPELLIDO) as NOMBRECOMPLETO from EMPLEADO WHERE ESPECIALIDAD= '"+jComboBoxEspecialidad.getSelectedItem()+"'";
-        String datos [] = new String[1];
-        
         try{
             Statement st = miConexion.Conectar().createStatement();
             ResultSet rs = st.executeQuery(sql);
             while(rs.next()){
                 jComboBoxNombreMedico.addItem(rs.getString("NOMBRECOMPLETO"));
-                datos[0]=rs.getString(1);
-                
-                //txtPrimerNombre.setText(rs.getString("PRIMERNOMBRE"));
-                //txtPrimerApellido.setText(rs.getString("PRIMERAPELLIDO"));
-                
-                //nombreCompletoMedico = txtPrimerNombre.getText()+" "+txtPrimerApellido.getText();
-                //txtNombreCompleto.setText(nombreCompletoMedico); 
+ 
             }
             
-            txtIdEmpleado.setText(datos[0]);
+           
         }catch(SQLException ex){
             System.out.println(ex.getMessage());
             
@@ -69,21 +67,7 @@ public class AgendarTurno extends javax.swing.JFrame {
    
     }
     
-    public void recuperarIdEmpleado(){
-        
-        String nombreCompleto = (String)jComboBoxNombreMedico.getSelectedItem();
-        StringTokenizer tokens=new StringTokenizer(nombreCompleto," ");
-        while(tokens.hasMoreTokens()){
-            JOptionPane.showMessageDialog(null,tokens.nextToken());
-        }
-        
-        
-        
-        
-       
-    
-    }
-    
+ 
     
     
     public void capturarDatosDataChooser(){
@@ -121,7 +105,9 @@ public class AgendarTurno extends javax.swing.JFrame {
    
     }
     
+    
     public void buscarPaciente(){
+        
         DefaultTableModel miModeloTabla = new DefaultTableModel();
         miModeloTabla.addColumn("CÉDULA");
         miModeloTabla.addColumn("P.NOMBRE");
@@ -129,53 +115,133 @@ public class AgendarTurno extends javax.swing.JFrame {
         miModeloTabla.addColumn("P.APELLIDO");
         miModeloTabla.addColumn("S.APELLIDO");
         miModeloTabla.addColumn("P.TELEFONO");
-        //miModeloTabla.addColumn("S.TELEFONO");
         miModeloTabla.addColumn("EMAIL");
-       // miModeloTabla.addColumn("DIRECCION");
-        //miModeloTabla.addColumn("F.NACIMIENTO");
         
         String cedulaPaciente;
-        String sql2 = null;
-        cedulaPaciente = txtCedulaPacienteBuscar.getText().trim();
+        String sql = null;
+        cedulaPaciente = txtCedulaPacienteBuscar.getText();
+        
         if(String.valueOf(cedulaPaciente).compareTo("")==0){
             JOptionPane.showMessageDialog(null, "Ingrese parámetro de búsqueda");
         }else{
-               sql2 = "SELECT CEDULA,PRIMERNOMBRE,SEGUNDONOMBRE,PRIMERAPELLIDO,SEGUNDOAPELLIDO,PRIMERTELEFONO,EMAIL FROM PACIENTE WHERE CEDULA = '"+cedulaPaciente+"'"; 
+            sql = "SELECT CEDULA,PRIMERNOMBRE,SEGUNDONOMBRE,PRIMERAPELLIDO,SEGUNDOAPELLIDO,PRIMERTELEFONO,EMAIL,PACIENTEID FROM PACIENTE WHERE CEDULA = '"+cedulaPaciente+"'"; 
         }
-        String datos [] = new String[12];
+        
+        String datos [] = new String[8];
         try {
             Statement st= miConexion.Conectar().createStatement();
-            ResultSet rs3=st.executeQuery(sql2);
-            //System.out.println(rs2);
-            while(rs3.next()){
-                datos[0]=rs3.getString(1);
-                datos[1]=rs3.getString(2);
-                datos[2]=rs3.getString(3);
-                datos[3]=rs3.getString(4);
-                datos[4]=rs3.getString(5);
-                datos[5]=rs3.getString(6);
-                datos[6]=rs3.getString(7);
-  
-                miModeloTabla.addRow(datos);
+            ResultSet rs2=st.executeQuery(sql);
+            System.out.println(rs2);
+            while(rs2.next()){
+                datos[0]=rs2.getString(1);
+                datos[1]=rs2.getString(2);
+                datos[2]=rs2.getString(3);
+                datos[3]=rs2.getString(4);
+                datos[4]=rs2.getString(5);
+                datos[5]=rs2.getString(6);
+                datos[6]=rs2.getString(7);
+                datos[7]=rs2.getString(8);
+                miModeloTabla.addRow(datos);         
             }
             
-        
             if (!cedulaPaciente.equals(datos[0])) {
-                
-                JOptionPane.showMessageDialog(null, "No se encontraron coincidencias con la búsqueda ");
-                
+
+                JOptionPane.showMessageDialog(null, "No se encontraron coincidencias con la búsqueda");
+
+
             }else{
                 
+                 
             jTablePaciente.setModel(miModeloTabla);
             txtCedulaPacienteBuscar.setText("");
-        
-        
+            txtIdPacienteTurno.setText(datos[7]);
+         
+            
             }
+
+         
         } catch (SQLException ex) {
-            System.out.println("Error al Consultar Datos"); 
+            System.out.println("Error busqueda"); 
         }
-    }           
+
+    }
     
+    
+    
+    public void agendarTurno(){
+        
+        String empleadoid,pacienteid,especialidadTurno, fechaTurno, horaTurno;
+        
+        empleadoid = txtIdMedico.getText();
+        pacienteid = txtIdPacienteTurno.getText();
+        especialidadTurno = jComboBoxEspecialidad.getSelectedItem().toString();
+        fechaTurno = txtFechaCompletaCita.getText();
+        horaTurno = txtHoraCita.getText();
+        
+        if( String.valueOf(txtIdMedico.getText()).compareTo("")==0 || String.valueOf(txtIdPacienteTurno.getText()).compareTo("")==0 ||
+            String.valueOf(jComboBoxEspecialidad.getSelectedItem()).compareTo("")==0 || String.valueOf(txtFechaCompletaCita.getText()).compareTo("")==0 ||
+            String.valueOf(txtHoraCita.getText()).compareTo("")==0){
+            
+            JOptionPane.showMessageDialog(null,"Uno o mas campos vacios","Error",JOptionPane.ERROR_MESSAGE);
+            
+        }else{
+            
+            /****************antes de insertar dato, realizo una consulta en la bd, de los campos EMPLEADOID,FECHATURNO,HORATURNO*********************/
+           /* String consultaCI = "SELECT EMPLEADOID,FECHATURNO,HORATURNO FROM EMPLEADO WHERE CEDULA='"+txtCedulaEmpleado.getText()+"'";
+            String valorConsulaCI=null;
+            try {
+            Statement st= miConexion.Conectar().createStatement();
+            ResultSet rs2=st.executeQuery(consultaCI);
+            while(rs2.next()){
+                valorConsulaCI=rs2.getString(1);
+            }
+            
+            txtRecuperarCedulaBD.setText(valorConsulaCI);
+      
+            } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            }
+            
+            if (txtRecuperarCedulaBD.getText().equals(txtCedulaEmpleado.getText())) {
+                JOptionPane.showMessageDialog(null, "Cédula ya se encuentra registrada");
+                
+            }else{
+                if (valirdCi.validadorDeCedula(txtCedulaEmpleado.getText())== false) {
+                    
+                }else{*/
+             
+                 ///////////////////////////////////////// INSERTAR DATOS ///////////////////////////////////////////////////////////////////
+            String sql="INSERT INTO TURNO (EMPLEADOID,PACIENTEID,ESPECIALIDADTURNO,FECHATURNO,HORATURNO)VALUES(?,?,?,?,?)";
+            try {
+            PreparedStatement pst = miConexion.Conectar().prepareStatement(sql);
+            pst.setString(1,empleadoid);
+            pst.setString(2,pacienteid);
+            pst.setString(3,especialidadTurno);
+            pst.setString(4,fechaTurno);
+            pst.setString(5,horaTurno);
+            int n= pst.executeUpdate();
+            if(n>0){
+                JOptionPane.showMessageDialog(null, "Datos Registrados Exitosamente");
+            }else{
+                JOptionPane.showMessageDialog(null, "Error Datos No Registrados");
+            }
+               }catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null, "Error Datos No Registrados");
+            Logger.getLogger(RegistrarEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+               }
+      
+            //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                }
+            }
+            
+     
+        
+        
+      
+    
+    
+
+
     
     
     
@@ -198,8 +264,12 @@ public class AgendarTurno extends javax.swing.JFrame {
         jComboBoxEspecialidad = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         jComboBoxNombreMedico = new javax.swing.JComboBox<>();
+        txtPrimerNombreDoc = new javax.swing.JTextField();
         txtNombreCompletoProfesional = new javax.swing.JTextField();
-        txtIdEmpleado = new javax.swing.JTextField();
+        txtSegundoNombreDoc = new javax.swing.JTextField();
+        txtPrimerApellidoDoc = new javax.swing.JTextField();
+        txtSegundoApellidoDoc = new javax.swing.JTextField();
+        txtIdMedico = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jDateChooserTurnos = new com.toedter.calendar.JDateChooser();
@@ -235,6 +305,7 @@ public class AgendarTurno extends javax.swing.JFrame {
         txtTelefonoPaciente = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         txtEmailPaciente = new javax.swing.JTextField();
+        txtIdPacienteTurno = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
 
@@ -285,23 +356,40 @@ public class AgendarTurno extends javax.swing.JFrame {
                         .addComponent(jComboBoxEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jComboBoxNombreMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(txtNombreCompletoProfesional, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtNombreCompletoProfesional, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtPrimerNombreDoc)
+                    .addComponent(txtSegundoNombreDoc))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtIdEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtPrimerApellidoDoc)
+                    .addComponent(txtSegundoApellidoDoc))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtIdMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jComboBoxEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3)
-                    .addComponent(jComboBoxNombreMedico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNombreCompletoProfesional, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtIdEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtPrimerNombreDoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPrimerApellidoDoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtSegundoNombreDoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtSegundoApellidoDoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2)
+                        .addComponent(jComboBoxEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel3)
+                        .addComponent(jComboBoxNombreMedico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtNombreCompletoProfesional, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtIdMedico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -363,11 +451,11 @@ public class AgendarTurno extends javax.swing.JFrame {
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(txtFechaCompletaCita, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
                 .addComponent(jComboBoxHoraCita, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtHoraCita, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(txtHoraCita, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtFechaCompletaCita, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
@@ -424,7 +512,7 @@ public class AgendarTurno extends javax.swing.JFrame {
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnGenerarDetalleTurno)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(143, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -563,7 +651,7 @@ public class AgendarTurno extends javax.swing.JFrame {
         jPanel10Layout.setHorizontalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(176, Short.MAX_VALUE)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
                     .addComponent(jLabel4)
@@ -626,15 +714,22 @@ public class AgendarTurno extends javax.swing.JFrame {
                     .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 520, Short.MAX_VALUE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(txtIdPacienteTurno, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addComponent(txtIdPacienteTurno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(34, 34, 34)))
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -666,6 +761,11 @@ public class AgendarTurno extends javax.swing.JFrame {
         );
 
         jButton2.setText("Agendar Turno");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -766,9 +866,46 @@ public class AgendarTurno extends javax.swing.JFrame {
     }//GEN-LAST:event_jTablePacienteMouseClicked
 
     private void jComboBoxNombreMedicoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxNombreMedicoItemStateChanged
-    
+       txtNombreCompletoProfesional.setText((String) jComboBoxNombreMedico.getSelectedItem());
+       
+       String primerNombre,segundoNombre,primerApellido,segundoApellido;  
+
+        StringTokenizer tokens=new StringTokenizer(txtNombreCompletoProfesional.getText()," ");
+        while(tokens.hasMoreTokens()){
+            primerNombre = tokens.nextToken();
+            segundoNombre = tokens.nextToken();
+            primerApellido = tokens.nextToken();
+            segundoApellido = tokens.nextToken();
+            
+            txtPrimerNombreDoc.setText(primerNombre);
+            txtSegundoNombreDoc.setText(segundoNombre);
+            txtPrimerApellidoDoc.setText(primerApellido);
+            txtSegundoApellidoDoc.setText(segundoApellido);
+            
+        }
+
+        String datos [] = new String[1];
+        String sql = "select EMPLEADOID from EMPLEADO WHERE PRIMERNOMBRE= '"+txtPrimerNombreDoc.getText()+"' AND SEGUNDONOMBRE= '"+txtSegundoNombreDoc.getText()+"' AND PRIMERAPELLIDO= '"+txtPrimerApellidoDoc.getText()+"' AND SEGUNDOAPELLIDO= '"+txtSegundoApellidoDoc.getText()+"' ";
+        try{
+            Statement st = miConexion.Conectar().createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while(rs.next()){
+                datos[0]=rs.getString(1);
+            }
+            
+             txtIdMedico.setText(datos[0]);
+            
+           
+        }catch(SQLException ex){
+            System.out.println(ex.getMessage());
+            
+        }
         
     }//GEN-LAST:event_jComboBoxNombreMedicoItemStateChanged
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        agendarTurno();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -845,11 +982,16 @@ public class AgendarTurno extends javax.swing.JFrame {
     private javax.swing.JTextField txtEmailPaciente;
     private javax.swing.JTextField txtFechaCompletaCita;
     private javax.swing.JTextField txtHoraCita;
-    private javax.swing.JTextField txtIdEmpleado;
+    private javax.swing.JTextField txtIdMedico;
+    private javax.swing.JTextField txtIdPacienteTurno;
     private javax.swing.JTextField txtNombreCompletoProfesional;
     private javax.swing.JTextField txtPirmerNombrePaciente;
+    private javax.swing.JTextField txtPrimerApellidoDoc;
     private javax.swing.JTextField txtPrimerApellidoPaciente;
+    private javax.swing.JTextField txtPrimerNombreDoc;
+    private javax.swing.JTextField txtSegundoApellidoDoc;
     private javax.swing.JTextField txtSegundoApellidoPaciente;
+    private javax.swing.JTextField txtSegundoNombreDoc;
     private javax.swing.JTextField txtSegundoNombrePaciente;
     private javax.swing.JTextField txtTelefonoPaciente;
     // End of variables declaration//GEN-END:variables
