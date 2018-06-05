@@ -179,6 +179,7 @@ public class eliminarPacienteJFrame extends javax.swing.JFrame {
 
         txtBuscarCedulaPaciente.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
+        btnBuscarPaciente.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnBuscarPaciente.setText("Buscar");
         btnBuscarPaciente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -186,6 +187,7 @@ public class eliminarPacienteJFrame extends javax.swing.JFrame {
             }
         });
 
+        btnLimpiarPaciente.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnLimpiarPaciente.setText("Limpiar");
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
@@ -289,9 +291,9 @@ public class eliminarPacienteJFrame extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(56, 56, 56)
+                .addContainerGap()
                 .addComponent(txtIdPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(388, Short.MAX_VALUE))
+                .addContainerGap(433, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(77, 77, 77)
