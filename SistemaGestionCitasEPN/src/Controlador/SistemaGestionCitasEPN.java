@@ -19,8 +19,8 @@ public class SistemaGestionCitasEPN {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-       new Login().setVisible(true); 
-        //new PantallaPrincipal().setVisible(true);
+        //new Login().setVisible(true); 
+        new PantallaPrincipal().setVisible(true);
         
    
     }

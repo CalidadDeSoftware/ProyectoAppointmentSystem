@@ -237,9 +237,6 @@
           <SubComponents>
             <Menu class="javax.swing.JMenu" name="jMenu11">
               <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/Img/icons8-administrador-del-hombre-40.png"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="Administraci&#xf3;n de Usuarios"/>
                 <Property name="focusable" type="boolean" value="false"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -252,9 +249,6 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Segoe UI" size="22" style="0"/>
                     </Property>
-                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/Vistas/icons8-crear-nuevo-40.png"/>
-                    </Property>
                     <Property name="text" type="java.lang.String" value="Crear Usuario"/>
                   </Properties>
                   <Events>
@@ -266,9 +260,6 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Segoe UI" size="22" style="0"/>
                     </Property>
-                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/Vistas/icons8-editar-propiedad-40.png"/>
-                    </Property>
                     <Property name="text" type="java.lang.String" value="Modificar Usuario"/>
                   </Properties>
                   <Events>
@@ -279,9 +270,6 @@
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Segoe UI" size="22" style="0"/>
-                    </Property>
-                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/Img/icons8-eliminar-40.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Eliminar Usuario"/>
                   </Properties>

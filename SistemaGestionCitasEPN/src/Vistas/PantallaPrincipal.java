@@ -217,13 +217,11 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jMenuAdministracion.setText("Administración");
         jMenuAdministracion.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
 
-        jMenu11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/icons8-administrador-del-hombre-40.png"))); // NOI18N
         jMenu11.setText("Administración de Usuarios");
         jMenu11.setFocusable(false);
         jMenu11.setFont(new java.awt.Font("Segoe UI", 0, 22)); // NOI18N
 
         itemCrearUsuario.setFont(new java.awt.Font("Segoe UI", 0, 22)); // NOI18N
-        itemCrearUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vistas/icons8-crear-nuevo-40.png"))); // NOI18N
         itemCrearUsuario.setText("Crear Usuario");
         itemCrearUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -233,7 +231,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jMenu11.add(itemCrearUsuario);
 
         itemModificarUsuario.setFont(new java.awt.Font("Segoe UI", 0, 22)); // NOI18N
-        itemModificarUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vistas/icons8-editar-propiedad-40.png"))); // NOI18N
         itemModificarUsuario.setText("Modificar Usuario");
         itemModificarUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -243,7 +240,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jMenu11.add(itemModificarUsuario);
 
         itemEliminarUsuario.setFont(new java.awt.Font("Segoe UI", 0, 22)); // NOI18N
-        itemEliminarUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/icons8-eliminar-40.png"))); // NOI18N
         itemEliminarUsuario.setText("Eliminar Usuario");
         itemEliminarUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
