@@ -89,11 +89,9 @@ public class buscarPacienteJFrame extends javax.swing.JFrame {
         String cedulaPaciente;
         String sql2 = null;
         cedulaPaciente = txtBuscarCedulaPaciente.getText().trim();
-        if(String.valueOf(cedulaPaciente).compareTo("")==0){
-            JOptionPane.showMessageDialog(null, "Ingrese parámetro de búsqueda");
-        }else{
+        
                sql2 = "SELECT CEDULA,PRIMERNOMBRE,SEGUNDONOMBRE,PRIMERAPELLIDO,SEGUNDOAPELLIDO,PRIMERTELEFONO,SEGUNDOTELEFONO,EMAIL,DIRECCION,FECHANACIMIENTO FROM PACIENTE WHERE CEDULA LIKE '"+cedulaPaciente+"%'"; 
-        }
+        
         String datos [] = new String[12];
         try {
             Statement st= miConexion.Conectar().createStatement();
