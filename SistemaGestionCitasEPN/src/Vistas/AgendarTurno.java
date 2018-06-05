@@ -55,6 +55,7 @@ public class AgendarTurno extends javax.swing.JFrame {
     Conexion miConexion = new Conexion();
     
     public static String textoId;
+    public static String nombreProfesional;
     
     
     
@@ -258,18 +259,6 @@ public class AgendarTurno extends javax.swing.JFrame {
     }
             
      
-        
-        
-      
-    
-    
-
-
-    
-    
-    
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -832,7 +821,7 @@ public class AgendarTurno extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
+                        .addGap(20, 20, 20)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1)))
@@ -966,6 +955,7 @@ public class AgendarTurno extends javax.swing.JFrame {
         }else{
             
             textoId = txtIdMedico.getText();
+            nombreProfesional = txtNombreCompletoProfesional.getText();
             
             VerDisponibilidadMedico verD = new VerDisponibilidadMedico();
         
@@ -1053,7 +1043,7 @@ public class AgendarTurno extends javax.swing.JFrame {
     private javax.swing.JTextField txtFechaCompletaCita;
     private javax.swing.JTextField txtHoraCita;
     private javax.swing.JTextField txtHoraCitaRecuperada;
-    public static javax.swing.JTextField txtIdMedico;
+    private javax.swing.JTextField txtIdMedico;
     private javax.swing.JTextField txtIdMedicoRecuperado;
     private javax.swing.JTextField txtIdPacienteTurno;
     private javax.swing.JTextField txtNombreCompletoProfesional;

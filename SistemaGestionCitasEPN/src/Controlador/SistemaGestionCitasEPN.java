@@ -7,7 +7,7 @@ package Controlador;
 
 import Modelo.ValidarCedula;
 import Vistas.Login;
-
+import Vistas.PantallaPrincipal;
 /**
  *
  * @author Daro
@@ -19,7 +19,8 @@ public class SistemaGestionCitasEPN {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        new Login().setVisible(true); 
+        //new Login().setVisible(true); 
+        new PantallaPrincipal().setVisible(true);
         
    
     }
