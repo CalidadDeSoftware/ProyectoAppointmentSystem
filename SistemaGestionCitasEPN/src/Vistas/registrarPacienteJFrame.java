@@ -101,7 +101,7 @@ public class registrarPacienteJFrame extends javax.swing.JFrame {
             Errores="";
         }
         else{
-            JOptionPane.showMessageDialog(null, Errores);
+            JOptionPane.showMessageDialog(null, Errores,"Error",JOptionPane.ERROR_MESSAGE);
             Errores = "";
         }
         return verificarFinal;

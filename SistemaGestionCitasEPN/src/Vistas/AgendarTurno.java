@@ -21,6 +21,13 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
+
+
+import java.util.*;
+import javax.mail.*;
+import javax.mail.internet.*;
+import javax.mail.internet.MimeMessage;
+
 /**
  *
  * @author Daro
@@ -56,6 +63,10 @@ public class AgendarTurno extends javax.swing.JFrame {
     
     public static String textoId;
     public static String nombreProfesional;
+    
+    
+    public static String direccionCorreo;
+    public static String mensajeCorreo;
     
     
     
@@ -257,6 +268,57 @@ public class AgendarTurno extends javax.swing.JFrame {
             }
         }
     }
+    
+    
+    public void enviarCorreo(){
+        
+        
+        String hora= txtHoraCita.getText();
+        String fecha= txtFechaCompletaCita.getText();
+        String correo = txtEmailPaciente.getText();
+        
+        String cadena = "Hora:" +hora+"\n"+"Fecha:" +fecha+"\n\n Gracias por su atención";
+        
+        try{
+            String host = "smtp.gmail.com";
+            String user = "calidad.soporte.citas@gmail.com";
+            String pass = "calidadcitas1";
+            String to = correo;
+            String from = "calidad.soporte.citas@gmail.com";
+            String subject = "Cita";
+            String messageText = "Estimado, su cita ha sido asignada:\n"+cadena;
+            boolean sessionDebug = false;
+            Properties props = System.getProperties();
+            
+            props.put("mail.smtp.starttls.enable","true");
+            props.put("mail.smtp.host",host);
+            props.put("mail.smtp.port","587");
+            props.put("mail.smtp.auth","true");
+            props.put("mail.smtp.starttls.required","true");
+            props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+            
+            java.security.Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
+            Session mailSession = Session.getDefaultInstance(props,null);
+            mailSession.setDebug(sessionDebug);
+            Message msg = new MimeMessage(mailSession);
+            msg.setFrom(new InternetAddress(from));
+            InternetAddress[] address = { new InternetAddress(to)};
+            msg.setRecipients(Message.RecipientType.TO, address);
+            msg.setSubject(subject);msg.setSentDate(new Date());
+            msg.setText(messageText);
+            
+            Transport transport = mailSession.getTransport("smtp");
+            transport.connect(host,user,pass);
+            transport.sendMessage(msg, msg.getAllRecipients());
+            transport.close();
+            JOptionPane.showMessageDialog(null, "Mensaje enviado satisfactoriamente");
+        }catch(Exception ex){
+           System.out.println(ex);
+        }
+    
+    
+    
+    }
             
      
 
@@ -324,6 +386,7 @@ public class AgendarTurno extends javax.swing.JFrame {
         txtHoraCitaRecuperada = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -461,7 +524,7 @@ public class AgendarTurno extends javax.swing.JFrame {
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Seleccione hora", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
 
-        jComboBoxHoraCita.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- Seleccione una opción --", "8:00", "8:15", "8:30", "8:45", "9:00", "9:15", "9:30", "9:45", "10:00", "10:15", "10:30", "10:45", "11:00", "11:15", "11:30", "11:45", "12:00" }));
+        jComboBoxHoraCita.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- Seleccione una opción --", "8:00 am", "8:15 am", "8:30 am", "8:45 am", "9:00 am", "9:15 am", "9:30 am", "9:45 am", "10:00 am", "10:15 am", "10:30 am", "10:45 am", "11:00 am", "11:15 am ", "11:30 am", "11:45 am", "12:00 pm" }));
         jComboBoxHoraCita.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jComboBoxHoraCitaItemStateChanged(evt);
@@ -814,6 +877,13 @@ public class AgendarTurno extends javax.swing.JFrame {
             }
         });
 
+        jButton4.setText("Enviar Correo");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -826,8 +896,10 @@ public class AgendarTurno extends javax.swing.JFrame {
                             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(507, 507, 507)
+                        .addGap(374, 374, 374)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton4)
                         .addGap(18, 18, 18)
                         .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(25, Short.MAX_VALUE))
@@ -840,8 +912,9 @@ public class AgendarTurno extends javax.swing.JFrame {
                 .addGap(13, 13, 13)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCancelar)
+                    .addComponent(jButton4)
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -965,6 +1038,10 @@ public class AgendarTurno extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnVerificarDisponibilidadMedicoActionPerformed
 
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        enviarCorreo();
+    }//GEN-LAST:event_jButton4ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1007,6 +1084,7 @@ public class AgendarTurno extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JComboBox<String> jComboBoxEspecialidad;
     private javax.swing.JComboBox<String> jComboBoxHoraCita;
     private javax.swing.JComboBox<String> jComboBoxNombreMedico;

@@ -24,6 +24,9 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         setLocationRelativeTo(null);// centrado
         setExtendedState(PantallaPrincipal.MAXIMIZED_BOTH); // inicia Maximizada
         setTitle("Sistema de Gestión de Turnos");
+        itemReagendarTurno.setVisible(false);
+        itemModificarUsuario.setVisible(false);
+        itemEliminarUsuario.setVisible(false);
         
 
     }

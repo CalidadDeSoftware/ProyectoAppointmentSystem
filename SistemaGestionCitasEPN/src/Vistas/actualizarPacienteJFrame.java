@@ -84,11 +84,9 @@ public class actualizarPacienteJFrame extends javax.swing.JFrame {
         String sql = null;
         cedulaPaciente = txtBuscarCedulaPaciente.getText();
         
-        if(String.valueOf(cedulaPaciente).compareTo("")==0){
-            JOptionPane.showMessageDialog(null, "Ingrese parámetro de búsqueda");
-        }else{
-            sql = "SELECT CEDULA,PRIMERNOMBRE,SEGUNDONOMBRE,PRIMERAPELLIDO,SEGUNDOAPELLIDO,PRIMERTELEFONO,SEGUNDOTELEFONO,EMAIL,DIRECCION,FECHANACIMIENTO,PACIENTEID FROM PACIENTE WHERE CEDULA LIKE '"+cedulaPaciente+"%'"; 
-        }
+       
+        sql = "SELECT CEDULA,PRIMERNOMBRE,SEGUNDONOMBRE,PRIMERAPELLIDO,SEGUNDOAPELLIDO,PRIMERTELEFONO,SEGUNDOTELEFONO,EMAIL,DIRECCION,FECHANACIMIENTO,PACIENTEID FROM PACIENTE WHERE CEDULA LIKE '"+cedulaPaciente+"%'"; 
+       
         
         String datos [] = new String[12];
         try {
